@@ -2,9 +2,9 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<title>OVnu: openbaar vervoer weer simpel</title>
+<title>OVnow: openbaar vervoer weer simpel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="OVnu: elke bus, tram, metro, trein en pont live. Zonder rommel, zonder reclame. Een gratis iPhone-app van FREYcreates.">
+<meta name="description" content="OVnow: elke bus, tram, metro, trein en pont live. Zonder rommel. Een iPhone-app van FREYcreates.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#fffaf7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#14111a" media="(prefers-color-scheme: dark)">
@@ -16,30 +16,29 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FREYcreates">
 <meta property="og:url" content="https://ovnow.app">
-<meta property="og:title" content="OVnu: openbaar vervoer weer simpel">
-<meta property="og:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel, zonder reclame. Gewoon wat je nú nodig hebt.">
-<meta property="og:image" content="https://ovnow.app/img/og.png?v=3">
+<meta property="og:title" content="OVnow: openbaar vervoer weer simpel">
+<meta property="og:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel. Gewoon wat je nú nodig hebt.">
+<meta property="og:image" content="https://ovnow.app/img/og.png?v=4">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="OVnu op een iPhone: de F3-pont vertrekt over 4:24 van steiger D.">
+<meta property="og:image:alt" content="OVnow op een iPhone: de F3-pont vertrekt over 4:24 van steiger D.">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="OVnu: openbaar vervoer weer simpel">
-<meta name="twitter:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel, zonder reclame.">
-<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=3">
+<meta name="twitter:title" content="OVnow: openbaar vervoer weer simpel">
+<meta name="twitter:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel.">
+<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=4">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "MobileApplication",
-  "name": "OVnu",
+  "name": "OVnow",
   "operatingSystem": "iOS",
   "applicationCategory": "TravelApplication",
-  "description": "Elke bus, tram, metro, trein en pont live in Nederland. Zonder account, tracking of reclame.",
+  "description": "Elke bus, tram, metro, trein en pont live in Nederland. Zonder account of tracking.",
   "url": "https://ovnow.app",
   "image": "https://ovnow.app/img/icon.png",
   "inLanguage": ["nl", "en"],
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
   "author": {"@type": "Organization", "name": "FREYcreates", "url": "https://freycreates.nl"}
 }
 </script>
@@ -48,7 +47,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  /* freycreates.nl paper and ink, with OVnu blue where FREY uses pink */
+  /* freycreates.nl paper and ink, with OVnow blue where FREY uses pink */
   :root{color-scheme:light;--bg:#fffaf7;--surface:#fffdfb;--text:#191317;--muted:#6d6469;--line:#e6dcd8;
     --blue:#1f6feb;--blue-deep:#0b47b8;--blue-soft:#eaf2ff;
     --l394:#e1251b;--l52:#3a9be0;--l51:#f39200;--ferry:#19b3c4;--ns:#ffc917;
@@ -132,7 +131,7 @@
   @keyframes wait{to{box-shadow:0 0 0 5px rgba(255,201,23,.45)}}
   .train b{position:absolute;top:-9px;right:-10px;padding:0 4px;border-radius:6px;background:#e8730c;color:#fff;font-size:.62rem;line-height:15px}
   .train.gone{opacity:0}
-margin:12px 2px 0;color:var(--muted);font-size:.9rem}
+  .proof{margin:12px 2px 0;color:var(--muted);font-size:.9rem}
 
   /* sections */
   section{padding:72px 0}
@@ -199,9 +198,9 @@ margin:12px 2px 0;color:var(--muted);font-size:.9rem}
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="./" aria-label="OVnu">
+    <a class="brand" href="./" aria-label="OVnow">
       <img src="img/icon.png" alt="" width="44" height="44">
-      <span class="wordmark">OV<span>nu</span></span>
+      <span class="wordmark">OV<span>now</span></span>
     </a>
     <div class="lang-switch" role="group" aria-label="Taal / Language">
       <button type="button" data-lang="nl" aria-pressed="true">NL</button>
@@ -213,12 +212,12 @@ margin:12px 2px 0;color:var(--muted);font-size:.9rem}
     <div class="hero">
       <div>
         <h1 data-i18n-html="title">OV weer <em>simpel.</em></h1>
-        <p class="lede" data-i18n-html="lede">Elke bus, tram, metro, trein en pont, live. Zonder rommel, zonder reclame. Gewoon wat je <strong>nú</strong> nodig hebt.</p>
+        <p class="lede" data-i18n-html="lede">Elke bus, tram, metro, trein en pont, live. Zonder rommel. Gewoon wat je <strong>nú</strong> nodig hebt.</p>
         <div class="actions">
           <!-- Shown once the TestFlight link exists: remove "hidden" and fill in href -->
           <a class="button primary" id="testflight" href="#" hidden data-goatcounter-click="testflight">
             <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>
-            <span data-i18n="testflight">Test OVnu op je iPhone</span>
+            <span data-i18n="testflight">Test OVnow op je iPhone</span>
           </a>
           <span class="button primary soon" id="soon">
             <svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
@@ -229,7 +228,7 @@ margin:12px 2px 0;color:var(--muted);font-size:.9rem}
             <span data-i18n="privacyBtn">Privacy</span>
           </a>
         </div>
-        <p class="free" data-i18n="free">Gratis. Geen account, geen advertenties. Een fooi kan, hoeft niet.</p>
+        <p class="free" data-i18n="free">Geen account nodig.</p>
       </div>
 
       <div class="board-col">
@@ -303,7 +302,7 @@ margin:12px 2px 0;color:var(--muted);font-size:.9rem}
     <section>
       <div class="privacy">
         <div>
-          <strong data-i18n="privTitle">Gratis. Geen account. Geen tracking. Geen reclame.</strong>
+          <strong data-i18n="privTitle">Geen account. Geen tracking.</strong>
           <p data-i18n="privText">Je locatie wordt alleen gebruikt om haltes en routes te vinden, en nergens bewaard. Je favorieten staan in je eigen iCloud.</p>
         </div>
         <a class="button" href="privacy.html" data-i18n="privLink">Lees de privacyverklaring</a>
@@ -328,9 +327,9 @@ margin:12px 2px 0;color:var(--muted);font-size:.9rem}
 const T = {
   en: {
     title: 'Public transport, <em>simple</em> again.',
-    lede: "Every bus, tram, metro, train and ferry, live. No clutter, no ads. Just what you need, <strong>now</strong>.",
-    testflight: "Test OVnu on your iPhone", soon: "Coming soon to iPhone", privacyBtn: "Privacy",
-    free: "Free. No account, no ads. A tip is welcome, never required.",
+    lede: "Every bus, tram, metro, train and ferry, live. No clutter. Just what you need, <strong>now</strong>.",
+    testflight: "Test OVnow on your iPhone", soon: "Coming soon to iPhone", privacyBtn: "Privacy",
+    free: "No account needed.",
     statusLive: "Live from Amsterdam Centraal", statusTimetable: "Timetable, Amsterdam Centraal",
     track: "Track", leaves: "Leaves in", toHfd: "to Hoofddorp via Schiphol", now: "now", then: "Then",
     proof: "This isn't a demo. These trains are really running.",
@@ -345,11 +344,11 @@ const T = {
     f4t: "Plan, or just go home", f4p: "Metro 52 to Vijzelgracht, then tram 19 to Leidseplein. Or one tap: Get me home.",
     f5t: "Your daily route", f5p: "Every tram, metro, bus, train or ferry, in one list. On your Home Screen too.",
     f6t: "On your Lock Screen", f6p: "Your next train, metro, tram, bus or ferry. Track or stop included, without opening your phone. Live!",
-    a1: "OVnu: the F3 ferry leaves in 4:24 from pier D", a2: "OVnu map in dark mode: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal, next stop Sloterdijk",
-    a3: "Lock Screen with an OVnu journey: walk to Centraal Station, tram 2 leaves 22:50 from platform B2",
-    a4: "Planning Centraal Station to Leidseplein: metro 52 and tram 19, or tram 2 direct", a5: "Home screen with two OVnu widgets for the daily route Centraal Station to Leidseplein: trams 2, 17 and 24",
+    a1: "OVnow: the F3 ferry leaves in 4:24 from pier D", a2: "OVnow map in dark mode: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal, next stop Sloterdijk",
+    a3: "Lock Screen with an OVnow journey: walk to Centraal Station, tram 2 leaves 22:50 from platform B2",
+    a4: "Planning Centraal Station to Leidseplein: metro 52 and tram 19, or tram 2 direct", a5: "Home screen with two OVnow widgets for the daily route Centraal Station to Leidseplein: trams 2, 17 and 24",
     a6: "Lock Screen widgets: the F3 ferry in 1:50 from platform D at Centraal Station",
-    privTitle: "Free. No account. No tracking. No ads.", privText: "Your location is only used to find stops and routes, and is never stored. Your favourites live in your own iCloud.",
+    privTitle: "No account. No tracking.", privText: "Your location is only used to find stops and routes, and is never stored. Your favourites live in your own iCloud.",
     privLink: "Read the privacy statement", made: "Made by", contact: "Questions or feedback?", more: "More from FREYcreates →",
     sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Maps by Apple.'
   },
@@ -357,9 +356,9 @@ const T = {
     statusTimetable: "Dienstregeling, Amsterdam Centraal", now: "nu", then: "Daarna",
     night: "Vannacht geen Sprinters meer", nightThen: "Vanaf de vroege ochtend rijden ze weer.", late: "min later",
     proofTimetable: "Even volgens de dienstregeling; zo weer live.",
-    a1: "OVnu: de F3-pont vertrekt over 4:24 van steiger D", a2: "OVnu-kaart in donkere modus: Sprinter 8285 naar Hoofddorp is net vertrokken van Amsterdam Centraal, volgende halte Sloterdijk",
-    a3: "Toegangsscherm met een OVnu-reis: loop naar Centraal Station, tram 2 vertrekt 22:50 van perron B2",
-    a4: "Reis plannen van Centraal Station naar Leidseplein: metro 52 en tram 19, of direct met tram 2", a5: "Beginscherm met twee OVnu-widgets voor de vaste route Centraal Station naar Leidseplein: trams 2, 17 en 24",
+    a1: "OVnow: de F3-pont vertrekt over 4:24 van steiger D", a2: "OVnow-kaart in donkere modus: Sprinter 8285 naar Hoofddorp is net vertrokken van Amsterdam Centraal, volgende halte Sloterdijk",
+    a3: "Toegangsscherm met een OVnow-reis: loop naar Centraal Station, tram 2 vertrekt 22:50 van perron B2",
+    a4: "Reis plannen van Centraal Station naar Leidseplein: metro 52 en tram 19, of direct met tram 2", a5: "Beginscherm met twee OVnow-widgets voor de vaste route Centraal Station naar Leidseplein: trams 2, 17 en 24",
     a6: "Toegangsscherm-widgets: de F3-pont over 1:50 van perron D bij Centraal Station"
   }
 };
