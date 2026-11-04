@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<title>OVnow: openbaar vervoer weer simpel</title>
+<title>OVnow: jouw rit, nu</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="OVnow: elke bus, tram, metro, trein en pont live. Zonder rommel. Een iPhone-app van FREYcreates.">
 <meta name="robots" content="index, follow">
@@ -15,18 +15,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OVnow">
 <meta property="og:url" content="https://ovnow.app">
-<meta property="og:title" content="OVnow: openbaar vervoer weer simpel">
+<meta property="og:title" content="OVnow: jouw rit, nu">
 <meta property="og:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel. Gewoon wat je nú nodig hebt.">
-<meta property="og:image" content="https://ovnow.app/img/og.png?v=8">
+<meta property="og:image" content="https://ovnow.app/img/og.png?v=9">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="OVnow: OV weer simpel. Elke bus, tram, metro, trein en pont, live.">
+<meta property="og:image:alt" content="OVnow: jouw rit, nu. Elke bus, tram, metro, trein en pont, live.">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="OVnow: openbaar vervoer weer simpel">
+<meta name="twitter:title" content="OVnow: jouw rit, nu">
 <meta name="twitter:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel.">
-<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=8">
+<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=9">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -152,8 +152,12 @@
   .one .split{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
 
   .two .split{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
-  .one figure,.two figure{margin:0;border-radius:30px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 30px 60px -24px rgba(4,8,28,.85)}
-  .one figure img,.two figure img{width:100%}
+  .one .phone{width:min(100%,330px);justify-self:center}
+  video.phone{height:auto;background:var(--deep)}
+  .planc{margin:0 0 28px;width:min(100%,360px);border-radius:30px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 30px 60px -24px rgba(4,8,28,.85)}
+  .planc img{width:100%}
+  .two figure{margin:0;border-radius:30px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 30px 60px -24px rgba(4,8,28,.85)}
+  .two figure img{width:100%}
 
   .three .split{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
   .three .phone{width:min(100%,330px);justify-self:center}
@@ -200,7 +204,7 @@
     .sheet{border-radius:26px}
     .board{grid-template-columns:minmax(0,1fr)}
     .one .split,.two .split{grid-template-columns:minmax(0,1fr)}
-    .one figure{order:2}
+    .one .phone{width:var(--ph);order:2}
     .three .split{grid-template-columns:minmax(0,1fr)}
     .three .phone{width:var(--ph)}
     .pair{grid-template-columns:minmax(0,1fr);gap:64px}
@@ -242,14 +246,14 @@
         </div>
       </header>
       <div>
-        <h1 data-i18n-html="title">OV weer<br>simpel.</h1>
+        <h1 data-i18n-html="title">Jouw rit,<br>nu.</h1>
         <p class="lede" data-i18n-html="lede">Elke bus, tram, metro, trein en pont in Nederland, live op je iPhone. Je ziet wat <strong>nu</strong> vertrekt en waar het is.</p>
         <!-- Shown once the TestFlight link exists: remove "hidden" and fill in href -->
         <a class="notify" id="testflight" href="#" hidden data-goatcounter-click="testflight" data-i18n="testflight">Test OVnow op je iPhone</a>
-        <a class="notify" data-mail href="mailto:ovnu.app@icloud.com?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-top" data-i18n="notify">Mail me als hij er is</a>
+        <a class="notify" data-mail href="mailto:mail@ovnow.app?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-top" data-i18n="notify">Mail me als hij er is</a>
         <p class="note" data-i18n="note">Opent je eigen mailapp.</p>
       </div>
-      <img class="phone" src="img/shot-map.jpg" alt="" data-i18n-alt="a2" width="552" height="1200" fetchpriority="high">
+      <video class="phone" muted loop playsinline preload="none" poster="img/poster-ferry.jpg" width="600" height="1304" role="img" aria-label="OVnow: de F3-pont vertrekt van steiger D bij Amsterdam Centraal" data-i18n-aria="a7"><source src="video/ferry.mp4" type="video/mp4"></video>
     </div>
     <i data-at="0"></i>
   </section>
@@ -281,7 +285,7 @@
 
   <section class="q one">
     <div class="inner split">
-      <figure><img src="img/shot-sheet.jpg" alt="" data-i18n-alt="a1" width="524" height="486" loading="lazy"></figure>
+      <video class="phone" muted loop playsinline preload="none" poster="img/poster-metro.jpg" width="600" height="1304" role="img" aria-label="OVnow: metro 50 naar Gein op Amsterdam Zuid met de countdown tot vertrek" data-i18n-aria="a8"><source src="video/metro.mp4" type="video/mp4"></video>
       <div class="txt">
         <h2 data-i18n="f1t">Hoe lang nog?</h2>
         <p data-i18n="f1p">Een grote countdown, het perron of de steiger, en of je het haalt met je looptijd erbij.</p>
@@ -296,7 +300,17 @@
         <h2 data-i18n="f2t">Waar is hij?</h2>
         <p data-i18n="f2p">Elke bus, tram, metro, trein en pont live op de kaart. Tik op een lijn en je ziet alleen die.</p>
       </div>
-      <figure><img src="img/shot-vehicles.jpg" alt="" data-i18n-alt="a4" width="552" height="495" loading="lazy"></figure>
+      <figure><img src="img/shot-vehicles.jpg" alt="" data-i18n-alt="a4" width="900" height="940" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="q three four">
+    <div class="inner split">
+      <div class="txt">
+        <h2 data-i18n="f3dt">Amsterdam in 3D</h2>
+        <p data-i18n="f3dp">In Amsterdam staan stations, metro's, trams en ponten in 3D op de kaart. Je ziet ze aankomen en weer vertrekken.</p>
+      </div>
+      <video class="phone" muted loop playsinline preload="none" poster="img/poster-tram.jpg" width="600" height="1304" role="img" aria-label="OVnow: een 3D-tram rijdt bij Paleisstraat in Amsterdam" data-i18n-aria="a9"><source src="video/tram.mp4" type="video/mp4"></video>
     </div>
   </section>
 
@@ -314,7 +328,7 @@
   <section>
     <div class="inner pair">
       <div>
-        <img class="phone plan" src="img/shot-plan.jpg" alt="" data-i18n-alt="a5" width="552" height="1200" loading="lazy">
+        <figure class="planc"><img src="img/shot-plan.jpg" alt="" data-i18n-alt="a5" width="760" height="939" loading="lazy"></figure>
         <div class="txt"><h3 data-i18n="f4t">Of gewoon naar huis</h3>
         <p data-i18n="f4p">Plan je reis, of tik één keer op Breng me naar huis.</p></div>
       </div>
@@ -339,12 +353,12 @@
   <div class="inner">
     <div class="ask">
       <h2 data-i18n="endTitle">Bijna op je iPhone.</h2>
-      <div class="cta"><a class="notify" data-mail href="mailto:ovnu.app@icloud.com?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-end" data-i18n="notify">Mail me als hij er is</a></div>
+      <div class="cta"><a class="notify" data-mail href="mailto:mail@ovnow.app?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-end" data-i18n="notify">Mail me als hij er is</a></div>
     </div>
     <div class="foot">
       <div class="links">
         <a href="privacy.html" data-goatcounter-click="privacy" data-i18n="privLink">Privacy</a>
-        <a href="mailto:ovnu.app@icloud.com" data-goatcounter-click="mail" data-i18n="contact">Vragen of feedback?</a>
+        <a href="mailto:mail@ovnow.app" data-goatcounter-click="mail" data-i18n="contact">Vragen of feedback?</a>
         <a href="https://freycreates.nl"><span data-i18n="made">Gemaakt door</span>&nbsp;FREYcreates</a>
       </div>
       <p class="credit" data-i18n-html="sources">Live data van <a href="https://ndovloket.nl">NDOV Loket</a> en <a href="https://ovapi.nl">OVapi</a>. Reisplanner door <a href="https://transitous.org">Transitous</a>, kaart, spoor en looppaden © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers.</p>
@@ -356,7 +370,7 @@
 <script>
 const T = {
   en: {
-    title: "Transit,<br>simple again.", soon: "Coming soon", soon2: "to iPhone",
+    title: "Your ride,<br>right now.", soon: "Coming soon", soon2: "to iPhone",
     lede: "Every bus, tram, metro, train and ferry in the Netherlands, live on your iPhone. See what's leaving <strong>now</strong> and where it is.",
     testflight: "Test OVnow on your iPhone", notify: "Email me when it's out", note: "Opens your own mail app.",
     liveTitle: "The Sprinter, now", statusLive: "live", statusTimetable: "timetable", statusQuiet: "quiet", statusExample: "example",
@@ -369,12 +383,13 @@ const T = {
     night: "No more Sprinters tonight.", late: "min late",
     f1t: "How long?", f1p: "A big countdown, the platform or pier, and whether you'll make it with your walk included.",
     f2t: "Where is it?", f2p: "Every bus, tram, metro, train and ferry live on the map. Tap a line to see only that one.",
+    f3dt: "Amsterdam in 3D", f3dp: "In Amsterdam, stations, metros, trams and ferries appear in 3D on the map. Watch them arrive and leave again.",
     f3t: "On the way", f3p: "Press Go and your journey follows along on your Lock Screen: when to leave and where to change, without opening your phone.",
     f4t: "Or just go home", f4p: "Plan a journey, or tap once on Get me home.",
     f5t: "Your daily route", f5p: "Every tram, metro, bus, train or ferry in one list. On your Home Screen too.",
     f7t: "No clutter", f7p: "No account needed. Your location is only used to find stops and routes, and is never stored. Your favourites stay on your iPhone.",
     endTitle: "Nearly on your iPhone.",
-    a1: "OVnow: the F3 ferry leaves in 4:24 from pier D", a2: "OVnow night map: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal", a4: "OVnow map around Amsterdam Centraal with 28 live vehicles", a5: "OVnow planner from Centraal Station to Leidseplein", a6: "OVnow widget with the next tram from Centraal Station to Leidseplein",
+    a1: "OVnow: the F3 ferry leaves in 4:24 from pier D", a2: "OVnow night map: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal", a4: "OVnow 3D map of Amsterdam Centraal with trains at the platforms and two F3 ferries", a7: "OVnow: the F3 ferry leaves pier D at Amsterdam Centraal", a8: "OVnow: metro 50 to Gein at Amsterdam Zuid with the countdown to departure", a9: "OVnow: a 3D tram running near Paleisstraat in Amsterdam", a5: "OVnow planner with the Get me home button and favourites", a6: "OVnow widget with the next tram from Centraal Station to Leidseplein",
     a3: "Lock Screen with an OVnow journey: walk to Centraal Station, tram 2 leaves 22:50 from platform B2",
     privLink: "Privacy", made: "Made by", contact: "Questions or feedback?",
     sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, map, tracks and walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.',
@@ -387,7 +402,7 @@ const T = {
     proofQuiet: "Op dit stuk rijdt nu even geen Sprinter.",
     proofTimetable: "Even volgens de dienstregeling. De live data komt zo terug.",
     night: "Vannacht geen Sprinters meer.", late: "min later",
-    a1: "OVnow: de F3-pont vertrekt over 4:24 van steiger D", a2: "OVnow-nachtkaart: Sprinter 8285 naar Hoofddorp is net vertrokken van Amsterdam Centraal", a4: "OVnow-kaart rond Amsterdam Centraal met 28 live voertuigen", a5: "OVnow-reisplanner van Centraal Station naar Leidseplein", a6: "OVnow-widget met de volgende tram van Centraal Station naar Leidseplein",
+    a1: "OVnow: de F3-pont vertrekt over 4:24 van steiger D", a2: "OVnow-nachtkaart: Sprinter 8285 naar Hoofddorp is net vertrokken van Amsterdam Centraal", a4: "OVnow 3D-kaart van Amsterdam Centraal met treinen aan de perrons en twee F3-ponten", a7: "OVnow: de F3-pont vertrekt van steiger D bij Amsterdam Centraal", a8: "OVnow: metro 50 naar Gein op Amsterdam Zuid met de countdown tot vertrek", a9: "OVnow: een 3D-tram rijdt bij Paleisstraat in Amsterdam", a5: "OVnow-reisplanner met de knop Breng me naar huis en favorieten", a6: "OVnow-widget met de volgende tram van Centraal Station naar Leidseplein",
     a3: "Toegangsscherm met een OVnow-reis: loop naar Centraal Station, tram 2 vertrekt 22:50 van perron B2",
     mailSubject: "Laat me weten wanneer OVnow er is", mailBody: "Mail me graag als OVnow beschikbaar is."
   }
@@ -405,7 +420,7 @@ function setLang(l) {
   document.querySelectorAll("[data-i18n-html]").forEach(e => { if (T[l][e.dataset.i18nHtml]) e.innerHTML = T[l][e.dataset.i18nHtml]; });
   document.querySelectorAll("[data-i18n-alt]").forEach(e => { e.alt = T[l][e.dataset.i18nAlt] || ""; });
   document.querySelectorAll("[data-i18n-aria]").forEach(e => { if (T[l][e.dataset.i18nAria]) e.setAttribute("aria-label", T[l][e.dataset.i18nAria]); });
-  document.querySelectorAll("[data-mail]").forEach(e => { e.href = `mailto:ovnu.app@icloud.com?subject=${encodeURIComponent(T[l].mailSubject)}&body=${encodeURIComponent(T[l].mailBody)}`; });
+  document.querySelectorAll("[data-mail]").forEach(e => { e.href = `mailto:mail@ovnow.app?subject=${encodeURIComponent(T[l].mailSubject)}&body=${encodeURIComponent(T[l].mailBody)}`; });
   document.querySelectorAll(".langs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
   try { localStorage.setItem("ovnu-lang", l); } catch (e) {}
   render();
@@ -646,6 +661,20 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches && run.animate) {
     a.onfinish = end;
     setTimeout(end, 2000);
   }
+}
+// Clips play only while they're on screen, and never for people who asked for less motion or data
+const clips = document.querySelectorAll("video");
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !navigator.connection?.saveData) {
+  const check = () => clips.forEach(v => {
+    const r = v.getBoundingClientRect(), seen = Math.min(r.bottom, innerHeight) - Math.max(r.top, 0);
+    if (seen > r.height * .35) {
+      if (v.paused) { v.preload = "auto"; v.play().catch(() => {}); }
+    } else if (!v.paused) v.pause();
+  });
+  addEventListener("scroll", check, {passive: true});
+  addEventListener("resize", check);
+  check();
+  setInterval(check, 1000);
 }
 load();
 setInterval(render, 1000);
