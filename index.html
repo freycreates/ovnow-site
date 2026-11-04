@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://ovnow.app">
 <meta property="og:title" content="OVnow: openbaar vervoer weer simpel">
 <meta property="og:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel. Gewoon wat je nú nodig hebt.">
-<meta property="og:image" content="https://ovnow.app/img/og.png?v=7">
+<meta property="og:image" content="https://ovnow.app/img/og.png?v=8">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="OVnow: OV weer simpel. Elke bus, tram, metro, trein en pont, live.">
@@ -26,7 +26,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="OVnow: openbaar vervoer weer simpel">
 <meta name="twitter:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel.">
-<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=7">
+<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=8">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -54,7 +54,7 @@
   }
   *{box-sizing:border-box;margin:0}
   html{-webkit-text-size-adjust:100%}
-  body{font:400 18px/1.5 Onest,system-ui,sans-serif;color:var(--text);background:var(--night) url(img/nightmap.webp) center top/2000px auto repeat-y;-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
+  body{font:400 18px/1.5 Onest,system-ui,sans-serif;color:var(--text);background:var(--night);-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
   ::selection{background:var(--line);color:var(--night)}
   a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
   a:hover{color:var(--line)}
@@ -64,9 +64,13 @@
   [hidden]{display:none!important}
 
   .page{position:relative;overflow:clip}
+  #map{position:absolute;inset:0}
+  #map i{position:absolute;left:0;width:100%;background:url(img/nightmap.webp) no-repeat}
+  [data-at]{position:absolute;left:0;width:0;height:0;bottom:calc(var(--gap)*-.5)}
+  .hero [data-at]{bottom:230px}
+  .close [data-at]{bottom:auto;top:calc(var(--gap)*.42)}
   .inner{width:min(100%,1360px);margin-inline:auto;padding-inline:var(--gut)}
   section,footer{position:relative;z-index:2}
-  [data-way]{position:absolute;width:0;height:0;left:var(--x);top:var(--y)}
 
   /* The route, its stations and the trains sit under the content and over the map */
   #route{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
@@ -74,9 +78,10 @@
   #route .case{stroke:var(--deep);stroke-width:15}
   #route .run{stroke:var(--line);stroke-width:9}
   #rail{position:absolute;inset:0;z-index:1;pointer-events:none}
-  .stn{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;transform:translate(-11px,-50%);font-weight:600;font-size:1rem;white-space:nowrap;text-shadow:0 1px 8px var(--night)}
+  #marks{position:absolute;inset:0;z-index:3;pointer-events:none}
+  .stn{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;transform:translate(-11px,-50%);font-weight:600;font-size:1rem;white-space:nowrap}
   .stn.flip{flex-direction:row-reverse;transform:translate(calc(-100% + 11px),-50%)}
-  .stn.up{flex-direction:column-reverse;align-items:flex-start;gap:4px;transform:translate(-11px,calc(-100% + 11px))}
+  .stn.up{flex-direction:column-reverse;align-items:flex-end;gap:4px;transform:translate(calc(-100% + 11px),calc(-100% + 11px))}
   .stn span{padding:2px 8px;border-radius:7px;background:var(--night)}
   .stn em{font-style:normal;font-weight:500;color:var(--soft);margin-left:6px;font-variant-numeric:tabular-nums}
   .stn em.tag{color:var(--line)}
@@ -105,7 +110,7 @@
 
   /* First screen */
   .hero{min-height:min(100svh,900px)}
-  .hero .inner{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start;padding-top:clamp(20px,4vh,48px)}
+  .hero .inner{width:100%;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start;padding-top:clamp(20px,4vh,48px)}
   h1{font-size:clamp(3.7rem,10.2vw,9rem);line-height:.93}
   html[lang="en"] h1{font-size:clamp(3rem,7.4vw,6.8rem)}
   .lede{font-size:clamp(1.15rem,1.6vw,1.4rem);line-height:1.42;margin:clamp(18px,2.6vw,32px) 0 clamp(20px,2.6vw,30px);max-width:30em;color:var(--text)}
@@ -113,16 +118,13 @@
   .notify{display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:0 28px;border-radius:15px;background:var(--line);color:var(--night);font-weight:700;font-size:1.12rem;text-decoration:none;transition:background .16s ease-out,transform .16s ease-out}
   .notify:hover{background:#ffd764;color:var(--night);transform:translateY(-1px)}
   .notify:active{transform:none}
-  .note{margin-top:12px;font-size:.95rem;color:var(--soft);max-width:30em;text-wrap:pretty}
+  .note{margin-top:12px;font-size:.95rem;color:var(--text);max-width:30em;text-wrap:pretty}
   .phone{border-radius:clamp(38px,3.6vw,50px);box-shadow:0 0 0 1px rgba(255,255,255,.18),0 36px 70px -22px rgba(4,8,28,.85)}
-  .hero .phone{width:min(100%,340px);margin-left:auto}
-  .w-centraal{--x:calc(var(--gut) + 11px);--y:calc(100% - 62px)}
-  .w-a1{--x:40%;--y:calc(100% - 46px)}
-  .w-a2{--x:56%;--y:52%}
-  .w-b{--x:98%;--y:88%}
+  .hero .phone{width:min(100%,340px,calc(28vw - 24px));margin-left:auto}
 
   /* The live Sprinter */
   .live{padding-top:clamp(60px,8vw,120px)}
+  .live .inner{display:flex;flex-direction:column;align-items:flex-end}
   .sheet{width:min(100%,760px);padding:clamp(22px,3vw,36px);border-radius:32px;background:rgba(60,74,112,.58);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 30px 60px -26px rgba(4,8,28,.8)}
   .sheet-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
   .sheet h2{font-size:clamp(1.9rem,3.2vw,2.5rem);line-height:1.05;margin-right:auto}
@@ -140,9 +142,7 @@
   .stops time{color:var(--soft)}
   .stops i{width:16px;height:16px;border-radius:50%;background:var(--deep);border:4px solid var(--line);position:relative;z-index:1}
   .stops li:not(:last-child)::after{content:"";position:absolute;left:calc(3.9em + 19px);top:50%;height:100%;width:4px;background:var(--line)}
-  .proof{margin-top:16px;max-width:760px;color:var(--soft);font-size:1rem}
-  .w-slo{--x:83%;--y:46%}
-  .w-c{--x:96%;--y:88%}
+  .proof{margin-top:16px;width:min(100%,760px);color:var(--soft);font-size:1rem}
 
   /* Questions, answered by real screens */
   .q{padding-top:var(--gap)}
@@ -150,99 +150,75 @@
   .q p{font-size:clamp(1.12rem,1.5vw,1.3rem);line-height:1.45;max-width:25em;color:var(--text)}
   .split{display:grid;align-items:center;gap:clamp(36px,6vw,90px)}
   .one .split{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
-  .w-d{--x:52%;--y:7%}
-  .w-e{--x:24%;--y:50%}
-  .w-f{--x:30%;--y:102%}
 
   .two .split{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
   .one figure,.two figure{margin:0;border-radius:30px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 30px 60px -24px rgba(4,8,28,.85)}
   .one figure img,.two figure img{width:100%}
-  .w-lely{--x:50%;--y:22%}
-  .w-g{--x:78%;--y:58%}
-  .w-h{--x:95%;--y:100%}
 
   .three .split{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
   .three .phone{width:min(100%,330px);justify-self:center}
-  .w-h2{--x:95%;--y:30%}
-  .w-i{--x:72%;--y:80%}
-  .w-schip{--x:12%;--y:101%}
 
   .pair{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(40px,6vw,96px);padding-top:var(--gap);align-items:end}
   .pair h3{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1;margin-bottom:.35em}
-  .pair p{max-width:24em;font-size:1.15rem;line-height:1.45}
+  .pair p{max-width:min(19em,calc(34vw - 20px));font-size:1.15rem;line-height:1.45}
   .pair .plan{width:min(100%,290px);margin-bottom:28px}
   .pair .widget{border-radius:clamp(30px,4vw,54px);margin-bottom:28px;box-shadow:0 30px 60px -24px rgba(4,8,28,.85)}
-  .w-j{--x:50%;--y:60%}
-  .w-k{--x:96%;--y:100%}
-  .w-k2{display:none}
 
   .big{padding-top:var(--gap)}
-  .big h2{font-size:clamp(3.6rem,12.4vw,11rem);line-height:.92}
-  .big p{margin-top:.8em;font-size:clamp(1.15rem,1.7vw,1.45rem);line-height:1.42;max-width:34em}
-  .w-l{--x:98%;--y:64%}
+  .big h2{font-size:clamp(3.6rem,10vw,9rem);line-height:.92;max-width:6em}
+  .big p{margin-top:.8em;font-size:clamp(1.15rem,1.7vw,1.45rem);line-height:1.42;max-width:min(34em,56vw)}
 
   .close{padding-top:var(--gap)}
   .close .ask{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:end;padding-bottom:clamp(50px,7vw,90px)}
   .close h2{font-size:clamp(3rem,7vw,6rem);line-height:.98}
   .close .cta{justify-self:end;padding-right:clamp(0px,7vw,110px)}
-  .w-hfd{--x:92%;--y:calc(var(--gap)*.62)}
   .foot{border-top:1px solid rgba(201,210,238,.26);padding-block:24px 34px;font-size:.95rem;color:var(--soft)}
   .links{display:flex;flex-wrap:wrap;gap:0 26px}
   .links a{display:inline-flex;align-items:center;min-height:44px;color:var(--text)}
   .links a:hover{color:var(--line)}
   .credit{max-width:62em;margin-top:8px}
 
-  @media (max-width:1180px){.lede{max-width:23em}}
+  @media (max-width:1180px){.lede{max-width:23em}.pair p{max-width:270px}}
   @media (max-width:820px){
     .lede{max-width:none}
-    body{background-size:1400px auto;font-size:17px}
+    .big p{max-width:none}
+    body{font-size:17px}
+    #map i{background-image:url(img/nightmap-phone.webp)}
+    .hero [data-at]{bottom:calc(var(--ph)*2.174 + 22px)}
     :root{--gut:38px;--gap:112px;--ph:250px}
     .top{gap:8px;padding-block:14px}
     .mark{font-size:1.2rem;gap:8px}.mark img{width:30px;height:30px}
     .soon{font-size:.92rem;white-space:nowrap}
     .opt{display:none}
-    .langs button{min-width:40px}
     .hero{min-height:0}
     .hero .inner{grid-template-columns:minmax(0,1fr);padding-top:14px}
     h1{font-size:clamp(3.4rem,20.5vw,7rem)}
     html[lang="en"] h1{font-size:clamp(2.6rem,13.6vw,6rem)}
     .notify{width:100%}
     .hero .phone{width:var(--ph);margin:44px auto 0}
-    .w-a1,.w-a2{display:none}
-    .w-centraal{--x:22px;--y:calc(100% - var(--ph)*2.174 - 18px)}
-    .w-b{--x:calc(100% - 12px);--y:calc(100% + 24px)}
     .live{padding-top:92px}
     .sheet{border-radius:26px}
     .board{grid-template-columns:minmax(0,1fr)}
-    .w-slo{--x:calc(100% - 12px);--y:calc(100% + 44px)}
-    .w-c{display:none}
     .one .split,.two .split{grid-template-columns:minmax(0,1fr)}
     .one figure{order:2}
-    .w-d{--x:calc(100% - 12px);--y:88px}
-    .w-e{--x:calc(100% - 12px);--y:42%}
-    .w-f{--x:42%;--y:78%}
-    .w-lely{--x:12px;--y:44px}
-    .w-g{--x:12px;--y:42%}
-    .w-h{--x:calc(100% - 12px);--y:calc(100% + 36px)}
     .three .split{grid-template-columns:minmax(0,1fr)}
     .three .phone{width:var(--ph)}
-    .w-h2{--x:calc(100% - 12px);--y:44%}
-    .w-i{--x:72%;--y:84%}
-    .w-schip{--x:12px;--y:calc(100% + 56px)}
     .pair{grid-template-columns:minmax(0,1fr);gap:64px}
-    .w-j{--x:50%;--y:18%}
-    .w-k{--x:calc(100% - 13px);--y:31%}
-    .w-k2{display:block;--x:calc(100% - 13px);--y:64%}
-    .w-l{--x:calc(100% - 13px);--y:80%}
     .close .ask{grid-template-columns:minmax(0,1fr)}
     .close .cta{padding:0;justify-self:stretch}
-    .w-hfd{--x:calc(100% - 12px);--y:48px}
     .stn{font-size:.94rem}
-    .stn.up{flex-direction:row;align-items:center;gap:10px;transform:translate(-11px,-50%)}
+    .pair p{max-width:none}
+    .txt,.big .inner,.ask,.foot{background:rgba(16,25,61,.95);border-radius:20px}
+    .txt{padding:18px 18px 20px;margin-inline:-18px}
+    .big .inner{padding:22px 18px;margin-inline:20px;width:auto}
+    .ask{padding:20px 18px;margin-inline:-18px}
+    .foot{padding-inline:18px;margin-inline:-18px;border-top:0}
+    .proof{background:rgba(16,25,61,.95);border-radius:14px;padding:10px 14px}
     .train{height:20px;padding:1px 4px 0;gap:2px;border-radius:5px;font-size:.66rem}
     .train svg{width:6px;height:9px}
     .train b{display:none}
   }
+  @media (min-width:821px) and (max-width:960px){.pair p{max-width:200px}}
   @media (max-width:372px){.mark img{display:none}}
   @media (prefers-reduced-motion:reduce){.train{transition:none}.notify{transition:none}}
 </style>
@@ -250,8 +226,10 @@
 </head>
 <body>
 <div class="page" id="page">
+<div id="map" aria-hidden="true"></div>
 <svg id="route" aria-hidden="true"><path class="case"/><path class="run"/></svg>
 <div id="rail" aria-hidden="true"></div>
+<div id="marks" aria-hidden="true"></div>
 <main>
   <section class="hero">
     <div class="inner">
@@ -271,12 +249,9 @@
         <a class="notify" data-mail href="mailto:ovnu.app@icloud.com?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-top" data-i18n="notify">Mail me als hij er is</a>
         <p class="note" data-i18n="note">Opent je eigen mailapp.</p>
       </div>
-      <img class="phone" id="through" src="img/shot-map.jpg" alt="" data-i18n-alt="a2" width="552" height="1200" fetchpriority="high">
+      <img class="phone" src="img/shot-map.jpg" alt="" data-i18n-alt="a2" width="552" height="1200" fetchpriority="high">
     </div>
-    <i class="w-centraal" data-way data-st="0" data-name="Centraal" data-lab="up"></i>
-    <i class="w-a1" data-way></i><i class="w-a2" data-way></i>
-    <i data-phone></i>
-    <i class="w-b" data-way></i>
+    <i data-at="0"></i>
   </section>
 
   <section class="live">
@@ -301,57 +276,54 @@
       </div>
       <p class="proof" id="proof"></p>
     </div>
-    <i class="w-slo" data-way data-st="1" data-name="Sloterdijk" data-lab="flip"></i>
-    <i class="w-c" data-way></i>
+    <i data-at="1"></i>
   </section>
 
   <section class="q one">
     <div class="inner split">
       <figure><img src="img/shot-sheet.jpg" alt="" data-i18n-alt="a1" width="524" height="486" loading="lazy"></figure>
-      <div>
+      <div class="txt">
         <h2 data-i18n="f1t">Hoe lang nog?</h2>
         <p data-i18n="f1p">Een grote countdown, het perron of de steiger, en of je het haalt met je looptijd erbij.</p>
       </div>
     </div>
-    <i class="w-d" data-way></i><i class="w-e" data-way></i><i class="w-f" data-way></i>
+  <i data-at="2"></i>
   </section>
 
-  <section class="q two">
+  <section class="q two" id="two">
     <div class="inner split">
-      <div>
+      <div class="txt">
         <h2 data-i18n="f2t">Waar is hij?</h2>
         <p data-i18n="f2p">Elke bus, tram, metro, trein en pont live op de kaart. Tik op een lijn en je ziet alleen die.</p>
       </div>
       <figure><img src="img/shot-vehicles.jpg" alt="" data-i18n-alt="a4" width="552" height="495" loading="lazy"></figure>
     </div>
-    <i class="w-lely" data-way data-st="2" data-name="Lelylaan"></i><i class="w-g" data-way></i><i class="w-h" data-way></i>
   </section>
 
   <section class="q three">
     <div class="inner split">
-      <div>
+      <div class="txt">
         <h2 data-i18n="f3t">Onderweg</h2>
         <p data-i18n="f3p">Druk op Go en je reis loopt mee op je toegangsscherm: wanneer je vertrekt en waar je overstapt, zonder je telefoon te openen.</p>
       </div>
       <img class="phone" src="img/shot-live.jpg" alt="" data-i18n-alt="a3" width="552" height="1200" loading="lazy">
     </div>
-    <i class="w-h2" data-way></i><i class="w-i" data-way></i><i class="w-schip" data-way data-st="3" data-name="Schiphol"></i>
+  <i data-at="3"></i>
   </section>
 
   <section>
     <div class="inner pair">
       <div>
         <img class="phone plan" src="img/shot-plan.jpg" alt="" data-i18n-alt="a5" width="552" height="1200" loading="lazy">
-        <h3 data-i18n="f4t">Of gewoon naar huis</h3>
-        <p data-i18n="f4p">Plan je reis, of tik één keer op Breng me naar huis.</p>
+        <div class="txt"><h3 data-i18n="f4t">Of gewoon naar huis</h3>
+        <p data-i18n="f4p">Plan je reis, of tik één keer op Breng me naar huis.</p></div>
       </div>
       <div>
         <img class="widget" src="img/shot-widget.jpg" alt="" data-i18n-alt="a6" width="480" height="225" loading="lazy">
-        <h3 data-i18n="f5t">Je vaste route</h3>
-        <p data-i18n="f5p">Alle trams, metro's, bussen, treinen of ponten in één lijst. Ook als widget.</p>
+        <div class="txt"><h3 data-i18n="f5t">Je vaste route</h3>
+        <p data-i18n="f5p">Alle trams, metro's, bussen, treinen of ponten in één lijst. Ook als widget.</p></div>
       </div>
     </div>
-    <i class="w-j" data-way></i><i class="w-k" data-way></i><i class="w-k2" data-way></i>
   </section>
 
   <section class="big">
@@ -359,11 +331,11 @@
       <h2 data-i18n="f7t">Zonder rommel</h2>
       <p data-i18n="f7p">Geen account nodig. Je locatie gebruiken we alleen om haltes en routes te vinden, en we bewaren hem nergens. Je favorieten staan op je iPhone.</p>
     </div>
-    <i class="w-l" data-way></i>
   </section>
 </main>
 
 <footer class="close">
+  <i data-at="4"></i>
   <div class="inner">
     <div class="ask">
       <h2 data-i18n="endTitle">Bijna op je iPhone.</h2>
@@ -375,10 +347,10 @@
         <a href="mailto:ovnu.app@icloud.com" data-goatcounter-click="mail" data-i18n="contact">Vragen of feedback?</a>
         <a href="https://freycreates.nl"><span data-i18n="made">Gemaakt door</span>&nbsp;FREYcreates</a>
       </div>
-      <p class="credit" data-i18n-html="sources">Live data van <a href="https://ndovloket.nl">NDOV Loket</a> en <a href="https://ovapi.nl">OVapi</a>. Reisplanner door <a href="https://transitous.org">Transitous</a>, kaart en looppaden © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers.</p>
+      <p class="credit" data-i18n-html="sources">Live data van <a href="https://ndovloket.nl">NDOV Loket</a> en <a href="https://ovapi.nl">OVapi</a>. Reisplanner door <a href="https://transitous.org">Transitous</a>, kaart, spoor en looppaden © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers.</p>
     </div>
   </div>
-  <i class="w-hfd" data-way data-st="4" data-name="Hoofddorp" data-lab="flip"></i>
+  
 </footer>
 </div>
 <script>
@@ -405,7 +377,7 @@ const T = {
     a1: "OVnow: the F3 ferry leaves in 4:24 from pier D", a2: "OVnow night map: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal", a4: "OVnow map around Amsterdam Centraal with 28 live vehicles", a5: "OVnow planner from Centraal Station to Leidseplein", a6: "OVnow widget with the next tram from Centraal Station to Leidseplein",
     a3: "Lock Screen with an OVnow journey: walk to Centraal Station, tram 2 leaves 22:50 from platform B2",
     privLink: "Privacy", made: "Made by", contact: "Questions or feedback?",
-    sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, map and walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.',
+    sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, map, tracks and walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.',
     mailSubject: "Let me know when OVnow is out", mailBody: "Please email me when OVnow is available."
   },
   nl: {
@@ -455,63 +427,57 @@ const AT = Object.fromEntries(STATIONS.map(s => [s.id, s.x]));
 let trips = [], live = false, skew = 0, example = false;
 const CHEV = d => `<svg viewBox="0 0 7 11" aria-hidden="true"><path d="${d ? "M6 1 1.5 5.5 6 10" : "M1 1l4.5 4.5L1 10"}"/></svg>`;
 
-const rail = document.getElementById("rail"), route = document.getElementById("route"), page = document.getElementById("page");
+const rail = document.getElementById("rail"), marks = document.getElementById("marks"), route = document.getElementById("route"), page = document.getElementById("page");
 const [casing, run] = route.querySelectorAll("path");
 const stopLen = [];   // how far along the route each station sits, in px
 
-/** Draw the route through every waypoint in the page, and through the hero phone along the screenshot's own yellow line */
+// The real track from OpenStreetMap, in km: across and along the line Centraal to Hoofddorp.
+// The map image is the same stretch of ground, so the line sits on the real tracks at every width.
+const TRACK = [[-0.003,-0.005],[-0.235,0.102],[-0.349,0.168],[-0.447,0.211],[-0.584,0.258],[-0.841,0.381],[-0.914,0.403],[-1.195,0.47],[-1.256,0.493],[-1.311,0.518],[-1.452,0.587],[-1.86,0.798],[-1.936,0.849],[-2.064,0.957],[-2.121,0.999],[-2.182,1.036],[-2.263,1.074],[-2.33,1.098],[-2.396,1.113],[-2.468,1.123],[-2.81,1.159],[-2.878,1.172],[-2.934,1.191],[-3.003,1.222],[-3.054,1.254],[-3.102,1.292],[-3.155,1.345],[-3.198,1.401],[-3.607,2.003],[-3.635,2.051],[-3.658,2.098],[-3.681,2.166],[-3.694,2.225],[-3.699,2.267],[-3.701,2.324],[-3.692,2.411],[-3.682,2.457],[-3.666,2.506],[-3.626,2.589],[-3.58,2.655],[-3.528,2.711],[-3.48,2.751],[-3.331,2.853],[-3.267,2.893],[-3.204,2.926],[-2.896,3.064],[-2.823,3.108],[-2.776,3.143],[-2.729,3.184],[-2.68,3.235],[-1.934,4.098],[-1.879,4.158],[-1.814,4.221],[-1.615,4.399],[-1.482,4.507],[-1.334,4.613],[-1.212,4.696],[-0.669,5.053],[-0.448,5.201],[-0.309,5.298],[0.533,5.859],[0.708,5.984],[0.766,6.038],[0.82,6.107],[0.839,6.139],[0.862,6.188],[0.886,6.266],[0.897,6.344],[0.897,6.417],[0.89,6.466],[0.878,6.517],[0.851,6.585],[0.819,6.646],[0.487,7.129],[0.418,7.241],[0.378,7.322],[0.344,7.409],[0.323,7.482],[0.306,7.57],[0.297,7.642],[0.294,7.713],[0.301,7.842],[0.317,7.954],[0.453,8.72],[0.468,8.871],[0.473,9.025],[0.464,9.181],[0.441,9.324],[0.402,9.482],[0.317,9.768],[0.291,9.884],[0.274,10.013],[0.269,10.142],[0.274,10.252],[0.288,10.362],[0.311,10.47],[0.338,10.567],[0.374,10.665],[0.802,11.728],[0.869,11.919],[0.925,12.1],[0.985,12.298],[1.007,12.39],[1.046,12.648],[1.055,12.785],[1.05,12.947],[1.007,13.791],[0.995,13.923],[0.985,14.0],[0.953,14.18],[0.915,14.341],[0.875,14.475],[0.829,14.61],[0.762,14.774],[0.702,14.902],[0.542,15.216],[0.367,15.518],[0.321,15.603],[0.267,15.712],[0.234,15.793],[0.082,16.25],[0.056,16.337],[0.03,16.443],[0.016,16.513],[0.002,16.61],[-0.005,16.686]];
+const STOP_AT = [0,42,57,100,125];
+const VIEW = {wide: [-3.8, 1.96, -2.37, 19.7], phone: [-3.95, 1.2, -1.67, 18]};
+const LABELS = {wide: ["up", "", "", "flip", "flip"], phone: ["up flip", "", "", "flip", "flip"]};
+
 function buildRoute() {
-  const o = page.getBoundingClientRect(), pts = [], stations = [];
-  if (!o.width) return;   // nothing to measure yet, for example in a hidden tab
-  const at = e => { const r = e.getBoundingClientRect(); return [r.left - o.left, r.top - o.top]; };
-  for (const e of page.querySelectorAll("[data-way],[data-phone]")) {
-    if (getComputedStyle(e).display === "none") continue;
-    if ("phone" in e.dataset) {
-      const r = document.getElementById("through").getBoundingClientRect();
-      const lx = r.left - o.left, rx = r.right - o.left, top = r.top - o.top;
-      // Where the screenshot's own line meets each edge, and how steeply, measured off the image
-      const ly = top + r.height * .1865, ry = top + r.height * .4654, sl = .4, sr = .55;
-      const small = innerWidth <= 820, reach = small ? 30 : lx * .22, leave = small ? 34 : 80;
-      const L = [lx, ly], R = [rx, ry];
-      L.in = [lx - reach, ly - reach * sl];     // the arc comes down onto the screenshot's line
-      R.out = [rx + leave, ry + leave * sr];    // and leaves along it
-      const A = pts[pts.length - 1], Z = pts[pts.length - 2];
-      if (Z) {   // keep the bend before the phone even, so the arc has no knuckle
-        const dx = L[0] - Z[0], dy = L[1] - Z[1], n = Math.hypot(dx, dy) || 1;
-        const a = Math.hypot(A[0] - Z[0], A[1] - Z[1]) * .34, b = Math.hypot(L[0] - A[0], L[1] - A[1]) * .34;
-        A.in = [A[0] - dx / n * a, A[1] - dy / n * a]; A.out = [A[0] + dx / n * b, A[1] + dy / n * b];
-      }
-      pts.push(L, R);
-    } else {
-      if (e.dataset.st) stations.push({i: pts.length, name: e.dataset.name, st: +e.dataset.st, lab: e.dataset.lab || ""});
-      pts.push(at(e));
-    }
-  }
-  const seg = i => {
-    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2, span = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
-    // Handles never reach further than the stretch they belong to, so a short step next to a long one can't hook
-    const handle = (a, b) => { const x = (b[0] - a[0]) / 6, y = (b[1] - a[1]) / 6, k = Math.min(1, span * .4 / (Math.hypot(x, y) || 1)); return [x * k, y * k]; };
-    const h1 = handle(p0, p2), h2 = handle(p1, p3);
-    const c1 = p1.out || [p1[0] + h1[0], p1[1] + h1[1]], c2 = p2.in || [p2[0] - h2[0], p2[1] - h2[1]];
-    return `C${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+  const w = page.clientWidth, h = page.clientHeight;
+  if (!w) return;   // nothing to measure yet, for example in a hidden tab
+  const top = page.getBoundingClientRect().top;
+  const kind = innerWidth <= 820 ? "phone" : "wide", [p0, p1, a0, a1] = VIEW[kind];
+
+  // Stations are pinned to the open gaps in the page; the ground between two stations stretches to fit,
+  // so the map and the line stay on each other at every width
+  const stops = STOP_AT.map(i => TRACK[i][1]);
+  const ys = stops.map((_, st) => page.querySelector(`[data-at="${st}"]`).getBoundingClientRect().top - top);
+  const A = [a0, ...stops, a1], Y = [0, ...ys, h];
+  const yOf = a => { let i = 0; while (i < A.length - 2 && a > A[i + 1]) i++; return Y[i] + (Y[i + 1] - Y[i]) * (a - A[i]) / (A[i + 1] - A[i]); };
+  const bands = document.getElementById("map");
+  if (bands.children.length !== A.length - 1) bands.innerHTML = "<i></i>".repeat(A.length - 1);
+  [...bands.children].forEach((b, i) => {
+    const k = (Y[i + 1] - Y[i]) / (A[i + 1] - A[i]);
+    b.style.top = Y[i] + "px"; b.style.height = Y[i + 1] - Y[i] + 1 + "px";
+    b.style.backgroundSize = `100% ${(a1 - a0) * k}px`;
+    b.style.backgroundPosition = `0 ${-(A[i] - a0) * k}px`;
+  });
+
+  const pts = TRACK.map(([x, a]) => [(x - p0) / (p1 - p0) * w, yOf(a)]);
+  const line = p => {   // smooth through the points: real track has no corners
+    let d = `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}`;
+    for (let i = 1; i < p.length - 1; i++) d += `Q${p[i][0].toFixed(1)} ${p[i][1].toFixed(1)} ${((p[i][0] + p[i + 1][0]) / 2).toFixed(1)} ${((p[i][1] + p[i + 1][1]) / 2).toFixed(1)}`;
+    const z = p[p.length - 1];
+    return d + `L${z[0].toFixed(1)} ${z[1].toFixed(1)}`;
   };
-  let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
-  rail.querySelectorAll(".stn").forEach(e => e.remove());
-  for (let i = 0; i < pts.length; i++) {
-    const s = stations.find(s => s.i === i);
-    if (s) {
-      casing.setAttribute("d", d);
-      stopLen[s.st] = i ? casing.getTotalLength() : 0;
-      const n = document.createElement("span");
-      n.className = "stn " + s.lab;
-      n.style.left = pts[i][0] + "px"; n.style.top = pts[i][1] + "px";
-      n.dataset.st = s.st;
-      n.innerHTML = `<i></i><span>${s.name}<em></em></span>`;
-      rail.append(n);
-    }
-    if (i < pts.length - 1) d += seg(i);
-  }
-  casing.setAttribute("d", d); run.setAttribute("d", d);
+  marks.querySelectorAll(".stn").forEach(e => e.remove());
+  STOP_AT.forEach((at, st) => {
+    casing.setAttribute("d", line(pts.slice(0, at + 1)));
+    stopLen[st] = at ? casing.getTotalLength() : 0;
+    const n = document.createElement("span");
+    n.className = "stn " + LABELS[kind][st];
+    n.dataset.st = st;
+    n.style.left = pts[at][0] + "px"; n.style.top = pts[at][1] + "px";
+    n.innerHTML = `<i></i><span>${STATIONS[st].name}<em></em></span>`;
+    marks.append(n);
+  });
+  casing.setAttribute("d", line(pts)); run.setAttribute("d", line(pts));
   rail.querySelectorAll(".train").forEach(m => { m.dataset.x && moveTrain(m, +m.dataset.x, m.classList.contains("back"), false); });
 }
 
@@ -618,7 +584,7 @@ function render() {
   const el = $("count");
   $("board").classList.toggle("off", example);
   document.querySelector('[data-i18n="liveTitle"]').textContent = T[lang][example ? "exampleTitle" : "liveTitle"];
-  rail.querySelectorAll(".stn").forEach(n => {
+  marks.querySelectorAll(".stn").forEach(n => {
     const em = n.querySelector("em"), st = +n.dataset.st, c = !example && leaving[0] && leaving[0].stops.find(x => x.x === STATIONS[st].x);
     em.className = example && !st ? "tag" : "";
     em.textContent = example ? (st ? "" : T[lang].statusExample) : c ? fmt(c.d || c.a) : "";
