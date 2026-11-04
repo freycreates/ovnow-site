@@ -6,28 +6,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="OVnow: elke bus, tram, metro, trein en pont live. Zonder rommel. Een iPhone-app van FREYcreates.">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#fffaf7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#14111a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#10193d">
 <link rel="canonical" href="https://ovnow.app">
 <link rel="icon" type="image/png" sizes="512x512" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon-180.png">
 
 <!-- Sharing: how the link looks in WhatsApp, iMessage, LinkedIn and X -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="FREYcreates">
+<meta property="og:site_name" content="OVnow">
 <meta property="og:url" content="https://ovnow.app">
 <meta property="og:title" content="OVnow: openbaar vervoer weer simpel">
 <meta property="og:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel. Gewoon wat je nú nodig hebt.">
-<meta property="og:image" content="https://ovnow.app/img/og.png?v=4">
+<meta property="og:image" content="https://ovnow.app/img/og.png?v=7">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="OVnow op een iPhone: de F3-pont vertrekt over 4:24 van steiger D.">
+<meta property="og:image:alt" content="OVnow: OV weer simpel. Elke bus, tram, metro, trein en pont, live.">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="OVnow: openbaar vervoer weer simpel">
 <meta name="twitter:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel.">
-<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=4">
+<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=7">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -35,7 +34,7 @@
   "name": "OVnow",
   "operatingSystem": "iOS",
   "applicationCategory": "TravelApplication",
-  "description": "Elke bus, tram, metro, trein en pont live in Nederland. Zonder account of tracking.",
+  "description": "Elke bus, tram, metro, trein en pont live in Nederland. Zonder account.",
   "url": "https://ovnow.app",
   "image": "https://ovnow.app/img/icon.png",
   "inLanguage": ["nl", "en"],
@@ -43,323 +42,382 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/onest.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  /* freycreates.nl paper and ink, with OVnow blue where FREY uses pink */
-  :root{color-scheme:light;--bg:#fffaf7;--surface:#fffdfb;--text:#191317;--muted:#6d6469;--line:#e6dcd8;
-    --blue:#1f6feb;--blue-deep:#0b47b8;--blue-soft:#eaf2ff;
-    --l394:#e1251b;--l52:#3a9be0;--l51:#f39200;--ferry:#19b3c4;--ns:#ffc917;
-    --water:#bfe1f6;--water-deep:#8cc6ea}
-  @media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#14111a;--surface:#1c1822;--text:#fbf8fd;--muted:#b3abb8;--line:#2f2836;
-    --blue:#5b9bff;--blue-deep:#9cc3ff;--blue-soft:#17223a;--water:#14304d;--water-deep:#0f2540}}
-  *{box-sizing:border-box}
+  @font-face{font-family:"Bricolage";src:url(fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
+  @font-face{font-family:"Onest";src:url(fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{
+    --night:#10193d;--deep:#0a1130;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee;--live:#5ee08f;
+    --gut:clamp(24px,6vw,88px);--gap:clamp(96px,13vw,190px);
+    scrollbar-color:#3a4a92 var(--night);
+  }
+  *{box-sizing:border-box;margin:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font:400 18px/1.5 Onest,system-ui,sans-serif;color:var(--text);background:var(--night) url(img/nightmap.webp) center top/2000px auto repeat-y;-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
+  ::selection{background:var(--line);color:var(--night)}
+  a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
+  a:hover{color:var(--line)}
+  :focus-visible{outline:3px solid var(--line);outline-offset:3px;border-radius:6px}
+  h1,h2,h3{font-family:Bricolage,system-ui,sans-serif;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+  img{display:block;max-width:100%;height:auto}
   [hidden]{display:none!important}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--text);font:500 17px/1.55 "Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  /* The top bar: the colours of the lines you ride */
-  body:before{content:"";position:fixed;inset:0 0 auto;height:6px;z-index:3;
-    background:linear-gradient(90deg,var(--l394) 0 20%,var(--l52) 20% 40%,var(--l51) 40% 60%,var(--ferry) 60% 80%,var(--ns) 80%)}
-  a{color:var(--blue)}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 
-  /* top row */
-  .top{display:flex;justify-content:space-between;align-items:center;padding:28px 0 0}
-  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-  .brand img{width:44px;height:44px;border-radius:11px;box-shadow:0 4px 12px rgba(25,19,23,.12)}
-  .wordmark{font-weight:900;font-size:28px;letter-spacing:-.045em;line-height:1}
-  .wordmark span{color:var(--blue)}
-  .lang-switch{display:flex;padding:3px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}
-  .lang-switch button{padding:4px 8px;border:0;border-radius:6px;background:transparent;color:var(--muted);font:inherit;font-size:.72rem;font-weight:800;cursor:pointer}
-  .lang-switch button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
-  .lang-switch button:focus-visible,.button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+  .page{position:relative;overflow:clip}
+  .inner{width:min(100%,1360px);margin-inline:auto;padding-inline:var(--gut)}
+  section,footer{position:relative;z-index:2}
+  [data-way]{position:absolute;width:0;height:0;left:var(--x);top:var(--y)}
 
-  /* hero: the promise on the left, the real ferry on the right */
-  .hero{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:64px 0 72px}
-  h1{margin:0;font-weight:900;font-size:clamp(3.2rem,8vw,6.4rem);line-height:.92;letter-spacing:-.055em}
-  h1 em{font-style:normal;color:var(--blue)}
-  .lede{margin:24px 0 0;max-width:27em;font-size:1.2rem;line-height:1.5}
-  .lede strong{font-weight:800}
-  .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-  .button{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:12px 18px;border:1px solid rgba(25,19,23,.14);border-radius:10px;background:rgba(255,255,255,.72);color:var(--text);font:inherit;font-size:.92rem;font-weight:850;text-decoration:none;transition:transform .18s ease,border-color .18s ease}
-  .button.primary{border-color:#191317;background:#191317;color:#fffdfb}
-  .button.primary svg{stroke:#5b9bff}
-  .button:hover{border-color:var(--blue);transform:translateY(-1px)}
-  .button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-  .button.soon{cursor:default}
-  .button.soon:hover{transform:none;border-color:#191317}
-  @media (prefers-color-scheme:dark){.button{background:var(--surface);border-color:var(--line)}.button.primary{background:#fbf8fd;color:#14111a;border-color:#fbf8fd}.button.primary svg{stroke:var(--blue-deep)}}
-  .free{margin:16px 0 0;color:var(--muted);font-size:.95rem}
+  /* The route, its stations and the trains sit under the content and over the map */
+  #route{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+  #route path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+  #route .case{stroke:var(--deep);stroke-width:15}
+  #route .run{stroke:var(--line);stroke-width:9}
+  #rail{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .stn{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;transform:translate(-11px,-50%);font-weight:600;font-size:1rem;white-space:nowrap;text-shadow:0 1px 8px var(--night)}
+  .stn.flip{flex-direction:row-reverse;transform:translate(calc(-100% + 11px),-50%)}
+  .stn.up{flex-direction:column-reverse;align-items:flex-start;gap:4px;transform:translate(-11px,calc(-100% + 11px))}
+  .stn span{padding:2px 8px;border-radius:7px;background:var(--night)}
+  .stn em{font-style:normal;font-weight:500;color:var(--soft);margin-left:6px;font-variant-numeric:tabular-nums}
+  .stn em.tag{color:var(--line)}
+  .stn i{flex:none;width:22px;height:22px;border-radius:50%;background:var(--deep);border:6px solid var(--line);box-shadow:0 0 0 2px var(--deep)}
+  .train{position:absolute;z-index:1;left:0;top:0;display:inline-flex;align-items:center;gap:3px;height:27px;padding:1px 8px 0;border-radius:7px;background:var(--line);color:var(--night);font-weight:800;font-size:.86rem;letter-spacing:.01em;box-shadow:0 0 0 2px var(--deep),0 4px 10px rgba(5,10,32,.5);transition:transform 1s linear,opacity .6s;will-change:transform}
+  .train svg{width:7px;height:11px;transform:rotate(90deg);fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .train b{color:#a3121d;font-weight:800;margin-left:2px}
+  .train.waiting{background:var(--night);color:var(--line);box-shadow:inset 0 0 0 2px var(--line),0 0 0 2px var(--deep)}
+  .train.waiting b,#rail.example .train b{color:var(--line)}
+  .train:not([style*="transform"]),.train.gone{opacity:0}
+  #rail.example .train{background:var(--night);color:var(--line);box-shadow:inset 0 0 0 2px var(--line),0 0 0 2px var(--deep)}
 
-  /* the live board: one real departure, counting down */
-  .board{border-radius:28px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
-  .board-top{position:relative;padding:22px 24px 18px}
-  .board-head{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:.85rem;font-weight:700}
-  .dot{width:8px;height:8px;border-radius:50%;background:#30b84f;box-shadow:0 0 0 0 rgba(48,184,79,.5);animation:ping 2s ease-out infinite}
-  .dot.off{background:var(--muted);animation:none}
-  @keyframes ping{to{box-shadow:0 0 0 9px rgba(48,184,79,0)}}
-  .board-label{margin:18px 0 0;color:var(--muted);font-weight:700}
-  .count{font-weight:900;font-size:clamp(4.6rem,10vw,7.2rem);line-height:.9;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
-  .count.soon{color:#e8730c}
-  .count.now{color:#e1251b}
-  .ride{display:flex;align-items:center;gap:10px;margin-top:16px;font-weight:700}
-  .badge{display:inline-flex;align-items:center;justify-content:center;min-width:46px;padding:2px 9px;border-radius:9px;font-weight:900;font-size:1rem;background:var(--ns);color:#003082}
-  .ride small{color:var(--muted);font-weight:600}
-  .ride .late{color:#e8730c;font-weight:800}
-  .ride .num{color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
-  /* the track sign, as on the platform: NS yellow with a navy edge */
-  .pier{position:absolute;top:22px;right:24px;display:grid;place-items:center;min-width:64px;height:64px;padding:0 8px;border-radius:12px;background:var(--ns);color:#003082;border:2px solid #003082;text-align:center;line-height:1}
-  .pier span{font-size:.68rem;font-weight:800}
-  .pier b{font-size:1.75rem;font-weight:900;letter-spacing:-.03em}
-  .then{margin:12px 0 0;color:var(--muted);font-size:.88rem}
-  .then:empty{display:none}
-  /* the line: Centraal to Hoofddorp on a double track, every Sprinter where it really is now */
-  .rails{position:relative;height:132px;background:var(--blue-soft);overflow:hidden;--pad:9%}
-  .rail{position:absolute;left:calc(var(--pad) - 14px);right:calc(var(--pad) - 14px);height:6px;border-radius:3px;
-    background:repeating-linear-gradient(90deg,transparent 0 7px,color-mix(in srgb,var(--text) 22%,transparent) 7px 9px);
-    border-top:1.5px solid color-mix(in srgb,var(--text) 45%,transparent);border-bottom:1.5px solid color-mix(in srgb,var(--text) 45%,transparent)}
-  .rail.out{top:34px}.rail.back{top:70px}
-  .stn{position:absolute;top:28px;width:14px;height:54px;margin-left:-7px;border-radius:7px;background:var(--surface);border:2.5px solid #003082}
-  .stn-name{position:absolute;bottom:12px;transform:translateX(-50%);white-space:nowrap;font-size:.72rem;font-weight:800;color:var(--blue-deep)}
-  .stn-name svg{width:11px;height:11px;margin-left:3px;vertical-align:-1px;fill:currentColor}
-  .train{position:absolute;display:flex;align-items:center;gap:2px;height:22px;padding:0 6px;white-space:nowrap;transform:translate(-50%,-50%);border-radius:7px;
-    background:var(--ns);color:#003082;border:1.5px solid #003082;font-size:.7rem;font-weight:900;letter-spacing:.01em;
-    box-shadow:0 3px 8px rgba(0,48,130,.25);transition:left 1s linear,opacity .6s ease}
-  .train.out{top:37px}.train.back{top:73px}
-  .train.waiting{animation:wait 1.6s ease-in-out infinite alternate}
-  @keyframes wait{to{box-shadow:0 0 0 5px rgba(255,201,23,.45)}}
-  .train b{position:absolute;top:-9px;right:-10px;padding:0 4px;border-radius:6px;background:#e8730c;color:#fff;font-size:.62rem;line-height:15px}
-  .train.gone{opacity:0}
-  .proof{margin:12px 2px 0;color:var(--muted);font-size:.9rem}
+  /* Header */
+  .top{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding-block:20px;position:relative;z-index:3}
+  .mark{display:flex;align-items:center;gap:10px;font:800 1.45rem/1 Bricolage,sans-serif;letter-spacing:-.025em;text-decoration:none;margin-right:auto}
+  .mark img{width:36px;height:36px;border-radius:9px}
+  .mark:hover{color:inherit}
+  .soon{font-weight:500;color:var(--text);margin-right:6px}
+  .chip{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:2px 14px;border-radius:999px;background:rgba(34,47,104,.86);font-weight:500;font-size:.94rem;color:var(--text)}
+  .chip::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--live)}
+  .chip.off::before{background:transparent;box-shadow:inset 0 0 0 2px var(--soft)}
+  .langs{display:flex;padding:3px;border-radius:999px;background:rgba(34,47,104,.86)}
+  .langs button{min-width:44px;min-height:44px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--soft);font:600 .94rem Onest,sans-serif;cursor:pointer}
+  .langs button:hover{color:var(--text)}
+  .langs button[aria-pressed="true"]{background:var(--text);color:var(--night)}
 
-  /* sections */
-  section{padding:72px 0}
-  h2{margin:0;font-weight:900;font-size:clamp(2rem,4.2vw,3rem);line-height:1.02;letter-spacing:-.04em;max-width:16em}
-  .section-lede{margin:14px 0 0;color:var(--muted);font-size:1.1rem;max-width:34em}
+  /* First screen */
+  .hero{min-height:min(100svh,900px)}
+  .hero .inner{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start;padding-top:clamp(20px,4vh,48px)}
+  h1{font-size:clamp(3.7rem,10.2vw,9rem);line-height:.93}
+  html[lang="en"] h1{font-size:clamp(3rem,7.4vw,6.8rem)}
+  .lede{font-size:clamp(1.15rem,1.6vw,1.4rem);line-height:1.42;margin:clamp(18px,2.6vw,32px) 0 clamp(20px,2.6vw,30px);max-width:30em;color:var(--text)}
+  .lede strong{font-weight:700}
+  .notify{display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:0 28px;border-radius:15px;background:var(--line);color:var(--night);font-weight:700;font-size:1.12rem;text-decoration:none;transition:background .16s ease-out,transform .16s ease-out}
+  .notify:hover{background:#ffd764;color:var(--night);transform:translateY(-1px)}
+  .notify:active{transform:none}
+  .note{margin-top:12px;font-size:.95rem;color:var(--soft);max-width:30em;text-wrap:pretty}
+  .phone{border-radius:clamp(38px,3.6vw,50px);box-shadow:0 0 0 1px rgba(255,255,255,.18),0 36px 70px -22px rgba(4,8,28,.85)}
+  .hero .phone{width:min(100%,340px);margin-left:auto}
+  .w-centraal{--x:calc(var(--gut) + 11px);--y:calc(100% - 62px)}
+  .w-a1{--x:40%;--y:calc(100% - 46px)}
+  .w-a2{--x:56%;--y:52%}
+  .w-b{--x:98%;--y:88%}
 
-  /* phones */
-  .big{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-top:48px;align-items:start}
-  .small{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:72px;padding-top:56px;border-top:1px solid var(--line)}
-  .shot h3{margin:24px 0 6px;font-size:1.3rem;font-weight:900;letter-spacing:-.02em}
-  .shot p{margin:0;color:var(--muted);font-size:.98rem}
-  .small .shot{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center}
-  .small .shot h3{margin-top:0;font-size:1.08rem}
-  .small .shot p{font-size:.92rem}
+  /* The live Sprinter */
+  .live{padding-top:clamp(60px,8vw,120px)}
+  .sheet{width:min(100%,760px);padding:clamp(22px,3vw,36px);border-radius:32px;background:rgba(60,74,112,.58);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 30px 60px -26px rgba(4,8,28,.8)}
+  .sheet-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+  .sheet h2{font-size:clamp(1.9rem,3.2vw,2.5rem);line-height:1.05;margin-right:auto}
+  .sheet .chip{background:rgba(16,25,61,.72)}
+  .board{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);margin-top:clamp(18px,2.6vw,30px)}
+  .board.off .facts{display:none}
+  .label{font-weight:500;color:var(--soft)}
+  .count{display:block;font:800 clamp(4.8rem,10vw,7.4rem)/1 Onest,sans-serif;letter-spacing:-.04em;font-variant-numeric:tabular-nums;font-feature-settings:"tnum";margin:2px 0 8px}
+  .count.small{font-size:clamp(4rem,8vw,5.8rem)}
+  .facts{list-style:none;padding:0;color:var(--soft)}
+  .facts b{color:var(--text);font-weight:600}
+  .facts .late{color:var(--line);font-weight:600}
+  .stops{list-style:none;padding:0;align-self:center}
+  .stops li{position:relative;display:grid;grid-template-columns:3.9em 18px 1fr;gap:12px;align-items:center;padding:6px 0;font-weight:500;font-variant-numeric:tabular-nums}
+  .stops time{color:var(--soft)}
+  .stops i{width:16px;height:16px;border-radius:50%;background:var(--deep);border:4px solid var(--line);position:relative;z-index:1}
+  .stops li:not(:last-child)::after{content:"";position:absolute;left:calc(3.9em + 19px);top:50%;height:100%;width:4px;background:var(--line)}
+  .proof{margin-top:16px;max-width:760px;color:var(--soft);font-size:1rem}
+  .w-slo{--x:83%;--y:46%}
+  .w-c{--x:96%;--y:88%}
 
-  /* iPhone 18 Pro, drawn: titanium edge, thin black bezel, side buttons. Swap for Apple's bezel PNG when available. */
-  .iphone{position:relative;aspect-ratio:1206/2622;border-radius:14%/6.5%;padding:1.9%;
-    background:linear-gradient(135deg,#9c9a96,#d9d7d2 18%,#7d7b77 34%,#c9c7c2 52%,#8a8884 72%,#d4d2cd 90%,#8f8d89);
-    box-shadow:0 30px 60px -20px rgba(25,19,23,.35),0 0 0 1px rgba(0,0,0,.25)}
-  .iphone:before{content:"";position:absolute;inset:.55%;border-radius:13.6%/6.3%;background:#0b0b0d}
-  .iphone img{position:relative;display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:12.4%/5.7%}
-  .iphone i{position:absolute;width:1.1%;border-radius:2px;background:linear-gradient(90deg,#6f6d69,#bdbbb6)}
-  .iphone .action{left:-.6%;top:18%;height:3.6%}
-  .iphone .vol1{left:-.6%;top:24.5%;height:6.6%}
-  .iphone .vol2{left:-.6%;top:32.5%;height:6.6%}
-  .iphone .power{right:-.6%;top:26%;height:10%}
-  .iphone .cam{right:-.6%;top:56%;height:7%}
+  /* Questions, answered by real screens */
+  .q{padding-top:var(--gap)}
+  .q h2{font-size:clamp(2.7rem,6vw,5.2rem);line-height:.98;margin-bottom:.32em}
+  .q p{font-size:clamp(1.12rem,1.5vw,1.3rem);line-height:1.45;max-width:25em;color:var(--text)}
+  .split{display:grid;align-items:center;gap:clamp(36px,6vw,90px)}
+  .one .split{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+  .w-d{--x:52%;--y:7%}
+  .w-e{--x:24%;--y:50%}
+  .w-f{--x:30%;--y:102%}
 
-  /* privacy */
-  .privacy{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:30px 32px;border-radius:24px;background:var(--blue-soft);color:var(--blue-deep)}
-  .privacy strong{display:block;font-size:1.5rem;font-weight:900;letter-spacing:-.025em;line-height:1.15}
-  .privacy p{margin:6px 0 0;color:var(--text);opacity:.8}
+  .two .split{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+  .one figure,.two figure{margin:0;border-radius:30px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 30px 60px -24px rgba(4,8,28,.85)}
+  .one figure img,.two figure img{width:100%}
+  .w-lely{--x:50%;--y:22%}
+  .w-g{--x:78%;--y:58%}
+  .w-h{--x:95%;--y:100%}
 
-  footer{margin-top:24px;padding:32px 0 56px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
-  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
-  .made{color:var(--text);font-weight:800;text-decoration:none}
-  .made b{font-weight:900;letter-spacing:-.02em}
-  .made:hover b{color:var(--blue)}
-  .contact{display:inline-block;margin-top:8px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
-  .contact:hover{color:var(--blue)}
-  .more{display:inline-block;margin-top:8px;margin-left:14px;color:var(--text);font-weight:700;text-decoration:none}
-  .more:hover{color:var(--blue)}
-  .sources{max-width:34em;margin:0}
+  .three .split{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+  .three .phone{width:min(100%,330px);justify-self:center}
+  .w-h2{--x:95%;--y:30%}
+  .w-i{--x:72%;--y:80%}
+  .w-schip{--x:12%;--y:101%}
 
-  @media (max-width:900px){
-    .hero{grid-template-columns:1fr;gap:36px;padding:28px 0 56px}
-    .board-col{order:-1}  /* on a phone the live trains come first */
-    .big{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-    .big .shot h3{font-size:1.05rem}.big .shot p{font-size:.85rem}
-    .small{grid-template-columns:1fr;gap:26px}
+  .pair{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(40px,6vw,96px);padding-top:var(--gap);align-items:end}
+  .pair h3{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1;margin-bottom:.35em}
+  .pair p{max-width:24em;font-size:1.15rem;line-height:1.45}
+  .pair .plan{width:min(100%,290px);margin-bottom:28px}
+  .pair .widget{border-radius:clamp(30px,4vw,54px);margin-bottom:28px;box-shadow:0 30px 60px -24px rgba(4,8,28,.85)}
+  .w-j{--x:50%;--y:60%}
+  .w-k{--x:96%;--y:100%}
+  .w-k2{display:none}
+
+  .big{padding-top:var(--gap)}
+  .big h2{font-size:clamp(3.6rem,12.4vw,11rem);line-height:.92}
+  .big p{margin-top:.8em;font-size:clamp(1.15rem,1.7vw,1.45rem);line-height:1.42;max-width:34em}
+  .w-l{--x:98%;--y:64%}
+
+  .close{padding-top:var(--gap)}
+  .close .ask{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:end;padding-bottom:clamp(50px,7vw,90px)}
+  .close h2{font-size:clamp(3rem,7vw,6rem);line-height:.98}
+  .close .cta{justify-self:end;padding-right:clamp(0px,7vw,110px)}
+  .w-hfd{--x:92%;--y:calc(var(--gap)*.62)}
+  .foot{border-top:1px solid rgba(201,210,238,.26);padding-block:24px 34px;font-size:.95rem;color:var(--soft)}
+  .links{display:flex;flex-wrap:wrap;gap:0 26px}
+  .links a{display:inline-flex;align-items:center;min-height:44px;color:var(--text)}
+  .links a:hover{color:var(--line)}
+  .credit{max-width:62em;margin-top:8px}
+
+  @media (max-width:1180px){.lede{max-width:23em}}
+  @media (max-width:820px){
+    .lede{max-width:none}
+    body{background-size:1400px auto;font-size:17px}
+    :root{--gut:38px;--gap:112px;--ph:250px}
+    .top{gap:8px;padding-block:14px}
+    .mark{font-size:1.2rem;gap:8px}.mark img{width:30px;height:30px}
+    .soon{font-size:.92rem;white-space:nowrap}
+    .opt{display:none}
+    .langs button{min-width:40px}
+    .hero{min-height:0}
+    .hero .inner{grid-template-columns:minmax(0,1fr);padding-top:14px}
+    h1{font-size:clamp(3.4rem,20.5vw,7rem)}
+    html[lang="en"] h1{font-size:clamp(2.6rem,13.6vw,6rem)}
+    .notify{width:100%}
+    .hero .phone{width:var(--ph);margin:44px auto 0}
+    .w-a1,.w-a2{display:none}
+    .w-centraal{--x:22px;--y:calc(100% - var(--ph)*2.174 - 18px)}
+    .w-b{--x:calc(100% - 12px);--y:calc(100% + 24px)}
+    .live{padding-top:92px}
+    .sheet{border-radius:26px}
+    .board{grid-template-columns:minmax(0,1fr)}
+    .w-slo{--x:calc(100% - 12px);--y:calc(100% + 44px)}
+    .w-c{display:none}
+    .one .split,.two .split{grid-template-columns:minmax(0,1fr)}
+    .one figure{order:2}
+    .w-d{--x:calc(100% - 12px);--y:88px}
+    .w-e{--x:calc(100% - 12px);--y:42%}
+    .w-f{--x:42%;--y:78%}
+    .w-lely{--x:12px;--y:44px}
+    .w-g{--x:12px;--y:42%}
+    .w-h{--x:calc(100% - 12px);--y:calc(100% + 36px)}
+    .three .split{grid-template-columns:minmax(0,1fr)}
+    .three .phone{width:var(--ph)}
+    .w-h2{--x:calc(100% - 12px);--y:44%}
+    .w-i{--x:72%;--y:84%}
+    .w-schip{--x:12px;--y:calc(100% + 56px)}
+    .pair{grid-template-columns:minmax(0,1fr);gap:64px}
+    .w-j{--x:50%;--y:18%}
+    .w-k{--x:calc(100% - 13px);--y:31%}
+    .w-k2{display:block;--x:calc(100% - 13px);--y:64%}
+    .w-l{--x:calc(100% - 13px);--y:80%}
+    .close .ask{grid-template-columns:minmax(0,1fr)}
+    .close .cta{padding:0;justify-self:stretch}
+    .w-hfd{--x:calc(100% - 12px);--y:48px}
+    .stn{font-size:.94rem}
+    .stn.up{flex-direction:row;align-items:center;gap:10px;transform:translate(-11px,-50%)}
+    .train{height:20px;padding:1px 4px 0;gap:2px;border-radius:5px;font-size:.66rem}
+    .train svg{width:6px;height:9px}
+    .train b{display:none}
   }
-  @media (max-width:620px){
-    .big{grid-template-columns:1fr;gap:56px;max-width:330px;margin-left:auto;margin-right:auto}
-    .small .shot{grid-template-columns:96px 1fr}
-    .pier{min-width:54px;height:56px}.pier b{font-size:1.45rem}
-    .stn-name{font-size:.64rem}
-    .stn-name svg{display:none}   /* room between Schiphol and Hoofddorp */
-    section{padding:56px 0}
-  }
-  @media (prefers-reduced-motion:reduce){.dot,.train.waiting{animation:none}.train{transition:none}html{scroll-behavior:auto}.button{transition:none}}
+  @media (max-width:372px){.mark img{display:none}}
+  @media (prefers-reduced-motion:reduce){.train{transition:none}.notify{transition:none}}
 </style>
 <script data-goatcounter="https://freycreates.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <a class="brand" href="./" aria-label="OVnow">
-      <img src="img/icon.png" alt="" width="44" height="44">
-      <span class="wordmark">OV<span>now</span></span>
-    </a>
-    <div class="lang-switch" role="group" aria-label="Taal / Language">
-      <button type="button" data-lang="nl" aria-pressed="true">NL</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-    </div>
-  </header>
-
-  <main>
-    <div class="hero">
+<div class="page" id="page">
+<svg id="route" aria-hidden="true"><path class="case"/><path class="run"/></svg>
+<div id="rail" aria-hidden="true"></div>
+<main>
+  <section class="hero">
+    <div class="inner">
+      <header class="top">
+        <a class="mark" href="./" aria-label="OVnow"><img src="img/icon-180.png" alt="" width="36" height="36">OVnow</a>
+        <span class="soon"><span data-i18n="soon">Binnenkort</span><span class="opt"> <span data-i18n="soon2">op iPhone</span></span></span>
+        <div class="langs" role="group" aria-label="Taal / Language">
+          <button type="button" data-lang="nl" aria-pressed="true">NL</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </header>
       <div>
-        <h1 data-i18n-html="title">OV weer <em>simpel.</em></h1>
-        <p class="lede" data-i18n-html="lede">Elke bus, tram, metro, trein en pont, live. Zonder rommel. Gewoon wat je <strong>nú</strong> nodig hebt.</p>
-        <div class="actions">
-          <!-- Shown once the TestFlight link exists: remove "hidden" and fill in href -->
-          <a class="button primary" id="testflight" href="#" hidden data-goatcounter-click="testflight">
-            <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>
-            <span data-i18n="testflight">Test OVnow op je iPhone</span>
-          </a>
-          <span class="button primary soon" id="soon">
-            <svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
-            <span data-i18n="soon">Binnenkort op iPhone</span>
-          </span>
-          <a class="button" href="privacy.html" data-goatcounter-click="privacy-hero">
-            <svg viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4 3 7 7 9 4-2 7-5 7-9V6z"/></svg>
-            <span data-i18n="privacyBtn">Privacy</span>
-          </a>
-        </div>
-        <p class="free" data-i18n="free">Geen account nodig.</p>
+        <h1 data-i18n-html="title">OV weer<br>simpel.</h1>
+        <p class="lede" data-i18n-html="lede">Elke bus, tram, metro, trein en pont in Nederland, live op je iPhone. Je ziet wat <strong>nu</strong> vertrekt en waar het is.</p>
+        <!-- Shown once the TestFlight link exists: remove "hidden" and fill in href -->
+        <a class="notify" id="testflight" href="#" hidden data-goatcounter-click="testflight" data-i18n="testflight">Test OVnow op je iPhone</a>
+        <a class="notify" data-mail href="mailto:ovnu.app@icloud.com?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-top" data-i18n="notify">Mail me als hij er is</a>
+        <p class="note" data-i18n="note">Opent je eigen mailapp.</p>
       </div>
+      <img class="phone" id="through" src="img/shot-map.jpg" alt="" data-i18n-alt="a2" width="552" height="1200" fetchpriority="high">
+    </div>
+    <i class="w-centraal" data-way data-st="0" data-name="Centraal" data-lab="up"></i>
+    <i class="w-a1" data-way></i><i class="w-a2" data-way></i>
+    <i data-phone></i>
+    <i class="w-b" data-way></i>
+  </section>
 
-      <div class="board-col">
-        <div class="board">
-          <div class="board-top" aria-live="polite">
-            <div class="board-head"><span class="dot" id="dot"></span><span id="status" data-i18n="statusLive">Live vanaf Amsterdam Centraal</span></div>
-            <div class="pier"><span data-i18n="track">Spoor</span><b id="pier">11a</b></div>
-            <p class="board-label" data-i18n="leaves">Vertrekt over</p>
-            <div class="count" id="count">–:––</div>
-            <div class="ride">
-              <span class="badge">SPR</span>
-              <span><span data-i18n="toHfd">naar Hoofddorp via Schiphol</span> <small id="time"></small></span>
-            </div>
-            <p class="then" id="then"></p>
-          </div>
-          <div class="rails" id="rails" role="img" data-i18n-aria="railsAria" aria-label="De Sprinter tussen Amsterdam Centraal en Hoofddorp, met elke trein waar hij nu is">
-            <div class="rail out"></div><div class="rail back"></div>
-          </div>
+  <section class="live">
+    <div class="inner">
+      <div class="sheet">
+        <div class="sheet-top">
+          <h2 data-i18n="liveTitle">De Sprinter, nu</h2>
+          <span class="chip off" id="status">live</span>
         </div>
-        <p class="proof" id="proof" data-i18n="proof">Dit is geen voorbeeld. Deze treinen rijden echt.</p>
+        <div class="board" id="board">
+          <div class="now">
+            <p class="label" id="leaves" data-i18n="leaves">Vertrekt over</p>
+            <span class="count" id="count">–:––</span>
+            <ul class="facts">
+              <li><b data-i18n="toHfd">Naar Hoofddorp</b></li>
+              <li id="platform"><span data-i18n="track">Spoor</span> <span id="pier"></span> <span id="time"></span></li>
+              <li id="then"></li>
+            </ul>
+          </div>
+          <ol class="stops" id="stops"></ol>
+        </div>
+      </div>
+      <p class="proof" id="proof"></p>
+    </div>
+    <i class="w-slo" data-way data-st="1" data-name="Sloterdijk" data-lab="flip"></i>
+    <i class="w-c" data-way></i>
+  </section>
+
+  <section class="q one">
+    <div class="inner split">
+      <figure><img src="img/shot-sheet.jpg" alt="" data-i18n-alt="a1" width="524" height="486" loading="lazy"></figure>
+      <div>
+        <h2 data-i18n="f1t">Hoe lang nog?</h2>
+        <p data-i18n="f1p">Een grote countdown, het perron of de steiger, en of je het haalt met je looptijd erbij.</p>
       </div>
     </div>
+    <i class="w-d" data-way></i><i class="w-e" data-way></i><i class="w-f" data-way></i>
+  </section>
 
-    <section>
-      <h2 data-i18n="howTitle">Hoe lang nog. Waar is hij. Onderweg.</h2>
-      <p class="section-lede" data-i18n="howLede">Drie vragen, drie schermen. Meer heb je niet nodig om de deur uit te gaan.</p>
-
-      <div class="big">
-        <div class="shot">
-          <div class="iphone"><i class="action"></i><i class="vol1"></i><i class="vol2"></i><i class="power"></i><i class="cam"></i>
-            <img src="img/shot-countdown.png" alt="" data-i18n-alt="a1" width="600" height="1305" loading="lazy"></div>
-          <h3 data-i18n="f1t">Hoe lang nog?</h3>
-          <p data-i18n="f1p">Een grote countdown, het perron of de steiger, en of je het haalt met je looptijd erbij.</p>
-        </div>
-        <div class="shot">
-          <div class="iphone"><i class="action"></i><i class="vol1"></i><i class="vol2"></i><i class="power"></i><i class="cam"></i>
-            <img src="img/shot-map.png" alt="" data-i18n-alt="a2" width="600" height="1305" loading="lazy"></div>
-          <h3 data-i18n="f2t">Waar is hij?</h3>
-          <p data-i18n="f2p">Elke bus, tram, metro, trein en pont live op de kaart. Tik op een lijn en je ziet alleen die.</p>
-        </div>
-        <div class="shot">
-          <div class="iphone"><i class="action"></i><i class="vol1"></i><i class="vol2"></i><i class="power"></i><i class="cam"></i>
-            <img src="img/shot-live.png" alt="" data-i18n-alt="a3" width="600" height="1305" loading="lazy"></div>
-          <h3 data-i18n="f3t">Onderweg</h3>
-          <p data-i18n="f3p">Druk op Go en je reis loopt mee op je toegangsscherm: wanneer je vertrekt, waar je overstapt.</p>
-        </div>
+  <section class="q two">
+    <div class="inner split">
+      <div>
+        <h2 data-i18n="f2t">Waar is hij?</h2>
+        <p data-i18n="f2p">Elke bus, tram, metro, trein en pont live op de kaart. Tik op een lijn en je ziet alleen die.</p>
       </div>
+      <figure><img src="img/shot-vehicles.jpg" alt="" data-i18n-alt="a4" width="552" height="495" loading="lazy"></figure>
+    </div>
+    <i class="w-lely" data-way data-st="2" data-name="Lelylaan"></i><i class="w-g" data-way></i><i class="w-h" data-way></i>
+  </section>
 
-      <div class="small">
-        <div class="shot">
-          <div class="iphone"><i class="action"></i><i class="vol1"></i><i class="vol2"></i><i class="power"></i><i class="cam"></i>
-            <img src="img/shot-plan.png" alt="" data-i18n-alt="a4" width="600" height="1305" loading="lazy"></div>
-          <div><h3 data-i18n="f4t">Plannen, of gewoon naar huis</h3>
-          <p data-i18n="f4p">Metro 52 naar Vijzelgracht, dan tram 19 naar het Leidseplein. Of één tik: Breng me naar huis.</p></div>
-        </div>
-        <div class="shot">
-          <div class="iphone"><i class="action"></i><i class="vol1"></i><i class="vol2"></i><i class="power"></i><i class="cam"></i>
-            <img src="img/shot-widgets.png" alt="" data-i18n-alt="a5" width="600" height="1305" loading="lazy"></div>
-          <div><h3 data-i18n="f5t">Je vaste route</h3>
-          <p data-i18n="f5p">Alle trams, metro's, bussen, treinen of ponten, in één lijst. Ook als widget.</p></div>
-        </div>
-        <div class="shot">
-          <div class="iphone"><i class="action"></i><i class="vol1"></i><i class="vol2"></i><i class="power"></i><i class="cam"></i>
-            <img src="img/shot-lock.png" alt="" data-i18n-alt="a6" width="600" height="1305" loading="lazy"></div>
-          <div><h3 data-i18n="f6t">Op je toegangsscherm</h3>
-          <p data-i18n="f6p">Je volgende trein, metro, tram, bus of pont. Inclusief spoor of halte, zonder je telefoon te openen. Live!</p></div>
-        </div>
+  <section class="q three">
+    <div class="inner split">
+      <div>
+        <h2 data-i18n="f3t">Onderweg</h2>
+        <p data-i18n="f3p">Druk op Go en je reis loopt mee op je toegangsscherm: wanneer je vertrekt en waar je overstapt, zonder je telefoon te openen.</p>
       </div>
-    </section>
+      <img class="phone" src="img/shot-live.jpg" alt="" data-i18n-alt="a3" width="552" height="1200" loading="lazy">
+    </div>
+    <i class="w-h2" data-way></i><i class="w-i" data-way></i><i class="w-schip" data-way data-st="3" data-name="Schiphol"></i>
+  </section>
 
-    <section>
-      <div class="privacy">
-        <div>
-          <strong data-i18n="privTitle">Geen account. Geen tracking.</strong>
-          <p data-i18n="privText">Je locatie wordt alleen gebruikt om haltes en routes te vinden, en nergens bewaard. Je favorieten staan in je eigen iCloud.</p>
-        </div>
-        <a class="button" href="privacy.html" data-i18n="privLink">Lees de privacyverklaring</a>
+  <section>
+    <div class="inner pair">
+      <div>
+        <img class="phone plan" src="img/shot-plan.jpg" alt="" data-i18n-alt="a5" width="552" height="1200" loading="lazy">
+        <h3 data-i18n="f4t">Of gewoon naar huis</h3>
+        <p data-i18n="f4p">Plan je reis, of tik één keer op Breng me naar huis.</p>
       </div>
-    </section>
-  </main>
+      <div>
+        <img class="widget" src="img/shot-widget.jpg" alt="" data-i18n-alt="a6" width="480" height="225" loading="lazy">
+        <h3 data-i18n="f5t">Je vaste route</h3>
+        <p data-i18n="f5p">Alle trams, metro's, bussen, treinen of ponten in één lijst. Ook als widget.</p>
+      </div>
+    </div>
+    <i class="w-j" data-way></i><i class="w-k" data-way></i><i class="w-k2" data-way></i>
+  </section>
 
-  <footer>
+  <section class="big">
+    <div class="inner">
+      <h2 data-i18n="f7t">Zonder rommel</h2>
+      <p data-i18n="f7p">Geen account nodig. Je locatie gebruiken we alleen om haltes en routes te vinden, en we bewaren hem nergens. Je favorieten staan op je iPhone.</p>
+    </div>
+    <i class="w-l" data-way></i>
+  </section>
+</main>
+
+<footer class="close">
+  <div class="inner">
+    <div class="ask">
+      <h2 data-i18n="endTitle">Bijna op je iPhone.</h2>
+      <div class="cta"><a class="notify" data-mail href="mailto:ovnu.app@icloud.com?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-end" data-i18n="notify">Mail me als hij er is</a></div>
+    </div>
     <div class="foot">
-      <div>
-        <a class="made" href="https://freycreates.nl"><span data-i18n="made">Gemaakt door</span> <b>FREYcreates</b></a>
-        <br>
-        <a class="contact" href="mailto:ovnu.app@icloud.com" data-i18n="contact" data-goatcounter-click="mail">Vragen of feedback?</a>
-        <a class="more" href="https://freycreates.nl" data-i18n="more">Meer van FREYcreates →</a>
+      <div class="links">
+        <a href="privacy.html" data-goatcounter-click="privacy" data-i18n="privLink">Privacy</a>
+        <a href="mailto:ovnu.app@icloud.com" data-goatcounter-click="mail" data-i18n="contact">Vragen of feedback?</a>
+        <a href="https://freycreates.nl"><span data-i18n="made">Gemaakt door</span>&nbsp;FREYcreates</a>
       </div>
-      <p class="sources" data-i18n-html="sources">Live data van <a href="https://ndovloket.nl">NDOV Loket</a> en <a href="https://ovapi.nl">OVapi</a>. Reisplanner door <a href="https://transitous.org">Transitous</a>, looppaden © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers. Kaarten van Apple.</p>
+      <p class="credit" data-i18n-html="sources">Live data van <a href="https://ndovloket.nl">NDOV Loket</a> en <a href="https://ovapi.nl">OVapi</a>. Reisplanner door <a href="https://transitous.org">Transitous</a>, kaart en looppaden © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers.</p>
     </div>
-  </footer>
+  </div>
+  <i class="w-hfd" data-way data-st="4" data-name="Hoofddorp" data-lab="flip"></i>
+</footer>
 </div>
-
 <script>
 const T = {
   en: {
-    title: 'Public transport, <em>simple</em> again.',
-    lede: "Every bus, tram, metro, train and ferry, live. No clutter. Just what you need, <strong>now</strong>.",
-    testflight: "Test OVnow on your iPhone", soon: "Coming soon to iPhone", privacyBtn: "Privacy",
-    free: "No account needed.",
-    statusLive: "Live from Amsterdam Centraal", statusTimetable: "Timetable, Amsterdam Centraal",
-    track: "Track", leaves: "Leaves in", toHfd: "to Hoofddorp via Schiphol", now: "now", then: "Then",
-    proof: "This isn't a demo. These trains are really running.",
-    proofTimetable: "Following the timetable right now; live again in a moment.",
+    title: "Transit,<br>simple again.", soon: "Coming soon", soon2: "to iPhone",
+    lede: "Every bus, tram, metro, train and ferry in the Netherlands, live on your iPhone. See what's leaving <strong>now</strong> and where it is.",
+    testflight: "Test OVnow on your iPhone", notify: "Email me when it's out", note: "Opens your own mail app.",
+    liveTitle: "The Sprinter, now", statusLive: "live", statusTimetable: "timetable", statusQuiet: "quiet", statusExample: "example",
+    proofExample: "This is an example of the line, not real trips.", exampleTitle: "The Sprinter", ride: "Centraal to Hoofddorp, about",
+    track: "Platform", leaves: "Leaves in", first: "First Sprinter at", toHfd: "To Hoofddorp", now: "now", then: "Then",
+    proof: "From Amsterdam Centraal. Real trains, live.",
+    proofQuiet: "No Sprinter on this stretch right now.",
+    proofTimetable: "Showing the timetable for now. Live data will be back shortly.",
     railsAria: "The Sprinter between Amsterdam Centraal and Hoofddorp, with every train where it is now",
-    night: "No more Sprinters tonight", nightThen: "They run again from early morning.", late: "min late",
-    howTitle: "How long. Where is it. On the way.",
-    howLede: "Three questions, three screens. All you need to walk out the door.",
+    night: "No more Sprinters tonight.", late: "min late",
     f1t: "How long?", f1p: "A big countdown, the platform or pier, and whether you'll make it with your walk included.",
     f2t: "Where is it?", f2p: "Every bus, tram, metro, train and ferry live on the map. Tap a line to see only that one.",
-    f3t: "On the way", f3p: "Press Go and your journey follows along on your Lock Screen: when to leave, where to change.",
-    f4t: "Plan, or just go home", f4p: "Metro 52 to Vijzelgracht, then tram 19 to Leidseplein. Or one tap: Get me home.",
-    f5t: "Your daily route", f5p: "Every tram, metro, bus, train or ferry, in one list. On your Home Screen too.",
-    f6t: "On your Lock Screen", f6p: "Your next train, metro, tram, bus or ferry. Track or stop included, without opening your phone. Live!",
-    a1: "OVnow: the F3 ferry leaves in 4:24 from pier D", a2: "OVnow map in dark mode: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal, next stop Sloterdijk",
+    f3t: "On the way", f3p: "Press Go and your journey follows along on your Lock Screen: when to leave and where to change, without opening your phone.",
+    f4t: "Or just go home", f4p: "Plan a journey, or tap once on Get me home.",
+    f5t: "Your daily route", f5p: "Every tram, metro, bus, train or ferry in one list. On your Home Screen too.",
+    f7t: "No clutter", f7p: "No account needed. Your location is only used to find stops and routes, and is never stored. Your favourites stay on your iPhone.",
+    endTitle: "Nearly on your iPhone.",
+    a1: "OVnow: the F3 ferry leaves in 4:24 from pier D", a2: "OVnow night map: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal", a4: "OVnow map around Amsterdam Centraal with 28 live vehicles", a5: "OVnow planner from Centraal Station to Leidseplein", a6: "OVnow widget with the next tram from Centraal Station to Leidseplein",
     a3: "Lock Screen with an OVnow journey: walk to Centraal Station, tram 2 leaves 22:50 from platform B2",
-    a4: "Planning Centraal Station to Leidseplein: metro 52 and tram 19, or tram 2 direct", a5: "Home screen with two OVnow widgets for the daily route Centraal Station to Leidseplein: trams 2, 17 and 24",
-    a6: "Lock Screen widgets: the F3 ferry in 1:50 from platform D at Centraal Station",
-    privTitle: "No account. No tracking.", privText: "Your location is only used to find stops and routes, and is never stored. Your favourites live in your own iCloud.",
-    privLink: "Read the privacy statement", made: "Made by", contact: "Questions or feedback?", more: "More from FREYcreates →",
-    sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Maps by Apple.'
+    privLink: "Privacy", made: "Made by", contact: "Questions or feedback?",
+    sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, map and walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.',
+    mailSubject: "Let me know when OVnow is out", mailBody: "Please email me when OVnow is available."
   },
   nl: {
-    statusTimetable: "Dienstregeling, Amsterdam Centraal", now: "nu", then: "Daarna",
-    night: "Vannacht geen Sprinters meer", nightThen: "Vanaf de vroege ochtend rijden ze weer.", late: "min later",
-    proofTimetable: "Even volgens de dienstregeling; zo weer live.",
-    a1: "OVnow: de F3-pont vertrekt over 4:24 van steiger D", a2: "OVnow-kaart in donkere modus: Sprinter 8285 naar Hoofddorp is net vertrokken van Amsterdam Centraal, volgende halte Sloterdijk",
+    statusLive: "live", statusTimetable: "dienstregeling", statusQuiet: "rustig", statusExample: "voorbeeld",
+    proofExample: "Dit is een voorbeeld van de lijn, geen echte ritten.", exampleTitle: "De Sprinter", ride: "Van Centraal naar Hoofddorp, ongeveer", first: "Eerste Sprinter om", now: "nu", then: "Daarna",
+    proof: "Vanaf Amsterdam Centraal. Echte treinen, live.",
+    proofQuiet: "Op dit stuk rijdt nu even geen Sprinter.",
+    proofTimetable: "Even volgens de dienstregeling. De live data komt zo terug.",
+    night: "Vannacht geen Sprinters meer.", late: "min later",
+    a1: "OVnow: de F3-pont vertrekt over 4:24 van steiger D", a2: "OVnow-nachtkaart: Sprinter 8285 naar Hoofddorp is net vertrokken van Amsterdam Centraal", a4: "OVnow-kaart rond Amsterdam Centraal met 28 live voertuigen", a5: "OVnow-reisplanner van Centraal Station naar Leidseplein", a6: "OVnow-widget met de volgende tram van Centraal Station naar Leidseplein",
     a3: "Toegangsscherm met een OVnow-reis: loop naar Centraal Station, tram 2 vertrekt 22:50 van perron B2",
-    a4: "Reis plannen van Centraal Station naar Leidseplein: metro 52 en tram 19, of direct met tram 2", a5: "Beginscherm met twee OVnow-widgets voor de vaste route Centraal Station naar Leidseplein: trams 2, 17 en 24",
-    a6: "Toegangsscherm-widgets: de F3-pont over 1:50 van perron D bij Centraal Station"
+    mailSubject: "Laat me weten wanneer OVnow er is", mailBody: "Mail me graag als OVnow beschikbaar is."
   }
 };
 // Dutch is written in the page itself; keep it so switching back works
@@ -375,31 +433,103 @@ function setLang(l) {
   document.querySelectorAll("[data-i18n-html]").forEach(e => { if (T[l][e.dataset.i18nHtml]) e.innerHTML = T[l][e.dataset.i18nHtml]; });
   document.querySelectorAll("[data-i18n-alt]").forEach(e => { e.alt = T[l][e.dataset.i18nAlt] || ""; });
   document.querySelectorAll("[data-i18n-aria]").forEach(e => { if (T[l][e.dataset.i18nAria]) e.setAttribute("aria-label", T[l][e.dataset.i18nAria]); });
-  document.querySelectorAll(".lang-switch button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
+  document.querySelectorAll("[data-mail]").forEach(e => { e.href = `mailto:ovnu.app@icloud.com?subject=${encodeURIComponent(T[l].mailSubject)}&body=${encodeURIComponent(T[l].mailBody)}`; });
+  document.querySelectorAll(".langs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
   try { localStorage.setItem("ovnu-lang", l); } catch (e) {}
   render();
 }
-document.querySelectorAll(".lang-switch button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+document.querySelectorAll(".langs button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 
 // ---- the live Sprinter: Amsterdam Centraal, Sloterdijk, Lelylaan, Schiphol Airport, Hoofddorp ----
 const API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? "" : "https://92-5-225-92.sslip.io";
-const PLANE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>';
 // Where each station sits on the drawing (0 = Centraal, 1 = Hoofddorp): roughly by running time, with room for the names
 const STATIONS = [
   {id: "stoparea:18188", name: "Centraal", x: 0},
-  {id: "stoparea:18177", name: "Sloterdijk", x: .25},
-  {id: "stoparea:18184", name: "Lelylaan", x: .45},
-  {id: "stoparea:165460", name: "Schiphol" + PLANE, x: .78},
+  {id: "stoparea:18177", name: "Sloterdijk", x: .23},
+  {id: "stoparea:18184", name: "Lelylaan", x: .47},
+  {id: "stoparea:165460", name: "Schiphol", x: .74},
   {id: "stoparea:18104", name: "Hoofddorp", x: 1},
 ];
+const RUN = [0, 5, 9, 18, 22];   // usual minutes from Centraal
 const AT = Object.fromEntries(STATIONS.map(s => [s.id, s.x]));
-let trips = [], live = false, skew = 0;
+let trips = [], live = false, skew = 0, example = false;
+const CHEV = d => `<svg viewBox="0 0 7 11" aria-hidden="true"><path d="${d ? "M6 1 1.5 5.5 6 10" : "M1 1l4.5 4.5L1 10"}"/></svg>`;
 
-const rails = document.getElementById("rails");
-const xpos = x => `calc(var(--pad) + (100% - 2 * var(--pad)) * ${x.toFixed(4)})`;
-for (const s of STATIONS) {
-  const d = document.createElement("i"); d.className = "stn"; d.style.left = xpos(s.x); rails.append(d);
-  const n = document.createElement("span"); n.className = "stn-name"; n.innerHTML = s.name; n.style.left = xpos(s.x); rails.append(n);
+const rail = document.getElementById("rail"), route = document.getElementById("route"), page = document.getElementById("page");
+const [casing, run] = route.querySelectorAll("path");
+const stopLen = [];   // how far along the route each station sits, in px
+
+/** Draw the route through every waypoint in the page, and through the hero phone along the screenshot's own yellow line */
+function buildRoute() {
+  const o = page.getBoundingClientRect(), pts = [], stations = [];
+  if (!o.width) return;   // nothing to measure yet, for example in a hidden tab
+  const at = e => { const r = e.getBoundingClientRect(); return [r.left - o.left, r.top - o.top]; };
+  for (const e of page.querySelectorAll("[data-way],[data-phone]")) {
+    if (getComputedStyle(e).display === "none") continue;
+    if ("phone" in e.dataset) {
+      const r = document.getElementById("through").getBoundingClientRect();
+      const lx = r.left - o.left, rx = r.right - o.left, top = r.top - o.top;
+      // Where the screenshot's own line meets each edge, and how steeply, measured off the image
+      const ly = top + r.height * .1865, ry = top + r.height * .4654, sl = .4, sr = .55;
+      const small = innerWidth <= 820, reach = small ? 30 : lx * .22, leave = small ? 34 : 80;
+      const L = [lx, ly], R = [rx, ry];
+      L.in = [lx - reach, ly - reach * sl];     // the arc comes down onto the screenshot's line
+      R.out = [rx + leave, ry + leave * sr];    // and leaves along it
+      const A = pts[pts.length - 1], Z = pts[pts.length - 2];
+      if (Z) {   // keep the bend before the phone even, so the arc has no knuckle
+        const dx = L[0] - Z[0], dy = L[1] - Z[1], n = Math.hypot(dx, dy) || 1;
+        const a = Math.hypot(A[0] - Z[0], A[1] - Z[1]) * .34, b = Math.hypot(L[0] - A[0], L[1] - A[1]) * .34;
+        A.in = [A[0] - dx / n * a, A[1] - dy / n * a]; A.out = [A[0] + dx / n * b, A[1] + dy / n * b];
+      }
+      pts.push(L, R);
+    } else {
+      if (e.dataset.st) stations.push({i: pts.length, name: e.dataset.name, st: +e.dataset.st, lab: e.dataset.lab || ""});
+      pts.push(at(e));
+    }
+  }
+  const seg = i => {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2, span = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]);
+    // Handles never reach further than the stretch they belong to, so a short step next to a long one can't hook
+    const handle = (a, b) => { const x = (b[0] - a[0]) / 6, y = (b[1] - a[1]) / 6, k = Math.min(1, span * .4 / (Math.hypot(x, y) || 1)); return [x * k, y * k]; };
+    const h1 = handle(p0, p2), h2 = handle(p1, p3);
+    const c1 = p1.out || [p1[0] + h1[0], p1[1] + h1[1]], c2 = p2.in || [p2[0] - h2[0], p2[1] - h2[1]];
+    return `C${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+  };
+  let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+  rail.querySelectorAll(".stn").forEach(e => e.remove());
+  for (let i = 0; i < pts.length; i++) {
+    const s = stations.find(s => s.i === i);
+    if (s) {
+      casing.setAttribute("d", d);
+      stopLen[s.st] = i ? casing.getTotalLength() : 0;
+      const n = document.createElement("span");
+      n.className = "stn " + s.lab;
+      n.style.left = pts[i][0] + "px"; n.style.top = pts[i][1] + "px";
+      n.dataset.st = s.st;
+      n.innerHTML = `<i></i><span>${s.name}<em></em></span>`;
+      rail.append(n);
+    }
+    if (i < pts.length - 1) d += seg(i);
+  }
+  casing.setAttribute("d", d); run.setAttribute("d", d);
+  rail.querySelectorAll(".train").forEach(m => { m.dataset.x && moveTrain(m, +m.dataset.x, m.classList.contains("back"), false); });
+}
+
+/** A place on the line (0..1) to a point on the drawn route, beside the line for its direction */
+function moveTrain(m, x, back, glide = true) {
+  if (!stopLen[4]) return;
+  let i = 0;
+  while (i < STATIONS.length - 2 && x > STATIONS[i + 1].x) i++;
+  const a = STATIONS[i], b = STATIONS[i + 1], len = stopLen[i] + (stopLen[i + 1] - stopLen[i]) * (x - a.x) / (b.x - a.x);
+  const atStop = STATIONS.some(s => Math.abs(s.x - x) < .012);   // stand clear of the ring and its name, along the line
+  const at = atStop ? len + (x > .9 ? -46 : 46) : len;
+  const p = run.getPointAtLength(at), q = run.getPointAtLength(at + 2);
+  const dx = q.x - p.x, dy = q.y - p.y, h = Math.hypot(dx, dy) || 1, off = innerWidth <= 820 ? 0 : back ? -17 : 17;
+  if (!glide) m.style.transition = "none";
+  const small = innerWidth <= 820, edge = small ? 20 : 30;
+  const cx = Math.min(Math.max(p.x - dy / h * off, edge), rail.clientWidth - edge);
+  m.style.transform = `translate(${cx.toFixed(1)}px,${(p.y + dx / h * off).toFixed(1)}px) translate(-50%,-50%)`;
+  if (!glide) requestAnimationFrame(() => m.style.transition = "");
 }
 
 async function load() {
@@ -410,9 +540,9 @@ async function load() {
     trips = d.trips.map(t => ({id: t.t + t.dt, n: t.n, dir: t.dir,
       stops: t.stops.filter(s => s.area in AT).map(s => ({x: AT[s.area], a: s.a, d: s.d, late: s.late, plat: s.plat}))}))
       .filter(t => t.stops.length > 1);
-    live = d.trips.some(t => t.stops.some(s => s.live));
+    live = d.trips.some(t => t.stops.some(s => s.live)); example = false;
   } catch (e) {
-    trips = timetable(); live = false;   // no answer: the timetable rhythm, clearly labelled as such
+    trips = timetable(); live = false; example = true;   // no answer: the usual rhythm, labelled as an example, never as real departures
   }
   render();
 }
@@ -421,7 +551,7 @@ async function load() {
 function timetable() {
   const now = Date.now() / 1000, hour = Math.floor(now / 3600) * 3600;
   const h = new Date().getHours(), mins = h >= 21 || h < 6 ? [5, 18, 35, 48] : [5, 13, 18, 26, 35, 43, 48, 56];
-  const run = [0, 5, 9, 18, 22], out = [];
+  const run = RUN, out = [];
   for (const k of [-1, 0, 1]) for (const m of mins) for (const dir of [0, 1]) {
     const t0 = hour + k * 3600 + (m + dir * 4) * 60;
     const xs = dir ? [...STATIONS].reverse() : STATIONS;
@@ -444,29 +574,10 @@ function place(t, now) {
 }
 
 const fmt = t => new Date(t * 1000).toLocaleTimeString(lang === "nl" ? "nl-NL" : "en-GB", {hour: "2-digit", minute: "2-digit"});
+const $ = id => document.getElementById(id);
 
 function render() {
   const now = Date.now() / 1000 + skew;
-  document.getElementById("dot").classList.toggle("off", !live);
-  document.getElementById("status").textContent = T[lang][live ? "statusLive" : "statusTimetable"];
-  document.getElementById("proof").textContent = T[lang][live ? "proof" : "proofTimetable"];
-
-  // The countdown: the next Sprinter leaving Centraal for Hoofddorp
-  const leaving = trips.filter(t => t.dir === 0 && t.stops[0].d > now - 30).sort((a, b) => a.stops[0].d - b.stops[0].d);
-  const el = document.getElementById("count");
-  if (!leaving.length) {
-    el.textContent = "–:––"; el.className = "count";
-    document.getElementById("time").textContent = "";
-    document.getElementById("then").textContent = trips.length ? "" : `${T[lang].night}. ${T[lang].nightThen}`;
-  } else {
-    const nx = leaving[0], left = Math.max(0, Math.ceil(nx.stops[0].d - now)), late = Math.round((nx.stops[0].late || 0) / 60);
-    el.textContent = left <= 0 ? T[lang].now : `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
-    el.className = "count" + (left <= 30 ? " now" : left < 120 ? " soon" : "");
-    document.getElementById("time").innerHTML = "· " + fmt(nx.stops[0].d) + (late > 0 ? ` <span class="late">+${late} ${T[lang].late}</span>` : "")
-      + (nx.n ? ` <span class="num">· ${nx.n}</span>` : "");
-    if (nx.stops[0].plat) document.getElementById("pier").textContent = nx.stops[0].plat;
-    document.getElementById("then").textContent = leaving[1] ? `${T[lang].then}: ${fmt(leaving[1].stops[0].d)}` + (leaving[2] ? `, ${fmt(leaving[2].stops[0].d)}` : "") : "";
-  }
 
   // The line: one marker per train, kept between updates so it glides
   const seen = new Set();
@@ -474,29 +585,102 @@ function render() {
     const p = place(t, now);
     if (!p) continue;
     seen.add(t.id);
-    let m = rails.querySelector(`[data-id="${t.id}"]`);
+    let m = rail.querySelector(`[data-id="${t.id}"]`), fresh = false;
     if (!m) {
       m = document.createElement("span");
       m.dataset.id = t.id;
       m.className = "train " + (t.dir ? "back" : "out");
-      rails.append(m);
+      rail.append(m);
+      fresh = true;
     }
     const late = Math.round(Math.max(0, ...t.stops.filter(s => s.a >= now - 60).map(s => s.late || 0), 0) / 60);
-    const html = (t.dir ? "‹ SPR" : "SPR ›") + (late > 0 ? `<b>+${late}</b>` : "");
+    const html = (t.dir ? CHEV(1) + '<span class="t">SPR</span>' : '<span class="t">SPR</span>' + CHEV(0)) + (late > 0 ? `<b>+${late}</b>` : "");
     if (m.innerHTML !== html) m.innerHTML = html;
     m.classList.toggle("waiting", !!p.waiting);
     m.classList.remove("gone");
-    m.style.left = xpos(p.x);
+    m.dataset.x = p.x;
+    moveTrain(m, p.x, !!t.dir, !fresh);
     m.title = (t.n ? `${t.n} ` : "") + (t.dir ? "→ Amsterdam Centraal" : "→ Hoofddorp");
   }
-  rails.querySelectorAll(".train").forEach(m => {
+  rail.querySelectorAll(".train").forEach(m => {
     if (!seen.has(m.dataset.id)) { m.classList.add("gone"); setTimeout(() => !seen.has(m.dataset.id) && m.remove(), 700); }
   });
-  if (leaving.length && leaving[0].stops[0].d - now <= -30) load();
+
+  // Only say live when a train is actually on the line
+  const onLine = seen.size > 0, tag = $("status");
+  rail.classList.toggle("example", example);
+  tag.textContent = T[lang][example ? "statusExample" : live ? (onLine ? "statusLive" : "statusQuiet") : "statusTimetable"];
+  tag.classList.toggle("off", !(live && onLine));
+  $("proof").textContent = T[lang][example ? "proofExample" : !live ? "proofTimetable" : onLine ? "proof" : "proofQuiet"];
+
+  // The countdown: the next Sprinter leaving Centraal for Hoofddorp
+  const leaving = trips.filter(t => t.dir === 0 && t.stops[0].d > now - 30).sort((a, b) => a.stops[0].d - b.stops[0].d);
+  const el = $("count");
+  $("board").classList.toggle("off", example);
+  document.querySelector('[data-i18n="liveTitle"]').textContent = T[lang][example ? "exampleTitle" : "liveTitle"];
+  rail.querySelectorAll(".stn").forEach(n => {
+    const em = n.querySelector("em"), st = +n.dataset.st, c = !example && leaving[0] && leaving[0].stops.find(x => x.x === STATIONS[st].x);
+    em.className = example && !st ? "tag" : "";
+    em.textContent = example ? (st ? "" : T[lang].statusExample) : c ? fmt(c.d || c.a) : "";
+  });
+  if (example) {
+    el.textContent = RUN[4] + " min"; el.className = "count small";
+    el.removeAttribute("aria-label");
+    $("leaves").textContent = T[lang].ride;
+    stops(null);
+  } else if (!leaving.length) {
+    el.textContent = "–:––"; el.className = "count";
+    el.removeAttribute("aria-label");
+    $("leaves").textContent = T[lang].leaves;
+    $("time").textContent = "";
+    $("then").textContent = trips.length ? "" : T[lang].night;
+    stops(null);
+  } else {
+    const nx = leaving[0], left = Math.max(0, Math.ceil(nx.stops[0].d - now)), late = Math.round((nx.stops[0].late || 0) / 60);
+    const far = left >= 3600;   // an hour or more away: a clock time reads better than 134:42
+    $("leaves").textContent = T[lang][far ? "first" : "leaves"];
+    const said = far ? fmt(nx.stops[0].d) : left <= 0 ? T[lang].now : `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
+    el.textContent = said;
+    el.className = "count" + (far ? " small" : "");
+    $("time").innerHTML = "· " + fmt(nx.stops[0].d) + (late > 0 ? ` <span class="late">+${late} ${T[lang].late}</span>` : "");
+    if (nx.stops[0].plat) $("pier").textContent = nx.stops[0].plat;
+    stops(nx);
+    $("then").textContent = leaving[1] ? `${T[lang].then}: ${fmt(leaving[1].stops[0].d)}` + (leaving[2] ? `, ${fmt(leaving[2].stops[0].d)}` : "") : "";
+  }
+  if (!example && leaving.length && leaving[0].stops[0].d - now <= -30) load();
 }
 
+/** The next train's calling points, in the app's own list form */
+function stops(trip) {
+  const rows = STATIONS.map(s => {
+    const c = trip && trip.stops.find(x => x.x === s.x), i = STATIONS.indexOf(s);
+    return `<li><time>${c ? fmt(c.d || c.a) : trip ? "–" : RUN[i] ? "+" + RUN[i] + " min" : ""}</time><i></i>${s.name}</li>`;
+  }).join("");
+  if ($("stops").innerHTML !== rows) $("stops").innerHTML = rows;
+}
+
+buildRoute();
 let saved = null; try { saved = localStorage.getItem("ovnu-lang"); } catch (e) {}
 setLang(saved || ((navigator.language || "").toLowerCase().startsWith("nl") ? "nl" : "en"));
+let pending = 0;
+const rebuild = () => { buildRoute(); render(); };   // new stations need their times and labels straight away
+new ResizeObserver(() => { cancelAnimationFrame(pending); pending = requestAnimationFrame(rebuild); }).observe(page);
+document.fonts?.ready.then(rebuild);
+
+// The one moment: the route draws itself out of Centraal, once
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches && run.animate) {
+  // Only the first stretch is seen drawing. Lengths are relative so a later rebuild can't leave a gap,
+  // and a timer ends it even where animations don't tick, such as a tab that isn't showing.
+  const part = Math.max(1000 - 2600 / run.getTotalLength() * 1000, 0);
+  for (const e of [casing, run]) {
+    e.setAttribute("pathLength", 1000);
+    e.style.strokeDasharray = "1000 100000";
+    const a = e.animate([{strokeDashoffset: 1000, easing: "cubic-bezier(.16,1,.3,1)"}, {strokeDashoffset: part, offset: .998}, {strokeDashoffset: 0}], 1500);
+    const end = () => { a.cancel(); e.style.strokeDasharray = ""; e.removeAttribute("pathLength"); };
+    a.onfinish = end;
+    setTimeout(end, 2000);
+  }
+}
 load();
 setInterval(render, 1000);
 setInterval(load, 30000);

@@ -4,38 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OVnow: privacy</title>
-<meta name="description" content="Privacyverklaring van OVnow, de OV-app van FREYcreates. Geen account, geen tracking.">
+<meta name="description" content="Privacyverklaring van OVnow, de OV-app van FREYcreates.">
 <link rel="canonical" href="https://ovnow.app/privacy.html">
 <link rel="icon" href="img/icon-180.png">
 <link rel="apple-touch-icon" href="img/icon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root{color-scheme:light;--bg:#fffaf7;--text:#191317;--muted:#6d6469;--line:#e6dcd8;--blue:#1f6feb;
-    --l394:#e1251b;--l52:#3a9be0;--l51:#f39200;--ferry:#19b3c4;--ns:#ffc917}
-  @media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#14111a;--text:#fbf8fd;--muted:#b3abb8;--line:#2f2836;--blue:#5b9bff}}
+  @font-face{font-family:"Bricolage";src:url(fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
+  @font-face{font-family:"Onest";src:url(fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{--night:#10193d;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee;scrollbar-color:#3a4a92 var(--night)}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--text);font:500 17px/1.6 "Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  body:before{content:"";position:fixed;inset:0 0 auto;height:6px;z-index:3;
-    background:linear-gradient(90deg,var(--l394) 0 20%,var(--l52) 20% 40%,var(--l51) 40% 60%,var(--ferry) 60% 80%,var(--ns) 80%)}
-  a{color:var(--blue)}
-  a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
-  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
-  .top{display:flex;justify-content:space-between;align-items:center;padding:28px 0 0}
-  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-  .brand img{width:40px;height:40px;border-radius:10px}
-  .wordmark{font-weight:900;font-size:26px;letter-spacing:-.045em}
-  .wordmark span{color:var(--blue)}
-  .lang-switch{display:flex;padding:3px;border:1px solid var(--line);border-radius:9px}
-  .lang-switch button{padding:4px 8px;border:0;border-radius:6px;background:transparent;color:var(--muted);font:inherit;font-size:.72rem;font-weight:800;cursor:pointer}
-  .lang-switch button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
-  h1{margin:56px 0 8px;font-weight:900;font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.05em}
-  .lede{margin:0 0 40px;font-size:1.15rem;color:var(--muted)}
-  h2{margin:36px 0 6px;font-size:1.2rem;font-weight:900;letter-spacing:-.02em}
+  ::selection{background:var(--line);color:var(--night)}
+  body{margin:0;background:var(--night) url(img/nightmap.webp) center top/2000px auto repeat-y;color:var(--text);font:400 18px/1.6 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
+  a:hover{color:var(--line)}
+  :focus-visible{outline:3px solid var(--line);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:760px;min-height:100vh;margin:0 auto;padding:0 clamp(24px,4vw,44px)}
+  .top{display:flex;justify-content:space-between;align-items:center;padding:18px 0 0}
+  .brand{display:inline-flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;font:800 1.45rem/1 Bricolage,sans-serif;letter-spacing:-.025em}
+  .brand img{width:36px;height:36px;border-radius:9px}
+  .brand:hover{color:inherit}
+  .lang-switch{display:flex;padding:3px;border-radius:999px;background:rgba(34,47,104,.86)}
+  .lang-switch button{min-width:44px;min-height:44px;padding:0 10px;border:0;border-radius:999px;background:none;color:var(--soft);font:600 .94rem Onest,sans-serif;cursor:pointer}
+  .lang-switch button[aria-pressed="true"]{background:var(--text);color:var(--night)}
+  h1{margin:48px 0 8px;font:800 clamp(3.4rem,11vw,5.6rem)/.96 Bricolage,sans-serif;letter-spacing:-.015em}
+  .lede{margin:14px 0 36px;font-size:1.25rem;line-height:1.42}
+  h2{margin:38px 0 6px;font:800 1.7rem/1.1 Bricolage,sans-serif;letter-spacing:-.015em}
   p,li{max-width:38em}
   ul{padding-left:1.2em}
-  footer{margin-top:56px;padding:28px 0 56px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+  li::marker{color:var(--line)}
+  footer{margin-top:52px;padding:22px 0 44px;font-size:.95rem;color:var(--soft)}
   [lang-block]{display:none}
   html[lang="nl"] [lang-block="nl"],html[lang="en"] [lang-block="en"]{display:block}
 </style>
@@ -44,7 +41,7 @@
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="./" aria-label="OVnow"><img src="img/icon-180.png" alt="" width="40" height="40"><span class="wordmark">OV<span>now</span></span></a>
+    <a class="brand" href="./" aria-label="OVnow"><img src="img/icon-180.png" alt="" width="36" height="36">OVnow</a>
     <div class="lang-switch" role="group" aria-label="Taal / Language">
       <button type="button" data-lang="nl" aria-pressed="true">NL</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -54,12 +51,12 @@
   <main>
     <div lang-block="nl">
       <h1>Privacy</h1>
-      <p class="lede">Kort: geen account, geen tracking. OVnow wil niet weten wie je bent.</p>
+      <p class="lede">Kort: geen account nodig. OVnow wil niet weten wie je bent.</p>
 
       <h2>Wat de app niet doet</h2>
       <ul>
         <li>Je hoeft geen account te maken. Er is geen inlog.</li>
-        <li>Er zit op dit moment geen reclame in, en geen advertentie- of trackingcode van anderen.</li>
+        <li>Er zit op dit moment geen advertentie- of trackingcode van anderen in de app.</li>
         <li>Je gegevens worden niet verkocht of gedeeld voor marketing.</li>
       </ul>
 
@@ -76,7 +73,7 @@
       <p>De kaart en het zoeken naar adressen komen van Apple Maps, volgens het <a href="https://www.apple.com/nl/legal/privacy/">privacybeleid van Apple</a>.</p>
 
       <h2>Deze website</h2>
-      <p>De site telt bezoeken met <a href="https://www.goatcounter.com">GoatCounter</a>: zonder cookies en zonder je te volgen over andere sites. Het lettertype komt van Google Fonts. De live vertrektijden op de site komen van de OVnow-server.</p>
+      <p>De site telt bezoeken met <a href="https://www.goatcounter.com">GoatCounter</a>: zonder cookies en zonder je te volgen over andere sites. De lettertypen staan op de site zelf. De live vertrektijden op de site komen van de OVnow-server.</p>
 
       <h2>Vragen</h2>
       <p>Mail naar <a href="mailto:ovnu.app@icloud.com">ovnu.app@icloud.com</a>. Wijzigt er iets aan deze verklaring, dan staat dat hier.</p>
@@ -85,12 +82,12 @@
 
     <div lang-block="en">
       <h1>Privacy</h1>
-      <p class="lede">In short: no account, no tracking. OVnow doesn't want to know who you are.</p>
+      <p class="lede">In short: no account needed. OVnow doesn't want to know who you are.</p>
 
       <h2>What the app doesn't do</h2>
       <ul>
         <li>You don't need an account. There is no sign-in.</li>
-        <li>There are currently no ads, and no advertising or tracking code from anyone else.</li>
+        <li>The app currently contains no advertising or tracking code from anyone else.</li>
         <li>Your data is never sold or shared for marketing.</li>
       </ul>
 
@@ -107,7 +104,7 @@
       <p>The map and address search come from Apple Maps, under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.</p>
 
       <h2>This website</h2>
-      <p>The site counts visits with <a href="https://www.goatcounter.com">GoatCounter</a>: no cookies, and no following you across other sites. The typeface comes from Google Fonts. The live departures on the site come from the OVnow server.</p>
+      <p>The site counts visits with <a href="https://www.goatcounter.com">GoatCounter</a>: no cookies, and no following you across other sites. The typefaces are hosted on the site itself. The live departures on the site come from the OVnow server.</p>
 
       <h2>Questions</h2>
       <p>Email <a href="mailto:ovnu.app@icloud.com">ovnu.app@icloud.com</a>. If anything in this statement changes, you'll find it here.</p>
@@ -115,7 +112,7 @@
     </div>
   </main>
 
-  <footer><a href="./">← OVnow</a> · <a href="https://freycreates.nl">FREYcreates</a></footer>
+  <footer><a href="./"><svg width="9" height="13" viewBox="0 0 7 11" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1 1.5 5.5 6 10"/></svg> OVnow</a> · <a href="https://freycreates.nl">FREYcreates</a></footer>
 </div>
 <script>
 function setLang(l) {
