@@ -118,6 +118,22 @@
   .notify{display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:0 28px;border-radius:15px;background:var(--line);color:var(--night);font-weight:700;font-size:1.12rem;text-decoration:none;transition:background .16s ease-out,transform .16s ease-out}
   .notify:hover{background:#ffd764;color:var(--night);transform:translateY(-1px)}
   .notify:active{transform:none}
+  .joinh{margin:0 0 14px;font:800 1.5rem/1.1 Bricolage,sans-serif;letter-spacing:-.015em}
+  .join{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:520px;align-items:end}
+  .join label{display:grid;gap:6px;font-size:.95rem;font-weight:600}
+  .join input{width:100%;min-height:58px;padding:0 16px;border:1px solid #5a6aae;border-radius:15px;background:var(--deep);color:var(--text);font:400 1.06rem Onest,sans-serif}
+  .join input::placeholder{color:#9aa6cf}
+  .join input:focus{outline:3px solid var(--line);outline-offset:1px;border-color:var(--line)}
+  .join .notify{width:100%;padding:0 16px;border:0;font-family:inherit;cursor:pointer}
+  .join .notify:disabled{opacity:.7;cursor:wait;transform:none}
+  .join .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .join .note,.join .state{grid-column:1/-1;margin:0}
+  .join .note a{color:inherit}
+  .join .state:empty{display:none}
+  .join .state{font-weight:600;max-width:30em}
+  .join .state.bad{color:var(--line)}
+  .join.done label,.join.done .notify,.join.done .note{display:none}
+  .join.done .state{font-size:1.2rem;color:var(--live)}
   .note{margin-top:12px;font-size:.95rem;color:var(--text);max-width:30em;text-wrap:pretty}
   .phone{border-radius:clamp(38px,3.6vw,50px);box-shadow:0 0 0 1px rgba(255,255,255,.18),0 36px 70px -22px rgba(4,8,28,.85)}
   .hero .phone{width:min(100%,340px,calc(28vw - 24px));margin-left:auto}
@@ -199,6 +215,7 @@
     h1{font-size:clamp(3.4rem,20.5vw,7rem)}
     html[lang="en"] h1{font-size:clamp(2.6rem,13.6vw,6rem)}
     .notify{width:100%}
+    .join{max-width:none}
     .hero .phone{width:var(--ph);margin:44px auto 0}
     .live{padding-top:92px}
     .sheet{border-radius:26px}
@@ -250,8 +267,16 @@
         <p class="lede" data-i18n-html="lede">Elke bus, tram, metro, trein en pont in Nederland, live op je iPhone. Je ziet wat <strong>nu</strong> vertrekt en waar het is.</p>
         <!-- Shown once the TestFlight link exists: remove "hidden" and fill in href -->
         <a class="notify" id="testflight" href="#" hidden data-goatcounter-click="testflight" data-i18n="testflight">Test OVnow op je iPhone</a>
-        <a class="notify" data-mail href="mailto:mail@ovnow.app?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-top" data-i18n="notify">Mail me als hij er is</a>
-        <p class="note" data-i18n="note">Opent je eigen mailapp.</p>
+        <h2 class="joinh" data-i18n="joinTitle">Test OVnow via TestFlight</h2>
+        <form class="join" action="https://formspree.io/f/mjyylajb" method="POST" data-goatcounter-click="testflight-top">
+          <label><span data-i18n="joinName">Naam</span><input name="name" type="text" autocomplete="name" required></label>
+          <label><span data-i18n="joinEmail">E-mailadres</span><input name="email" type="email" autocomplete="email" required></label>
+          <label><span data-i18n="joinModel">iPhone-model</span><input name="iphone" type="text" placeholder="iPhone 16" autocomplete="off" required></label>
+          <button class="notify" type="submit" data-i18n="joinSend">Meld me aan</button>
+          <label class="hp" aria-hidden="true">Website<input name="_gotcha" type="text" tabindex="-1" autocomplete="off"></label>
+          <p class="note"><span data-i18n="joinNote">Alleen voor je TestFlight-uitnodiging.</span> <a href="privacy.html" data-i18n="privLink">Privacy</a></p>
+          <p class="state" role="status"></p>
+        </form>
       </div>
       <video class="phone" muted loop playsinline preload="none" poster="img/poster-ferry.jpg" width="600" height="1304" role="img" aria-label="OVnow: de F3-pont vertrekt van steiger D bij Amsterdam Centraal" data-i18n-aria="a7"><source src="video/ferry.mp4" type="video/mp4"></video>
     </div>
@@ -353,7 +378,18 @@
   <div class="inner">
     <div class="ask">
       <h2 data-i18n="endTitle">Bijna op je iPhone.</h2>
-      <div class="cta"><a class="notify" data-mail href="mailto:mail@ovnow.app?subject=Laat%20me%20weten%20wanneer%20OVnow%20er%20is" data-goatcounter-click="notify-end" data-i18n="notify">Mail me als hij er is</a></div>
+      <div class="cta">
+        <h3 class="joinh" data-i18n="joinTitle">Test OVnow via TestFlight</h3>
+        <form class="join" action="https://formspree.io/f/mjyylajb" method="POST" data-goatcounter-click="testflight-end">
+          <label><span data-i18n="joinName">Naam</span><input name="name" type="text" autocomplete="name" required></label>
+          <label><span data-i18n="joinEmail">E-mailadres</span><input name="email" type="email" autocomplete="email" required></label>
+          <label><span data-i18n="joinModel">iPhone-model</span><input name="iphone" type="text" placeholder="iPhone 16" autocomplete="off" required></label>
+          <button class="notify" type="submit" data-i18n="joinSend">Meld me aan</button>
+          <label class="hp" aria-hidden="true">Website<input name="_gotcha" type="text" tabindex="-1" autocomplete="off"></label>
+          <p class="note"><span data-i18n="joinNote">Alleen voor je TestFlight-uitnodiging.</span> <a href="privacy.html" data-i18n="privLink">Privacy</a></p>
+          <p class="state" role="status"></p>
+        </form>
+      </div>
     </div>
     <div class="foot">
       <div class="links">
@@ -372,7 +408,7 @@ const T = {
   en: {
     title: "Your ride,<br>right now.", soon: "Coming soon", soon2: "to iPhone",
     lede: "Every bus, tram, metro, train and ferry in the Netherlands, live on your iPhone. See what's leaving <strong>now</strong> and where it is.",
-    testflight: "Test OVnow on your iPhone", notify: "Email me when it's out", note: "Opens your own mail app.",
+    testflight: "Test OVnow on your iPhone", joinTitle: "Test OVnow with TestFlight", joinName: "Name", joinEmail: "Email", joinModel: "iPhone model", joinSend: "Sign me up", joinBusy: "Sending…", joinNote: "Only for your TestFlight invite.", joinDone: "You're on the list. Your invite will come by email.", joinFail: 'That didn\'t work. Try again, or email <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',
     liveTitle: "The Sprinter, now", statusLive: "live", statusTimetable: "timetable", statusQuiet: "quiet", statusExample: "example",
     proofExample: "This is an example of the line, not real trips.", exampleTitle: "The Sprinter", ride: "Centraal to Hoofddorp, about",
     track: "Platform", leaves: "Leaves in", first: "First Sprinter at", toHfd: "To Hoofddorp", now: "now", then: "Then",
@@ -392,10 +428,10 @@ const T = {
     a1: "OVnow: the F3 ferry leaves in 4:24 from pier D", a2: "OVnow night map: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal", a4: "OVnow 3D map of Amsterdam Centraal with trains at the platforms and two F3 ferries", a7: "OVnow: the F3 ferry leaves pier D at Amsterdam Centraal", a8: "OVnow: metro 50 to Gein at Amsterdam Zuid with the countdown to departure", a9: "OVnow: a 3D tram running near Paleisstraat in Amsterdam", a5: "OVnow planner with the Get me home button and favourites", a6: "OVnow widget with the next tram from Centraal Station to Leidseplein",
     a3: "Lock Screen with an OVnow journey: walk to Centraal Station, tram 2 leaves 22:50 from platform B2",
     privLink: "Privacy", made: "Made by", contact: "Questions or feedback?",
-    sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, map, tracks and walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.',
-    mailSubject: "Let me know when OVnow is out", mailBody: "Please email me when OVnow is available."
+    sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, map, tracks and walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.'
   },
   nl: {
+    joinTitle: "Test OVnow via TestFlight", joinName: "Naam", joinEmail: "E-mailadres", joinModel: "iPhone-model", joinSend: "Meld me aan", joinBusy: "Even geduld…", joinNote: "Alleen voor je TestFlight-uitnodiging.", joinDone: "Je staat op de lijst. Je uitnodiging komt per mail.", joinFail: 'Dat lukte niet. Probeer het nog eens, of mail naar <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',
     statusLive: "live", statusTimetable: "dienstregeling", statusQuiet: "rustig", statusExample: "voorbeeld",
     proofExample: "Dit is een voorbeeld van de lijn, geen echte ritten.", exampleTitle: "De Sprinter", ride: "Van Centraal naar Hoofddorp, ongeveer", first: "Eerste Sprinter om", now: "nu", then: "Daarna",
     proof: "Vanaf Amsterdam Centraal. Echte treinen, live.",
@@ -403,8 +439,7 @@ const T = {
     proofTimetable: "Even volgens de dienstregeling. De live data komt zo terug.",
     night: "Vannacht geen Sprinters meer.", late: "min later",
     a1: "OVnow: de F3-pont vertrekt over 4:24 van steiger D", a2: "OVnow-nachtkaart: Sprinter 8285 naar Hoofddorp is net vertrokken van Amsterdam Centraal", a4: "OVnow 3D-kaart van Amsterdam Centraal met treinen aan de perrons en twee F3-ponten", a7: "OVnow: de F3-pont vertrekt van steiger D bij Amsterdam Centraal", a8: "OVnow: metro 50 naar Gein op Amsterdam Zuid met de countdown tot vertrek", a9: "OVnow: een 3D-tram rijdt bij Paleisstraat in Amsterdam", a5: "OVnow-reisplanner met de knop Breng me naar huis en favorieten", a6: "OVnow-widget met de volgende tram van Centraal Station naar Leidseplein",
-    a3: "Toegangsscherm met een OVnow-reis: loop naar Centraal Station, tram 2 vertrekt 22:50 van perron B2",
-    mailSubject: "Laat me weten wanneer OVnow er is", mailBody: "Mail me graag als OVnow beschikbaar is."
+    a3: "Toegangsscherm met een OVnow-reis: loop naar Centraal Station, tram 2 vertrekt 22:50 van perron B2"
   }
 };
 // Dutch is written in the page itself; keep it so switching back works
@@ -420,12 +455,31 @@ function setLang(l) {
   document.querySelectorAll("[data-i18n-html]").forEach(e => { if (T[l][e.dataset.i18nHtml]) e.innerHTML = T[l][e.dataset.i18nHtml]; });
   document.querySelectorAll("[data-i18n-alt]").forEach(e => { e.alt = T[l][e.dataset.i18nAlt] || ""; });
   document.querySelectorAll("[data-i18n-aria]").forEach(e => { if (T[l][e.dataset.i18nAria]) e.setAttribute("aria-label", T[l][e.dataset.i18nAria]); });
-  document.querySelectorAll("[data-mail]").forEach(e => { e.href = `mailto:mail@ovnow.app?subject=${encodeURIComponent(T[l].mailSubject)}&body=${encodeURIComponent(T[l].mailBody)}`; });
   document.querySelectorAll(".langs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
   try { localStorage.setItem("ovnu-lang", l); } catch (e) {}
   render();
 }
 document.querySelectorAll(".langs button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
+// ---- TestFlight sign-up, sent to Formspree ----
+document.querySelectorAll(".join").forEach(form => form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const send = form.querySelector("button"), state = form.querySelector(".state");
+  const say = key => { state.dataset.i18nHtml = key; state.innerHTML = T[lang][key]; };
+  state.classList.remove("bad"); state.innerHTML = ""; delete state.dataset.i18nHtml;
+  send.disabled = true; send.dataset.i18n = "joinBusy"; send.textContent = T[lang].joinBusy;
+  const data = new FormData(form);
+  data.append("language", lang);
+  data.append("_subject", "OVnow TestFlight sign-up");
+  try {
+    const r = await fetch(form.action, {method: "POST", body: data, headers: {Accept: "application/json"}});
+    if (!r.ok) throw new Error(r.status);
+    form.classList.add("done"); say("joinDone");
+  } catch (err) {
+    state.classList.add("bad"); say("joinFail");
+    send.disabled = false; send.dataset.i18n = "joinSend"; send.textContent = T[lang].joinSend;
+  }
+}));
 
 // ---- the live Sprinter: Amsterdam Centraal, Sloterdijk, Lelylaan, Schiphol Airport, Hoofddorp ----
 const API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? "" : "https://92-5-225-92.sslip.io";
