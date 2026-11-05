@@ -126,6 +126,8 @@
   .join input:focus{outline:3px solid var(--line);outline-offset:1px;border-color:var(--line)}
   .join .notify{width:100%;padding:0 16px;border:0;font-family:inherit;cursor:pointer}
   .join .notify:disabled{opacity:.7;cursor:wait;transform:none}
+  .join .wide{grid-column:1/-1}
+  #testflight{scroll-margin-top:28px}
   .join .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
   .join .note,.join .state{grid-column:1/-1;margin:0}
   .join .note a{color:inherit}
@@ -241,6 +243,7 @@
   }
   @media (min-width:821px) and (max-width:960px){.pair p{max-width:200px}}
   @media (max-width:372px){.mark img{display:none}}
+  @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
   @media (prefers-reduced-motion:reduce){.train{transition:none}.notify{transition:none}}
 </style>
 <script data-goatcounter="https://freycreates.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -265,18 +268,7 @@
       <div>
         <h1 data-i18n-html="title">Jouw rit,<br>nu.</h1>
         <p class="lede" data-i18n-html="lede">Elke bus, tram, metro, trein en pont in Nederland, live op je iPhone. Je ziet wat <strong>nu</strong> vertrekt en waar het is.</p>
-        <!-- Shown once the TestFlight link exists: remove "hidden" and fill in href -->
-        <a class="notify" id="testflight" href="#" hidden data-goatcounter-click="testflight" data-i18n="testflight">Test OVnow op je iPhone</a>
-        <h2 class="joinh" data-i18n="joinTitle">Test OVnow via TestFlight</h2>
-        <form class="join" action="https://92-5-225-92.sslip.io/signup" method="POST" data-goatcounter-click="testflight-top">
-          <label><span data-i18n="joinName">Naam</span><input name="name" type="text" autocomplete="name" required></label>
-          <label><span data-i18n="joinEmail">E-mailadres</span><input name="email" type="email" autocomplete="email" required></label>
-          <label><span data-i18n="joinModel">iPhone-model</span><input name="iphone" type="text" placeholder="iPhone 16" autocomplete="off" required></label>
-          <button class="notify" type="submit" data-i18n="joinSend">Meld me aan</button>
-          <label class="hp" aria-hidden="true">Website<input name="_gotcha" type="text" tabindex="-1" autocomplete="off"></label>
-          <p class="note"><span data-i18n="joinNote">Alleen voor je TestFlight-uitnodiging.</span> <a href="privacy.html" data-i18n="privLink">Privacy</a></p>
-          <p class="state" role="status"></p>
-        </form>
+        <a class="notify" href="#testflight" data-beta data-goatcounter-click="beta-top" data-i18n="betaButton">Meld je aan voor de bèta</a>
       </div>
       <video class="phone" muted loop playsinline preload="none" poster="img/poster-ferry.jpg" width="600" height="1304" role="img" aria-label="OVnow: de F3-pont vertrekt van steiger D bij Amsterdam Centraal" data-i18n-aria="a7"><source src="video/ferry.mp4" type="video/mp4"></video>
     </div>
@@ -378,11 +370,12 @@
   <div class="inner">
     <div class="ask">
       <h2 data-i18n="endTitle">Bijna op je iPhone.</h2>
-      <div class="cta">
+      <div class="cta" id="testflight">
         <h3 class="joinh" data-i18n="joinTitle">Test OVnow via TestFlight</h3>
         <form class="join" action="https://92-5-225-92.sslip.io/signup" method="POST" data-goatcounter-click="testflight-end">
-          <label><span data-i18n="joinName">Naam</span><input name="name" type="text" autocomplete="name" required></label>
-          <label><span data-i18n="joinEmail">E-mailadres</span><input name="email" type="email" autocomplete="email" required></label>
+          <label><span data-i18n="joinFirst">Voornaam</span><input name="first" type="text" autocomplete="given-name" required></label>
+          <label><span data-i18n="joinLast">Achternaam</span><input name="last" type="text" autocomplete="family-name" required></label>
+          <label class="wide"><span data-i18n="joinEmail">E-mailadres (gekoppeld aan je Apple ID)</span><input name="email" type="email" autocomplete="email" required></label>
           <label><span data-i18n="joinModel">iPhone-model</span><input name="iphone" type="text" placeholder="iPhone 16" autocomplete="off" required></label>
           <button class="notify" type="submit" data-i18n="joinSend">Meld me aan</button>
           <label class="hp" aria-hidden="true">Website<input name="_gotcha" type="text" tabindex="-1" autocomplete="off"></label>
@@ -408,7 +401,7 @@ const T = {
   en: {
     title: "Your ride,<br>right now.", soon: "Coming soon", soon2: "to iPhone",
     lede: "Every bus, tram, metro, train and ferry in the Netherlands, live on your iPhone. See what's leaving <strong>now</strong> and where it is.",
-    testflight: "Test OVnow on your iPhone", joinTitle: "Test OVnow with TestFlight", joinName: "Name", joinEmail: "Email", joinModel: "iPhone model", joinSend: "Sign me up", joinBusy: "Sending…", joinNote: "Only for your TestFlight invite.", joinDone: "You're on the list. Your invite will come by email.", joinFail: 'That didn\'t work. Try again, or email <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',
+    joinTitle: "Test OVnow with TestFlight", betaButton: "Sign up for the beta", joinFirst: "First name", joinLast: "Last name", joinEmail: "Email (linked to your Apple ID)", joinModel: "iPhone model", joinSend: "Sign me up", joinBusy: "Sending…", joinNote: "Only for your TestFlight invite.", joinDone: "You're on the list. Your invite will come by email.", joinFail: 'That didn\'t work. Try again, or email <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',
     liveTitle: "The Sprinter, now", statusLive: "live", statusTimetable: "timetable", statusQuiet: "quiet", statusExample: "example",
     proofExample: "This is an example of the line, not real trips.", exampleTitle: "The Sprinter", ride: "Centraal to Hoofddorp, about",
     track: "Platform", leaves: "Leaves in", first: "First Sprinter at", toHfd: "To Hoofddorp", now: "now", then: "Then",
@@ -431,7 +424,7 @@ const T = {
     sources: 'Live data from <a href="https://ndovloket.nl">NDOV Loket</a> and <a href="https://ovapi.nl">OVapi</a>. Journey planner by <a href="https://transitous.org">Transitous</a>, map, tracks and walking paths © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.'
   },
   nl: {
-    joinTitle: "Test OVnow via TestFlight", joinName: "Naam", joinEmail: "E-mailadres", joinModel: "iPhone-model", joinSend: "Meld me aan", joinBusy: "Even geduld…", joinNote: "Alleen voor je TestFlight-uitnodiging.", joinDone: "Je staat op de lijst. Je uitnodiging komt per mail.", joinFail: 'Dat lukte niet. Probeer het nog eens, of mail naar <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',
+    joinTitle: "Test OVnow via TestFlight", betaButton: "Meld je aan voor de bèta", joinFirst: "Voornaam", joinLast: "Achternaam", joinEmail: "E-mailadres (gekoppeld aan je Apple ID)", joinModel: "iPhone-model", joinSend: "Meld me aan", joinBusy: "Even geduld…", joinNote: "Alleen voor je TestFlight-uitnodiging.", joinDone: "Je staat op de lijst. Je uitnodiging komt per mail.", joinFail: 'Dat lukte niet. Probeer het nog eens, of mail naar <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',
     statusLive: "live", statusTimetable: "dienstregeling", statusQuiet: "rustig", statusExample: "voorbeeld",
     proofExample: "Dit is een voorbeeld van de lijn, geen echte ritten.", exampleTitle: "De Sprinter", ride: "Van Centraal naar Hoofddorp, ongeveer", first: "Eerste Sprinter om", now: "nu", then: "Daarna",
     proof: "Vanaf Amsterdam Centraal. Echte treinen, live.",
@@ -462,6 +455,7 @@ function setLang(l) {
 document.querySelectorAll(".langs button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 
 // ---- TestFlight sign-up, sent to the OVnow inbox ----
+document.querySelector("[data-beta]").addEventListener("click", () => document.querySelector(".join input").focus({preventScroll: true}));
 document.querySelectorAll(".join").forEach(form => form.addEventListener("submit", async e => {
   e.preventDefault();
   const send = form.querySelector("button"), state = form.querySelector(".state");
@@ -469,6 +463,8 @@ document.querySelectorAll(".join").forEach(form => form.addEventListener("submit
   state.classList.remove("bad"); state.innerHTML = ""; delete state.dataset.i18nHtml;
   send.disabled = true; send.dataset.i18n = "joinBusy"; send.textContent = T[lang].joinBusy;
   const data = new FormData(form);
+  data.set("name", `${data.get("first")} ${data.get("last")}`.trim());
+  data.delete("first"); data.delete("last");
   data.append("language", lang);
   try {
     const r = await fetch(form.action, {method: "POST", body: new URLSearchParams(data)});
