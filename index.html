@@ -268,7 +268,7 @@
         <!-- Shown once the TestFlight link exists: remove "hidden" and fill in href -->
         <a class="notify" id="testflight" href="#" hidden data-goatcounter-click="testflight" data-i18n="testflight">Test OVnow op je iPhone</a>
         <h2 class="joinh" data-i18n="joinTitle">Test OVnow via TestFlight</h2>
-        <form class="join" action="https://formspree.io/f/mjyylajb" method="POST" data-goatcounter-click="testflight-top">
+        <form class="join" action="https://92-5-225-92.sslip.io/signup" method="POST" data-goatcounter-click="testflight-top">
           <label><span data-i18n="joinName">Naam</span><input name="name" type="text" autocomplete="name" required></label>
           <label><span data-i18n="joinEmail">E-mailadres</span><input name="email" type="email" autocomplete="email" required></label>
           <label><span data-i18n="joinModel">iPhone-model</span><input name="iphone" type="text" placeholder="iPhone 16" autocomplete="off" required></label>
@@ -380,7 +380,7 @@
       <h2 data-i18n="endTitle">Bijna op je iPhone.</h2>
       <div class="cta">
         <h3 class="joinh" data-i18n="joinTitle">Test OVnow via TestFlight</h3>
-        <form class="join" action="https://formspree.io/f/mjyylajb" method="POST" data-goatcounter-click="testflight-end">
+        <form class="join" action="https://92-5-225-92.sslip.io/signup" method="POST" data-goatcounter-click="testflight-end">
           <label><span data-i18n="joinName">Naam</span><input name="name" type="text" autocomplete="name" required></label>
           <label><span data-i18n="joinEmail">E-mailadres</span><input name="email" type="email" autocomplete="email" required></label>
           <label><span data-i18n="joinModel">iPhone-model</span><input name="iphone" type="text" placeholder="iPhone 16" autocomplete="off" required></label>
@@ -461,7 +461,7 @@ function setLang(l) {
 }
 document.querySelectorAll(".langs button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 
-// ---- TestFlight sign-up, sent to Formspree ----
+// ---- TestFlight sign-up, sent to the OVnow inbox ----
 document.querySelectorAll(".join").forEach(form => form.addEventListener("submit", async e => {
   e.preventDefault();
   const send = form.querySelector("button"), state = form.querySelector(".state");
@@ -470,9 +470,8 @@ document.querySelectorAll(".join").forEach(form => form.addEventListener("submit
   send.disabled = true; send.dataset.i18n = "joinBusy"; send.textContent = T[lang].joinBusy;
   const data = new FormData(form);
   data.append("language", lang);
-  data.append("_subject", "OVnow TestFlight sign-up");
   try {
-    const r = await fetch(form.action, {method: "POST", body: data, headers: {Accept: "application/json"}});
+    const r = await fetch(form.action, {method: "POST", body: new URLSearchParams(data)});
     if (!r.ok) throw new Error(r.status);
     form.classList.add("done"); say("joinDone");
   } catch (err) {
