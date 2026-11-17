@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How OVnow works</title>
 <meta name="description" content="Zo werkt OVnow: waar de live data vandaan komt, de eigen server, en wat het kost om de app te maken en draaiend te houden.">
-<link rel="canonical" href="https://ovnow.app/hoe-het-werkt.html">
-<link rel="icon" href="img/icon-180.png?v=2">
-<link rel="apple-touch-icon" href="img/icon-180.png?v=2">
+<link rel="canonical" href="https://ovnow.app/how">
+<link rel="icon" href="/img/icon-180.png?v=2">
+<link rel="apple-touch-icon" href="/img/icon-180.png?v=2">
 <style>
-  @font-face{font-family:"Bricolage";src:url(fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
-  @font-face{font-family:"Onest";src:url(fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  @font-face{font-family:"Bricolage";src:url(/fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
+  @font-face{font-family:"Onest";src:url(/fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
   :root{--night:#10193d;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee;scrollbar-color:#3a4a92 var(--night)}
   *{box-sizing:border-box}
   ::selection{background:var(--line);color:var(--night)}
-  body{margin:0;background:var(--night) url(img/nightmap.webp) center top/1600px auto no-repeat;color:var(--text);font:400 18px/1.6 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--night) url(/img/nightmap.webp) center top/1600px auto no-repeat;color:var(--text);font:400 18px/1.6 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
   a:hover{color:var(--line)}
   :focus-visible{outline:3px solid var(--line);outline-offset:3px;border-radius:6px}
@@ -58,7 +58,7 @@
 <body>
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="./" aria-label="OVnow"><img src="img/icon-180.png?v=2" alt="" width="36" height="36">OVnow</a>
+    <a class="brand" href="/" aria-label="OVnow"><img src="/img/icon-180.png?v=2" alt="" width="36" height="36">OVnow</a>
     <div class="lang-switch" role="group" aria-label="Taal / Language">
       <button type="button" data-lang="nl" aria-pressed="true">NL</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -69,7 +69,7 @@
     <div lang-block="nl">
       <h1>Zo werkt OVnow</h1>
       <p class="lede">OVnow is gemaakt door één persoon, met een eigen server. Hier lees je hoe de app aan zijn live data komt, en wat er nodig is om hem draaiend te houden.</p>
-      <p class="top-cup"><a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-how-top">☕ Trakteer me op een koffie</a> <span>Om de kosten te dekken, niet om aan te verdienen.</span></p>
+      <p class="top-cup"><a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-how-top">☕ Doneer een bedrag</a> <span>Om de kosten te dekken, niet om aan te verdienen.</span></p>
 
       <h2>Van dienstregeling naar je scherm</h2>
       <div class="flow" role="list">
@@ -81,7 +81,7 @@
         <li>De kaart en het zoeken naar adressen komen van Apple Maps.</li>
         <li>Reisplanning loopt via Transitous, een open reisplanner.</li>
         <li>De gebouwen en sporen in 3D komen uit OpenStreetMap en de 3D BAG. De grote stations zijn met de hand nagebouwd.</li>
-        <li>Je hebt geen account nodig. Wat er met je locatie gebeurt, staat in de <a href='privacy.html'>privacyverklaring</a>.</li>
+        <li>Je hebt geen account nodig. Wat er met je locatie gebeurt, staat in de <a href='/privacy.html'>privacyverklaring</a>.</li>
       </ul>
 
       <h2>Eén server, eigen beheer</h2>
@@ -98,7 +98,7 @@
       <section class="support" aria-labelledby="support-nl">
         <h2 id="support-nl">Steun OVnow</h2>
         <p>OVnow is gratis, en ik maak het niet om er geld aan te verdienen. Vind je de app handig? Met een koffie help je de kosten te dekken.</p>
-        <a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-how">☕ Trakteer me op een koffie</a>
+        <a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-how">☕ Doneer een bedrag</a>
       </section>
 
       <h2>Vragen of ideeën?</h2>
@@ -120,7 +120,7 @@
         <li>The map and address search come from Apple Maps.</li>
         <li>Trip planning runs through Transitous, an open journey planner.</li>
         <li>The buildings and tracks in 3D come from OpenStreetMap and the 3D BAG. The big stations are built by hand.</li>
-        <li>You don't need an account. What happens with your location is in the <a href='privacy.html'>privacy statement</a>.</li>
+        <li>You don't need an account. What happens with your location is in the <a href='/privacy.html'>privacy statement</a>.</li>
       </ul>
 
       <h2>One server, run by me</h2>
@@ -145,7 +145,7 @@
     </div>
   </main>
 
-  <footer><a href="./"><svg width="9" height="13" viewBox="0 0 7 11" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1 1.5 5.5 6 10"/></svg> OVnow</a> · <a href="https://freycreates.nl">FREYcreates</a></footer>
+  <footer><a href="/"><svg width="9" height="13" viewBox="0 0 7 11" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1 1.5 5.5 6 10"/></svg> OVnow</a> · <a href="https://freycreates.nl">FREYcreates</a></footer>
 </div>
 <script>
 function setLang(l) {
