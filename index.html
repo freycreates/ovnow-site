@@ -15,18 +15,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OVnow">
 <meta property="og:url" content="https://ovnow.app">
-<meta property="og:title" content="OVnow: live OV in 3D">
-<meta property="og:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel. Gewoon wat je nú nodig hebt.">
-<meta property="og:image" content="https://ovnow.app/img/og.png?v=12">
+<meta property="og:title" content="OVnow: jouw rit, nu">
+<meta property="og:description" content="Elke bus, tram, metro, trein en pont live op je iPhone. Vertrektijden, een live kaart en je rit op je toegangsscherm. Nu in bèta.">
+<meta property="og:image" content="https://ovnow.app/img/og-home-nl.jpg?v=1">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="OVnow: jouw rit, nu. Elke bus, tram, metro, trein en pont, live.">
+<meta property="og:image:alt" content="OVnow: jouw rit, nu. Live vertrektijden, elk voertuig live op de kaart en je rit op je toegangsscherm.">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="OVnow: jouw rit, nu">
-<meta name="twitter:description" content="Elke bus, tram, metro, trein en pont live. Zonder rommel.">
-<meta name="twitter:image" content="https://ovnow.app/img/og.png?v=12">
+<meta name="twitter:description" content="Elke bus, tram, metro, trein en pont live op je iPhone. Nu in bèta.">
+<meta name="twitter:image" content="https://ovnow.app/img/og-home-nl.jpg?v=1">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1007,7 +1007,8 @@ function stops(trip) {
 
 buildRoute();
 let saved = null; try { saved = localStorage.getItem("ovnu-lang"); } catch (e) {}
-setLang(saved || ((navigator.language || "").toLowerCase().startsWith("nl") ? "nl" : "en"));
+setLang((location.hash.toLowerCase() === "#nl" ? "nl" : location.hash.toLowerCase() === "#en" ? "en" : null) || saved || ((navigator.language || "").toLowerCase().startsWith("nl") ? "nl" : "en"));
+addEventListener("hashchange", () => { const h = location.hash.toLowerCase(); if (h === "#nl" || h === "#en") setLang(h.slice(1)); });
 let pending = 0;
 const rebuild = () => { buildRoute(); render(); };   // new stations need their times and labels straight away
 new ResizeObserver(() => { cancelAnimationFrame(pending); pending = requestAnimationFrame(rebuild); }).observe(page);
