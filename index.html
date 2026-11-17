@@ -41,6 +41,94 @@
   "author": {"@type": "Organization", "name": "FREYcreates", "url": "https://freycreates.nl"}
 }
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Wat kost OVnow?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Niets. OVnow is gratis en je hebt geen account nodig."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Wanneer staat OVnow in de App Store?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "OVnow is nu in bèta via TestFlight. Een datum voor de App Store is er nog niet. Meld je aan voor de bèta, dan ben je er als eerste bij."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Welke iPhone heb ik nodig?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Een iPhone met iOS 26 of nieuwer."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Komt er een Android-versie?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Voorlopig niet. OVnow is gebouwd met Apple's eigen techniek, dus voor Android moet de hele app opnieuw. Lees waarom."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Waar komt de data vandaan?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Van NDOV Loket en OVapi, de open OV-data van Nederland. De OVnow-server in Amsterdam haalt die op en voegt alles samen voor de app. Live posities komen elke paar seconden binnen."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Waarom rijdt niet alles live?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sommige voertuigen sturen zelf geen GPS, zoals een deel van de ponten, metro's en treinen. Die zet OVnow op de kaart volgens hun verwachte tijden. In de app zie je wat live is en wat volgens de dienstregeling."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Werkt het in heel Nederland?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Ja: trein, tram, metro, bus en pont, van alle vervoerders in de open OV-data. In het buitenland werkt OVnow niet."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Wat gebeurt er met mijn locatie?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Die gebruikt OVnow alleen om haltes en routes in de buurt te vinden, en hij wordt nergens bewaard. Lees de privacyverklaring."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Werkt het op mijn Apple Watch?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Je rit staat als Live Activity ook op je Apple Watch. Een aparte Watch-app is er (nog) niet."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Ik heb een fout gevonden of een idee.",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Laat het weten via TestFlight: maak een screenshot of schud je iPhone. Of mail naar mail@ovnow.app."
+   }
+  }
+ ]
+}
+</script>
 
 <link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/onest.woff2" as="font" type="font/woff2" crossorigin>
@@ -62,9 +150,10 @@
   h1,h2,h3{font-family:Bricolage,system-ui,sans-serif;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
   img{display:block;max-width:100%;height:auto}
   [hidden]{display:none!important}
+  #proof:empty{display:none}
 
   .page{position:relative;overflow:clip}
-  #map{position:absolute;inset:0}
+  #map{position:absolute;inset:0;opacity:.45}   /* the night map stays in the background, the content leads */
   #map i{position:absolute;left:0;width:100%;background:url(img/nightmap.webp) no-repeat}
   [data-at]{position:absolute;left:0;width:0;height:0;bottom:calc(var(--gap)*-.5)}
   .hero [data-at]{bottom:230px}
@@ -90,6 +179,11 @@
   .train svg{width:7px;height:11px;transform:rotate(90deg);fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
   .train b{color:#a3121d;font-weight:800;margin-left:2px}
   .train.waiting{background:var(--night);color:var(--line);box-shadow:inset 0 0 0 2px var(--line),0 0 0 2px var(--deep)}
+  /* the real 3D Sprinter instead of the yellow SPR label, turned along the line */
+  .train{width:190px;height:17px;padding:0;background:url(img/sprinter-3d.png) center/contain no-repeat;box-shadow:none;border-radius:0;filter:drop-shadow(0 4px 6px rgba(5,10,32,.55))}
+  .train>*{display:none}
+  #rail.example .train,#rail .train{background:url(img/sprinter-3d.png) center/contain no-repeat!important;box-shadow:none!important}
+  .train.waiting{filter:drop-shadow(0 0 6px rgba(255,197,46,.8))}
   .train.waiting b,#rail.example .train b{color:var(--line)}
   .train:not([style*="transform"]),.train.gone{opacity:0}
   #rail.example .train{background:var(--night);color:var(--line);box-shadow:inset 0 0 0 2px var(--line),0 0 0 2px var(--deep)}
@@ -118,7 +212,8 @@
   .notify{display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:0 28px;border-radius:15px;background:var(--line);color:var(--night);font-weight:700;font-size:1.12rem;text-decoration:none;transition:background .16s ease-out,transform .16s ease-out}
   .notify:hover{background:#ffd764;color:var(--night);transform:translateY(-1px)}
   .notify:active{transform:none}
-  .how-btn{display:flex;width:fit-content;margin-top:12px}
+  .how-btn{display:flex;width:fit-content;margin-top:12px;background:var(--text);color:var(--night)}
+  .how-btn:hover{background:#fff;color:var(--night)}
   .joinh{margin:0 0 14px;font:800 1.5rem/1.1 Bricolage,sans-serif;letter-spacing:-.015em}
   .join{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:556px;padding-left:36px;align-items:end}
   .rail{position:absolute;left:0;width:22px;pointer-events:none}
@@ -194,12 +289,27 @@
   .stops li:not(:last-child)::after{content:"";position:absolute;left:calc(3.9em + 19px);top:50%;height:100%;width:4px;background:var(--line)}
   .proof{margin-top:16px;width:min(100%,760px);color:var(--soft);font-size:1rem}
 
-
   /* Sticky beta button on phones */
   .sticky{display:none}
-  @media (max-width:880px){.sticky{display:block;position:fixed;left:16px;right:16px;bottom:max(14px,env(safe-area-inset-bottom));z-index:20;text-align:center;padding:15px 20px;border-radius:999px;background:var(--line);color:#10193d;font-weight:800;text-decoration:none;box-shadow:0 12px 30px -10px rgba(4,8,28,.8);transition:opacity .25s,transform .25s}
-    .sticky.away{opacity:0;transform:translateY(20px);pointer-events:none}}
+  @media (max-width:880px){.sticky{display:block;position:fixed;left:50%;transform:translateX(-50%);white-space:nowrap;bottom:max(14px,env(safe-area-inset-bottom));z-index:20;text-align:center;padding:11px 22px;font-size:.95rem;border-radius:999px;background:var(--line);color:#10193d;font-weight:800;text-decoration:none;box-shadow:0 12px 30px -10px rgba(4,8,28,.8);transition:opacity .25s,transform .25s}
+    .sticky.away{opacity:0;transform:translate(-50%,20px);pointer-events:none}}
   /* Why OVnow */
+  .faq .qas{display:grid;gap:10px;max-width:680px;position:relative;z-index:2}
+  .qa{border-radius:18px;background:rgba(34,47,104,.95);border:1px solid rgba(201,210,238,.14);transition:background .2s}
+  .qa[open]{background:#24326e;border-color:rgba(255,197,46,.45)}
+  .qa summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;font-weight:700;font-size:1.12rem;border-radius:18px}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary:focus-visible{outline:3px solid var(--line);outline-offset:2px}
+  .qa summary i{flex:none;position:relative;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .qa summary i::before,.qa summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;border-radius:2px;background:var(--line);transition:transform .25s}
+  .qa summary i::after{transform:rotate(90deg)}
+  .qa[open] summary i::after{transform:rotate(0)}
+  .qa .ans{padding:0 20px 20px;color:var(--soft);line-height:1.55;max-width:34em}
+  .qa .ans a{color:var(--text)}
+  @media (prefers-reduced-motion:reduce){.qa summary i::after{transition:none}}
+  .faq .stopname{display:inline-flex;align-items:center;gap:10px;font-weight:700;color:var(--line);margin-bottom:14px}
+  .faq .stopname b{width:16px;height:16px;border-radius:50%;border:4px solid var(--line);background:var(--night)}
+  .faq h2{font-size:clamp(2.7rem,6vw,5.2rem);line-height:.98;margin-bottom:.5em}
   .vs{padding-top:var(--gap)}
   .how{padding-top:var(--gap)}
   .how a{display:block;width:min(100%,900px);padding:clamp(28px,4vw,48px);border-radius:32px;text-decoration:none;background:linear-gradient(150deg,#22306b,#151f4d);border:1px solid rgba(255,197,46,.35)}
@@ -207,7 +317,7 @@
   .how h2{font:800 clamp(2.6rem,7vw,5.2rem)/.95 Bricolage,sans-serif;letter-spacing:-.02em}
   .how p{margin-top:16px;max-width:36em;color:var(--soft);font-size:clamp(1.05rem,1.5vw,1.25rem)}
   .how .go{display:inline-block;margin-top:22px;color:var(--line);font-weight:700}
-  .vs table{width:min(100%,760px);border-collapse:collapse;font-size:clamp(1rem,1.4vw,1.15rem)}
+  .vs table{width:min(100%,760px);border-collapse:collapse;font-size:clamp(1rem,1.4vw,1.15rem);background:rgba(16,25,61,.94);border-radius:18px;box-shadow:0 0 0 14px rgba(16,25,61,.94)}   /* a solid backing, so the yellow line passes behind the table instead of through the words */
   .vs th,.vs td{padding:14px 12px;border-bottom:1px solid rgba(201,210,238,.18);text-align:center}
   .vs th:first-child,.vs td:first-child{text-align:left}
   .vs td:nth-child(2){color:var(--live);font-weight:800}
@@ -321,7 +431,7 @@
     <div class="inner">
       <header class="top">
         <a class="mark" href="./" aria-label="OVnow"><img src="img/icon-180.png?v=2" alt="" width="36" height="36">OVnow</a>
-        <span class="soon"><span data-i18n="soon">Binnenkort</span><span class="opt"> <span data-i18n="soon2">op iPhone</span></span></span>
+        <span class="soon"><span data-i18n="soon">Nu in bèta</span><span class="opt"> <span data-i18n="soon2">op iPhone</span></span></span>
         <div class="langs" role="group" aria-label="Taal / Language">
           <button type="button" data-lang="nl" aria-pressed="true">NL</button>
           <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -342,7 +452,7 @@
     <div class="inner">
       <div class="sheet">
         <div class="sheet-top">
-          <h2 data-i18n="liveTitle">De Sprinter, nu</h2>
+          <h2 data-i18n="liveTitle">The Airport Sprinter, nu</h2>
           <span class="chip off" id="status">live</span>
         </div>
         <div class="board" id="board">
@@ -378,10 +488,21 @@
     <div class="inner split">
       <div class="txt">
         <h2 data-i18n="f1t">Hoe lang nog?</h2>
-        <p data-i18n="f1p">Bovenaan staat wat het eerst vertrekt, met het perron of de steiger en de tijd die je nog hebt.</p>
+        <p data-i18n="f1p">Bovenaan staat wat het eerst vertrekt, met het perron, de halte of de steiger en de tijd die je nog hebt.</p>
       </div>
       <img class="phone" src="img/shot-map.webp" alt="" data-i18n-alt="a8" width="600" height="1304" loading="lazy">
     </div>
+  </section>
+
+  <section class="q three">
+    <div class="inner split">
+      <div class="txt">
+        <h2 data-i18n="f3t">Onderweg</h2>
+        <p data-i18n="f3p">Druk op Go en je reis loopt mee op je toegangsscherm: wanneer je vertrekt en waar je overstapt, zonder je telefoon te openen.</p>
+      </div>
+      <img class="phone" src="img/shot-live.webp" alt="" data-i18n-alt="a3" width="552" height="1200" loading="lazy">
+    </div>
+  <i data-at="3"></i>
   </section>
 
   <section class="q three four">
@@ -394,22 +515,53 @@
     </div>
   </section>
 
-  <section class="vs">
-    <div class="inner">
-      <h2 data-i18n="vsTitle">Waarom OVnow</h2>
-      <table>
-        <thead><tr><th></th><th>OVnow</th><th data-i18n="vsOther">Meeste OV-apps</th></tr></thead>
-        <tbody>
-          <tr><td data-i18n="vs1">Elk voertuig live op de kaart</td><td>✓</td><td>–</td></tr>
-          <tr><td data-i18n="vs2">Stations en voertuigen in 3D</td><td>✓</td><td>–</td></tr>
-          <tr><td data-i18n="vs3">Aftellen met je looptijd erbij</td><td>✓</td><td>–</td></tr>
-          <tr><td data-i18n="vs4">Live Activities op je toegangsscherm</td><td>✓</td><td>–</td></tr>
-          <tr><td data-i18n="vs6">In het Dynamic Island</td><td>✓</td><td>–</td></tr>
-          <tr><td data-i18n="vs7">Op je Apple Watch</td><td>✓</td><td>–</td></tr>
-          <tr><td data-i18n="vs5">Geen account nodig</td><td>✓</td><td>–</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <section class="faq" id="vragen">
+    <div class="inner"><div>
+      <p class="stopname"><b></b><span data-i18n="faqStop">Halte: Vragen</span></p>
+      <h2 data-i18n="faqTitle">Vragen</h2>
+      <div class="qas">
+        <details class="qa" open>
+          <summary><span data-i18n="faqQ0">Wat kost OVnow?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA0">Niets. OVnow is gratis en je hebt geen account nodig.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ1">Wanneer staat OVnow in de App Store?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA1">OVnow is nu in bèta via TestFlight. Een datum voor de App Store is er nog niet. Meld je aan voor de bèta, dan ben je er als eerste bij.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ2">Welke iPhone heb ik nodig?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA2">Een iPhone met iOS 26 of nieuwer.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ3">Komt er een Android-versie?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA3">Voorlopig niet. OVnow is gebouwd met Apple's eigen techniek, dus voor Android moet de hele app opnieuw. <a href='/how/nl'>Lees waarom</a>.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ4">Waar komt de data vandaan?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA4">Van NDOV Loket en OVapi, de open OV-data van Nederland. De OVnow-server in Amsterdam haalt die op en voegt alles samen voor de app. Live posities komen elke paar seconden binnen.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ5">Waarom rijdt niet alles live?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA5">Sommige voertuigen sturen zelf geen GPS, zoals een deel van de ponten, metro's en treinen. Die zet OVnow op de kaart volgens hun verwachte tijden. In de app zie je wat live is en wat volgens de dienstregeling.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ6">Werkt het in heel Nederland?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA6">Ja: trein, tram, metro, bus en pont, van alle vervoerders in de open OV-data. In het buitenland werkt OVnow niet.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ7">Wat gebeurt er met mijn locatie?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA7">Die gebruikt OVnow alleen om haltes en routes in de buurt te vinden, en hij wordt nergens bewaard. <a href='/privacy.html'>Lees de privacyverklaring</a>.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ8">Werkt het op mijn Apple Watch?</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA8">Je rit staat als Live Activity ook op je Apple Watch. Een aparte Watch-app is er (nog) niet.</div>
+        </details>
+        <details class="qa">
+          <summary><span data-i18n="faqQ9">Ik heb een fout gevonden of een idee.</span><i aria-hidden="true"></i></summary>
+          <div class="ans" data-i18n-html="faqA9">Laat het weten via TestFlight: maak een screenshot of schud je iPhone. Of mail naar <a href='mailto:mail@ovnow.app'>mail@ovnow.app</a>.</div>
+        </details>
+      </div>
+    </div></div>
   </section>
 
   <section class="how">
@@ -430,23 +582,12 @@
     </div>
   </section>
 
-  <section class="q three">
-    <div class="inner split">
-      <div class="txt">
-        <h2 data-i18n="f3t">Onderweg</h2>
-        <p data-i18n="f3p">Druk op Go en je reis loopt mee op je toegangsscherm: wanneer je vertrekt en waar je overstapt, zonder je telefoon te openen.</p>
-      </div>
-      <img class="phone" src="img/shot-live.webp" alt="" data-i18n-alt="a3" width="552" height="1200" loading="lazy">
-    </div>
-  <i data-at="3"></i>
-  </section>
-
   <section>
     <div class="inner pair">
       <div>
         <figure class="planc"><img src="img/shot-plan.webp" alt="" data-i18n-alt="a5" width="760" height="841" loading="lazy"></figure>
-        <div class="txt"><h3 data-i18n="f4t">Of gewoon naar huis</h3>
-        <p data-i18n="f4p">Plan je reis. Werkt ook met Siri en Apple Watch.</p></div>
+        <div class="txt"><h3 data-i18n="f4t">Plan je reis</h3>
+        <p data-i18n="f4p">Van waar je bent naar waar je heen wilt, met elke overstap erbij.</p></div>
       </div>
       <div>
         <img class="widget" src="img/shot-widget.jpg" alt="" data-i18n-alt="a6" width="480" height="225" loading="lazy">
@@ -458,7 +599,7 @@
 
   <section class="big">
     <div class="inner">
-      <h2 data-i18n="f7t">Zonder rommel</h2>
+      <h2 data-i18n="f7t">Jouw locatie blijft van jou</h2>
       <p data-i18n="f7p">Geen account nodig. Je locatie gebruiken we alleen om haltes en routes te vinden, en we bewaren hem nergens. Je favorieten staan op je iPhone.</p>
     </div>
   </section>
@@ -515,29 +656,51 @@
 const T = {
   en: {
     vsTitle: "Why OVnow", vsOther: "Most transit apps",
+    faqQ0: "What does OVnow cost?",
+    faqA0: "Nothing. OVnow is free and you don't need an account.",
+    faqQ1: "When will OVnow be in the App Store?",
+    faqA1: "OVnow is in beta on TestFlight now. There's no App Store date yet. Sign up for the beta to be among the first.",
+    faqQ2: "Which iPhone do I need?",
+    faqA2: "An iPhone with iOS 26 or newer.",
+    faqQ3: "Is there an Android version?",
+    faqA3: "Not for now. OVnow is built with Apple's own technology, so Android would mean building the whole app again. <a href='/how'>Read why</a>.",
+    faqQ4: "Where does the data come from?",
+    faqA4: "From NDOV Loket and OVapi, the open transit data of the Netherlands. The OVnow server in Amsterdam fetches it and puts it all together for the app. Live positions come in every few seconds.",
+    faqQ5: "Why isn't everything live?",
+    faqA5: "Some vehicles don't send GPS themselves, like some ferries, metros and trains. OVnow places those on the map by their expected times. The app shows what's live and what follows the timetable.",
+    faqQ6: "Does it work across the Netherlands?",
+    faqA6: "Yes: train, tram, metro, bus and ferry, from every operator in the open transit data. OVnow doesn't work abroad.",
+    faqQ7: "What happens with my location?",
+    faqA7: "OVnow only uses it to find stops and routes near you, and it isn't stored anywhere. <a href='/privacy.html'>Read the privacy statement</a>.",
+    faqQ8: "Does it work on my Apple Watch?",
+    faqA8: "Your ride shows as a Live Activity on your Apple Watch too. There's no separate Watch app (yet).",
+    faqQ9: "I found a bug or have an idea.",
+    faqA9: "Let me know through TestFlight: take a screenshot or shake your iPhone. Or email <a href='mailto:mail@ovnow.app'>mail@ovnow.app</a>.",
+    faqStop: "Stop: Questions",
+    faqTitle: "Questions",
     howTitle: "How OVnow works", howText: "Where the live data comes from, the server behind the app, and what it takes to keep OVnow running.", howGo: "Read how it works",
     vs1: "Every vehicle live on the map", vs2: "Stations and vehicles in 3D", vs3: "Countdown with your walk included",
     vs4: "Live Activities on your Lock Screen", vs6: "In the Dynamic Island", vs7: "On your Apple Watch", vs5: "No account needed", saidTitle: "What testers say",
     coffeeText: "OVnow is free. Building it takes a lot of time, and Apple charges a yearly fee to put apps in the App Store. A coffee helps cover those costs. Not to make money, just to keep OVnow going.",
     coffeeLink: "☕ Buy me a coffee",
-    title: "Your ride,<br>right now.", soon: "Coming soon", soon2: "to iPhone",
+    title: "Your ride,<br>right now.", soon: "Now in beta", soon2: "on iPhone",
     lede: "Every bus, tram, metro, train and ferry in the Netherlands, live on your iPhone. See what's leaving <strong>now</strong> and where it is.",
     joinTitle: "Test OVnow with TestFlight", betaButton: "Sign up for the beta", joinIntro: "TestFlight is Apple's app for trying out new apps. Your invite goes to the email address of your Apple ID.", pageTitle: "OVnow: your ride, right now", joinFirst: "First name", joinLast: "Last name", joinEmail: "Email (linked to your Apple ID)", joinModel: "iPhone model", joinSend: "Sign me up", joinBusy: "Sending…", joinNote: "Only for your TestFlight invite.", joinDone: "You're on the list. Your invite will come by email.", joinListed: "You're on the list", joinStopDone: "Signed up", joinStopNext: "TestFlight invite", joinStopLater: "Coming later by email", joinFail: 'That didn\'t work. Try again, or email <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',
-    liveTitle: "The Sprinter, now", statusLive: "live", statusTimetable: "timetable", statusQuiet: "quiet", statusExample: "example",
-    proofExample: "This is an example of the line, not real trips.", exampleTitle: "The Sprinter", ride: "Centraal to Hoofddorp, about",
+    liveTitle: "The Airport Sprinter, now", statusLive: "live", statusTimetable: "timetable", statusQuiet: "quiet", statusExample: "timetable",
+    proofExample: "", exampleTitle: "The Airport Sprinter", ride: "Centraal to Hoofddorp, about",
     track: "Platform", leaves: "Leaves in", first: "First Sprinter at", toHfd: "To Hoofddorp", now: "now", then: "Then",
     proof: "From Amsterdam Centraal. Real trains, live.",
     proofQuiet: "No Sprinter on this stretch right now.",
     proofTimetable: "Showing the timetable for now. Live data will be back shortly.",
-    railsAria: "The Sprinter between Amsterdam Centraal and Hoofddorp, with every train where it is now",
+    railsAria: "The Airport Sprinter between Amsterdam Centraal and Hoofddorp, with every train where it is now",
     night: "No more Sprinters tonight.", late: "min late",
-    f1t: "How long?", f1p: "The next departure sits at the top, with the platform or pier and the time you\'ve got.",
+    f1t: "How long?", f1p: "The next departure sits at the top, with the platform, stop or pier and the time you\'ve got.",
     f2t: "Where is it?", f2p: "Every bus, tram, metro, train and ferry live on the map. Tap a line to see only that one.",
     f3dt: "Stations in 3D", f3dp: "3D on the map, with trains, trams, metros, buses and ferries moving through them live.",
     f3t: "On the way", f3p: "Press Go and your journey follows along on your Lock Screen: when to leave and where to change, without opening your phone.",
-    f4t: "Or just go home", f4p: "Plan your trip. Also works with Siri and Apple Watch.",
+    f4t: "Plan your trip", f4p: "From where you are to where you're going, with every transfer.",
     f5t: "Your daily route", f5p: "Every tram, metro, bus, train or ferry in one list. On your Home Screen too.",
-    f7t: "No clutter", f7p: "No account needed. Your location is only used to find stops and routes, and is never stored. Your favourites stay on your iPhone.",
+    f7t: "Your location stays yours", f7p: "No account needed. Your location is only used to find stops and routes, and is never stored. Your favourites stay on your iPhone.",
     endTitle: "Nearly on your iPhone.",
     a1: "OVnow: the F3 ferry leaves in 4:24 from pier D", a2: "OVnow night map: Sprinter 8285 to Hoofddorp has just left Amsterdam Centraal", a4: "OVnow 3D map at night: Amsterdam Centraal with a ferry on the IJ, a train and GVB trams", a7: "OVnow: Amsterdam Centraal in 3D, a tram, a train, the ferry and your journey on the Lock Screen", a8: "OVnow station panel for Amsterdam Centraal: train, tram, metro, bus and ferry departures", a9: "OVnow: Utrecht Centraal, Amsterdam Centraal and metro station Noord in 3D, with live vehicles", a5: "OVnow planner from Amsterdam Centraal to Utrecht Science Park, with a tight-transfer warning", a6: "OVnow widget with the next tram from Centraal Station to Leidseplein",
     a3: "Lock Screen with an OVnow journey: walk to Centraal Station, tram 2 leaves 22:50 from platform B2",
@@ -546,8 +709,8 @@ const T = {
   },
   nl: {
     joinTitle: "Test OVnow via TestFlight", betaButton: "Meld je aan voor de bèta", joinIntro: "TestFlight is de app van Apple om nieuwe apps uit te proberen. Je uitnodiging komt op het e-mailadres van je Apple ID.", pageTitle: "OVnow: jouw rit, nu", joinFirst: "Voornaam", joinLast: "Achternaam", joinEmail: "E-mailadres (gekoppeld aan je Apple ID)", joinModel: "iPhone-model", joinSend: "Meld me aan", joinBusy: "Even geduld…", joinNote: "Alleen voor je TestFlight-uitnodiging.", joinDone: "Je staat op de lijst. Je uitnodiging komt per mail.", joinListed: "Je staat op de lijst", joinStopDone: "Aangemeld", joinStopNext: "TestFlight-uitnodiging", joinStopLater: "Komt later per mail", joinFail: 'Dat lukte niet. Probeer het nog eens, of mail naar <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',
-    statusLive: "live", statusTimetable: "dienstregeling", statusQuiet: "rustig", statusExample: "voorbeeld",
-    proofExample: "Dit is een voorbeeld van de lijn, geen echte ritten.", exampleTitle: "De Sprinter", ride: "Van Centraal naar Hoofddorp, ongeveer", first: "Eerste Sprinter om", now: "nu", then: "Daarna",
+    statusLive: "live", statusTimetable: "dienstregeling", statusQuiet: "rustig", statusExample: "dienstregeling",
+    proofExample: "", exampleTitle: "The Airport Sprinter", ride: "Van Centraal naar Hoofddorp, ongeveer", first: "Eerste Sprinter om", now: "nu", then: "Daarna",
     proof: "Vanaf Amsterdam Centraal. Echte treinen, live.",
     proofQuiet: "Op dit stuk rijdt nu even geen Sprinter.",
     proofTimetable: "Even volgens de dienstregeling. De live data komt zo terug.",
@@ -709,7 +872,8 @@ function moveTrain(m, x, back, glide = true) {
   if (!glide) m.style.transition = "none";
   const small = innerWidth <= 820, edge = small ? 20 : 30;
   const cx = Math.min(Math.max(p.x - dy / h * off, edge), rail.clientWidth - edge);
-  m.style.transform = `translate(${cx.toFixed(1)}px,${(p.y + dx / h * off).toFixed(1)}px) translate(-50%,-50%)`;
+  const deg = Math.atan2(dy, dx) * 180 / Math.PI + (back ? 180 : 0);   // the train lies along the track, nose first
+  m.style.transform = `translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px) translate(-50%,-50%) rotate(${deg.toFixed(1)}deg)`;
   if (!glide) requestAnimationFrame(() => m.style.transition = "");
 }
 
@@ -792,6 +956,7 @@ function render() {
   rail.classList.toggle("example", example);
   tag.textContent = T[lang][example ? "statusExample" : live ? (onLine ? "statusLive" : "statusQuiet") : "statusTimetable"];
   tag.classList.toggle("off", !(live && onLine));
+  tag.hidden = !live;   // only a status when there is live data: no "timetable" label
   $("proof").textContent = T[lang][example ? "proofExample" : !live ? "proofTimetable" : onLine ? "proof" : "proofQuiet"];
 
   // The countdown: the next Sprinter leaving Centraal for Hoofddorp
@@ -802,7 +967,7 @@ function render() {
   marks.querySelectorAll(".stn").forEach(n => {
     const em = n.querySelector("em"), st = +n.dataset.st, c = !example && leaving[0] && leaving[0].stops.find(x => x.x === STATIONS[st].x);
     em.className = example && !st ? "tag" : "";
-    em.textContent = example ? (st ? "" : T[lang].statusExample) : c ? fmt(c.d || c.a) : "";
+    em.textContent = example ? "" : c ? fmt(c.d || c.a) : "";
   });
   if (example) {
     el.textContent = RUN[4] + " min"; el.className = "count small";
