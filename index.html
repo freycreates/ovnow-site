@@ -740,12 +740,14 @@ function setLang(l) {
 document.querySelectorAll(".langs button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 
 // ---- TestFlight sign-up, sent to the OVnow inbox ----
-document.querySelector("[data-beta]").addEventListener("click", e => {
+document.querySelectorAll("[data-beta]").forEach(b => b.addEventListener("click", e => {   // every beta button: the opening one too
   e.preventDefault();
   history.pushState(null, "", "#testflight");
-  document.getElementById("testflight").scrollIntoView();
+  const f = document.getElementById("testflight");
+  f.scrollIntoView();
   document.querySelector(".join input").focus({preventScroll: true});   // inside the tap, so an iPhone opens the keyboard
-});
+  setTimeout(() => { const y = f.getBoundingClientRect().top; if (y < 0 || y > innerHeight * .5) f.scrollIntoView({behavior: "instant"}); }, 1200);   // a long smooth scroll can be cut short: finish the jump
+}));
 document.querySelectorAll(".join").forEach(form => form.addEventListener("submit", async e => {
   e.preventDefault();
   const send = form.querySelector("button"), state = form.querySelector(".state");
@@ -1007,7 +1009,11 @@ function stops(trip) {
 
 buildRoute();
 let saved = null; try { saved = localStorage.getItem("ovnu-lang"); } catch (e) {}
-setLang((location.hash.toLowerCase() === "#nl" ? "nl" : location.hash.toLowerCase() === "#en" ? "en" : null) || saved || ((navigator.language || "").toLowerCase().startsWith("nl") ? "nl" : "en"));
+setLang((location.hash.toLowerCase() === "#nl" ? "nl" : location.hash.toLowerCase() === "#en" ? "en" : null) || ({nl: "nl", en: "en"})[new URLSearchParams(location.search).get("lang")] || saved || ((navigator.language || "").toLowerCase().startsWith("nl") ? "nl" : "en"));
+if (location.hash === "#testflight") [300, 900, 1800].forEach(ms => setTimeout(() => {   // a share link straight to the sign-up: keep the form in view while the page settles
+  const f = document.getElementById("testflight"), y = f.getBoundingClientRect().top;
+  if (y < 0 || y > innerHeight * .5) f.scrollIntoView({behavior: "instant"});   // a long smooth scroll gets cut short while the page is still busy
+}, ms));
 addEventListener("hashchange", () => { const h = location.hash.toLowerCase(); if (h === "#nl" || h === "#en") setLang(h.slice(1)); });
 let pending = 0;
 const rebuild = () => { buildRoute(); render(); };   // new stations need their times and labels straight away
