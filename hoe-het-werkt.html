@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How OVnow works</title>
+<meta name="description" content="Zo werkt OVnow: waar de live data vandaan komt, de eigen server, en wat het kost om de app te maken en draaiend te houden.">
+<link rel="canonical" href="https://ovnow.app/hoe-het-werkt.html">
+<link rel="icon" href="img/icon-180.png?v=2">
+<link rel="apple-touch-icon" href="img/icon-180.png?v=2">
+<style>
+  @font-face{font-family:"Bricolage";src:url(fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
+  @font-face{font-family:"Onest";src:url(fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{--night:#10193d;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee;scrollbar-color:#3a4a92 var(--night)}
+  *{box-sizing:border-box}
+  ::selection{background:var(--line);color:var(--night)}
+  body{margin:0;background:var(--night) url(img/nightmap.webp) center top/1600px auto no-repeat;color:var(--text);font:400 18px/1.6 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
+  a:hover{color:var(--line)}
+  :focus-visible{outline:3px solid var(--line);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:760px;min-height:100vh;margin:0 auto;padding:0 clamp(24px,4vw,44px)}
+  .top{display:flex;justify-content:space-between;align-items:center;padding:18px 0 0}
+  .brand{display:inline-flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;font:800 1.45rem/1 Bricolage,sans-serif;letter-spacing:-.025em}
+  .brand img{width:36px;height:36px;border-radius:9px}
+  .brand:hover{color:inherit}
+  .lang-switch{display:flex;padding:3px;border-radius:999px;background:rgba(34,47,104,.86)}
+  .lang-switch button{min-width:44px;min-height:44px;padding:0 10px;border:0;border-radius:999px;background:none;color:var(--soft);font:600 .94rem Onest,sans-serif;cursor:pointer}
+  .lang-switch button[aria-pressed="true"]{background:var(--text);color:var(--night)}
+  h1{margin:48px 0 8px;font:800 clamp(3.4rem,11vw,5.6rem)/.96 Bricolage,sans-serif;letter-spacing:-.015em}
+  .lede{margin:14px 0 36px;font-size:1.25rem;line-height:1.42}
+  h2{margin:38px 0 6px;font:800 1.7rem/1.1 Bricolage,sans-serif;letter-spacing:-.015em}
+  p,li{max-width:38em}
+  ul{padding-left:1.2em}
+  li::marker{color:var(--line)}
+  footer{margin-top:52px;padding:22px 0 44px;font-size:.95rem;color:var(--soft)}
+  [lang-block]{display:none}
+  html[lang="nl"] [lang-block="nl"],html[lang="en"] [lang-block="en"]{display:block}
+
+  .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:10px;margin:22px 0 8px}
+  .flow div{background:rgba(34,47,104,.86);border-radius:18px;padding:14px 16px;font-size:.95rem;line-height:1.35}
+  .flow b{display:block;font:800 1.05rem/1.2 Bricolage,sans-serif;margin-bottom:2px}
+  .flow .you{background:var(--line);color:var(--night)}
+  .flow span{color:var(--line);font-size:1.4rem}
+  @media (max-width:640px){.flow{grid-template-columns:1fr}.flow span{transform:rotate(90deg);justify-self:center}}
+  .costs{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+  .costs li{display:flex;gap:14px;align-items:baseline;background:rgba(34,47,104,.55);border-radius:14px;padding:12px 16px}
+  .costs li b{min-width:9.5em;font-weight:700}
+  @media (max-width:520px){.costs li{flex-direction:column;gap:2px}}
+  .support{margin:44px 0 0;padding:26px 26px 28px;border-radius:24px;background:linear-gradient(160deg,rgba(255,197,46,.16),rgba(34,47,104,.86))}
+  .support h2{margin-top:0}
+  .cup{display:inline-block;margin-top:14px;padding:12px 22px;border-radius:999px;background:#ffdd00;color:#0d1330;font-weight:700;text-decoration:none}
+  .top-cup{margin:-14px 0 30px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;color:var(--soft);font-size:.95rem}
+  .top-cup .cup{margin-top:0}
+  .cup:hover,.cup:focus-visible{background:#ffe94d;color:#0d1330}
+</style>
+<script data-goatcounter="https://freycreates.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="./" aria-label="OVnow"><img src="img/icon-180.png?v=2" alt="" width="36" height="36">OVnow</a>
+    <div class="lang-switch" role="group" aria-label="Taal / Language">
+      <button type="button" data-lang="nl" aria-pressed="true">NL</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <div lang-block="nl">
+      <h1>Zo werkt OVnow</h1>
+      <p class="lede">OVnow is gemaakt door één persoon, met een eigen server. Hier lees je hoe de app aan zijn live data komt, en wat er nodig is om hem draaiend te houden.</p>
+      <p class="top-cup"><a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-how-top">☕ Trakteer me op een koffie</a> <span>Om de kosten te dekken, niet om aan te verdienen.</span></p>
+
+      <h2>Van dienstregeling naar je scherm</h2>
+      <div class="flow" role="list">
+        <div role="listitem"><b>Open OV-data</b>Dienstregeling, vertragingen en posities van voertuigen, van NDOV Loket en OVapi.</div><span aria-hidden="true">→</span>
+        <div role="listitem"><b>De OVnow-server</b>Haalt alles elke paar seconden op en zet het klaar voor de app.</div><span aria-hidden="true">→</span>
+        <div role="listitem" class="you"><b>Jouw iPhone</b>Vertrektijden, live voertuigen op de kaart en je rit op je toegangsscherm.</div>
+      </div>
+      <ul>
+        <li>De kaart en het zoeken naar adressen komen van Apple Maps.</li>
+        <li>Reisplanning loopt via Transitous, een open reisplanner.</li>
+        <li>De gebouwen en sporen in 3D komen uit OpenStreetMap en de 3D BAG. De grote stations zijn met de hand nagebouwd.</li>
+        <li>Je hebt geen account nodig. Wat er met je locatie gebeurt, staat in de <a href='privacy.html'>privacyverklaring</a>.</li>
+      </ul>
+
+      <h2>Eén server, eigen beheer</h2>
+      <p>OVnow draait op een eigen server in Amsterdam, niet bij een groot bedrijf. Die verwerkt elke paar seconden de live data van heel Nederland, en kan zonder moeite een flinke drukte aan.</p>
+
+      <h2>Wat het kost</h2>
+      <ul class="costs">
+        <li><b>Server</b><span>Draait dag en nacht. Betaal ik zelf.</span></li>
+        <li><b>Domeinnaam</b><span>ovnow.app. Betaal ik zelf.</span></li>
+        <li><b>Apple Developer</b><span>Apple vraagt elk jaar geld om apps in de App Store te zetten. Betaal ik zelf.</span></li>
+        <li><b>Tijd</b><span>Veel avonden en weekenden om de app en alles in 3D te bouwen, en elke week tijd om hem bij te houden als dienstregelingen en data veranderen.</span></li>
+      </ul>
+
+      <section class="support" aria-labelledby="support-nl">
+        <h2 id="support-nl">Steun OVnow</h2>
+        <p>OVnow is gratis, en ik maak het niet om er geld aan te verdienen. Vind je de app handig? Met een koffie help je de kosten te dekken.</p>
+        <a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-how">☕ Trakteer me op een koffie</a>
+      </section>
+
+      <h2>Vragen of ideeën?</h2>
+      <p>Mail naar <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.</p>
+    </div>
+
+    <div lang-block="en">
+      <h1>How OVnow works</h1>
+      <p class="lede">OVnow is made by one person, with its own server. Here's how the app gets its live data, and what it takes to keep it running.</p>
+      <p class="top-cup"><a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-how-top">☕ Buy me a coffee</a> <span>To cover the costs, not to make money.</span></p>
+
+      <h2>From timetable to your screen</h2>
+      <div class="flow" role="list">
+        <div role="listitem"><b>Open transit data</b>Timetables, delays and vehicle positions, from NDOV Loket and OVapi.</div><span aria-hidden="true">→</span>
+        <div role="listitem"><b>The OVnow server</b>Fetches it all every few seconds and gets it ready for the app.</div><span aria-hidden="true">→</span>
+        <div role="listitem" class="you"><b>Your iPhone</b>Departures, live vehicles on the map and your ride on your Lock Screen.</div>
+      </div>
+      <ul>
+        <li>The map and address search come from Apple Maps.</li>
+        <li>Trip planning runs through Transitous, an open journey planner.</li>
+        <li>The buildings and tracks in 3D come from OpenStreetMap and the 3D BAG. The big stations are built by hand.</li>
+        <li>You don't need an account. What happens with your location is in the <a href='privacy.html'>privacy statement</a>.</li>
+      </ul>
+
+      <h2>One server, run by me</h2>
+      <p>OVnow runs on its own server in Amsterdam, not at a big company. It processes the live data for the whole of the Netherlands every few seconds, and easily handles a good crowd.</p>
+
+      <h2>What it costs</h2>
+      <ul class="costs">
+        <li><b>Server</b><span>Runs day and night. I pay for it myself.</span></li>
+        <li><b>Domain name</b><span>ovnow.app. I pay for it myself.</span></li>
+        <li><b>Apple Developer</b><span>Apple charges a yearly fee to put apps in the App Store. I pay for it myself.</span></li>
+        <li><b>Time</b><span>Many evenings and weekends to build the app and everything in 3D, and time every week to keep it up to date as timetables and data change.</span></li>
+      </ul>
+
+      <section class="support" aria-labelledby="support-en">
+        <h2 id="support-en">Support OVnow</h2>
+        <p>OVnow is free, and I'm not making it to earn money. Find the app useful? A coffee helps cover the costs.</p>
+        <a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-how">☕ Buy me a coffee</a>
+      </section>
+
+      <h2>Questions or ideas?</h2>
+      <p>Email <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.</p>
+    </div>
+  </main>
+
+  <footer><a href="./"><svg width="9" height="13" viewBox="0 0 7 11" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 1 1.5 5.5 6 10"/></svg> OVnow</a> · <a href="https://freycreates.nl">FREYcreates</a></footer>
+</div>
+<script>
+function setLang(l) {
+  document.documentElement.lang = l;
+  document.querySelectorAll(".lang-switch button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
+  try { localStorage.setItem("ovnu-lang", l); } catch (e) {}
+}
+document.querySelectorAll(".lang-switch button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+let saved = null; try { saved = localStorage.getItem("ovnu-lang"); } catch (e) {}
+setLang(saved || ((navigator.language || "").toLowerCase().startsWith("nl") ? "nl" : "en"));
+</script>
+</body>
+</html>

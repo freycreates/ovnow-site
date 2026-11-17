@@ -118,6 +118,7 @@
   .notify{display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:0 28px;border-radius:15px;background:var(--line);color:var(--night);font-weight:700;font-size:1.12rem;text-decoration:none;transition:background .16s ease-out,transform .16s ease-out}
   .notify:hover{background:#ffd764;color:var(--night);transform:translateY(-1px)}
   .notify:active{transform:none}
+  .how-btn{display:flex;width:fit-content;margin-top:12px}
   .joinh{margin:0 0 14px;font:800 1.5rem/1.1 Bricolage,sans-serif;letter-spacing:-.015em}
   .join{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:556px;padding-left:36px;align-items:end}
   .rail{position:absolute;left:0;width:22px;pointer-events:none}
@@ -200,6 +201,12 @@
     .sticky.away{opacity:0;transform:translateY(20px);pointer-events:none}}
   /* Why OVnow */
   .vs{padding-top:var(--gap)}
+  .how{padding-top:var(--gap)}
+  .how a{display:block;width:min(100%,900px);padding:clamp(28px,4vw,48px);border-radius:32px;text-decoration:none;background:linear-gradient(150deg,#22306b,#151f4d);border:1px solid rgba(255,197,46,.35)}
+  .how a:hover{color:inherit;border-color:var(--line)}
+  .how h2{font:800 clamp(2.6rem,7vw,5.2rem)/.95 Bricolage,sans-serif;letter-spacing:-.02em}
+  .how p{margin-top:16px;max-width:36em;color:var(--soft);font-size:clamp(1.05rem,1.5vw,1.25rem)}
+  .how .go{display:inline-block;margin-top:22px;color:var(--line);font-weight:700}
   .vs table{width:min(100%,760px);border-collapse:collapse;font-size:clamp(1rem,1.4vw,1.15rem)}
   .vs th,.vs td{padding:14px 12px;border-bottom:1px solid rgba(201,210,238,.18);text-align:center}
   .vs th:first-child,.vs td:first-child{text-align:left}
@@ -324,6 +331,7 @@
         <h1 data-i18n-html="title">Jouw rit,<br>nu.</h1>
         <p class="lede" data-i18n-html="lede">Elke bus, tram, metro, trein en pont in Nederland, live op je iPhone. Je ziet wat <strong>nu</strong> vertrekt en waar het is.</p>
         <a class="notify" href="#testflight" data-beta data-goatcounter-click="beta-top" data-i18n="betaButton">Meld je aan voor de bèta</a>
+        <a class="notify how-btn" href="hoe-het-werkt.html" data-goatcounter-click="how-top" data-i18n="howTitle">Zo werkt OVnow</a>
       </div>
       <video class="phone" muted loop playsinline autoplay preload="metadata" poster="img/poster-hero.webp" width="600" height="1304" role="img" aria-label="OVnow: Amsterdam Centraal in 3D, een tram, een trein, de pont en je reis op het toegangsscherm" data-i18n-aria="a7"><source src="video/hero.mp4" type="video/mp4"></video>
     </div>
@@ -404,6 +412,16 @@
     </div>
   </section>
 
+  <section class="how">
+    <div class="inner">
+      <a href="hoe-het-werkt.html" data-goatcounter-click="how">
+        <h2 data-i18n="howTitle">Zo werkt OVnow</h2>
+        <p data-i18n="howText">Waar de live data vandaan komt, de eigen server achter de app, en wat er nodig is om OVnow draaiend te houden.</p>
+        <span class="go"><span data-i18n="howGo">Lees hoe het werkt</span> →</span>
+      </a>
+    </div>
+  </section>
+
   <!-- Social proof: fill in real numbers/quotes from testers, then remove "hidden" -->
   <section class="said" hidden>
     <div class="inner">
@@ -475,11 +493,14 @@
       </div>
     </div>
     <div class="foot">
+      <!-- Buy Me A Coffee: off until the app is through App Review, put back by removing this comment
       <div class="coffee">
         <p data-i18n="coffeeText">OVnow is gratis. Een app bouwen kost veel tijd, en Apple vraagt elk jaar geld om apps in de App Store te zetten. Met een koffie help je die kosten te dekken. Niet om aan te verdienen, maar om OVnow draaiende te houden.</p>
         <a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee" data-i18n="coffeeLink">☕ Trakteer me op een koffie</a>
       </div>
+      -->
       <div class="links">
+        <a href="hoe-het-werkt.html" data-goatcounter-click="how-foot" data-i18n="howTitle">Zo werkt OVnow</a>
         <a href="privacy.html" data-goatcounter-click="privacy" data-i18n="privLink">Privacy</a>
         <a href="mailto:mail@ovnow.app" data-goatcounter-click="mail" data-i18n="contact">Vragen of feedback?</a>
         <a href="https://freycreates.nl"><span data-i18n="made">Gemaakt door</span>&nbsp;FREYcreates</a>
@@ -494,6 +515,7 @@
 const T = {
   en: {
     vsTitle: "Why OVnow", vsOther: "Most transit apps",
+    howTitle: "How OVnow works", howText: "Where the live data comes from, the server behind the app, and what it takes to keep OVnow running.", howGo: "Read how it works",
     vs1: "Every vehicle live on the map", vs2: "Stations and vehicles in 3D", vs3: "Countdown with your walk included",
     vs4: "Live Activities on your Lock Screen", vs6: "In the Dynamic Island", vs7: "On your Apple Watch", vs5: "No account needed", saidTitle: "What testers say",
     coffeeText: "OVnow is free. Building it takes a lot of time, and Apple charges a yearly fee to put apps in the App Store. A coffee helps cover those costs. Not to make money, just to keep OVnow going.",
