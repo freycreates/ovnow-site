@@ -363,6 +363,8 @@
   .foot{border-top:1px solid rgba(201,210,238,.26);padding-block:24px 34px;font-size:.95rem;color:var(--soft)}
   .coffee{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-bottom:22px}
   .coffee p{margin:0;flex:1 1 30em;max-width:46em;line-height:1.5}
+  .give{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(201,210,238,.26)}
+  .give p{margin:0;flex:1 1 14em;color:var(--soft);font-size:.98rem}
   .cup{display:inline-block;padding:10px 18px;border-radius:999px;background:#ffdd00;color:#0d1330;font-weight:700;text-decoration:none;white-space:nowrap}
   .cup:hover,.cup:focus-visible{background:#ffe94d}
   .links{display:flex;flex-wrap:wrap;gap:0 26px}
@@ -630,16 +632,18 @@
             <li><span class="track"></span><span class="ridden"></span><span class="car" aria-hidden="true"><svg viewBox="0 0 9 12" aria-hidden="true"><path d="M1.5 3.5 4.5 7l3-3.5"/></svg></span><i></i><span data-i18n="joinStopDone">Aangemeld</span></li>
             <li><i></i><span><span data-i18n="joinStopNext">TestFlight-uitnodiging</span><small data-i18n="joinStopLater">Komt later per mail</small></span></li>
           </ol>
+          <div class="give">
+            <p data-i18n="giveText">Wil je OVnow steunen? Dat kan met een kleine donatie.</p>
+            <a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee-signup" data-i18n="coffeeLink">☕ Doneer</a>
+          </div>
         </div>
       </div>
     </div>
     <div class="foot">
-      <!-- Buy Me A Coffee: off until the app is through App Review, put back by removing this comment
       <div class="coffee">
         <p data-i18n="coffeeText">OVnow is gratis. Een app bouwen kost veel tijd, en Apple vraagt elk jaar geld om apps in de App Store te zetten. Met een kleine donatie help je die kosten te dekken. Niet om aan te verdienen, maar om OVnow draaiende te houden.</p>
-        <a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee" data-i18n="coffeeLink">☕ Doneer een bedrag</a>
+        <a class="cup" href="https://buymeacoffee.com/freycreates" target="_blank" rel="noopener" data-goatcounter-click="coffee" data-i18n="coffeeLink">☕ Doneer</a>
       </div>
-      -->
       <div class="links">
         <a href="/how" data-goatcounter-click="how-foot" data-i18n="howTitle">Zo werkt OVnow</a>
         <a href="privacy.html" data-goatcounter-click="privacy" data-i18n="privLink">Privacy</a>
@@ -681,8 +685,8 @@ const T = {
     howTitle: "How OVnow works", howText: "Where the live data comes from, the server behind the app, and what it takes to keep OVnow running.", howGo: "Read how it works",
     vs1: "Every vehicle live on the map", vs2: "Stations and vehicles in 3D", vs3: "Countdown with your walk included",
     vs4: "Live Activities on your Lock Screen", vs6: "In the Dynamic Island", vs7: "On your Apple Watch", vs5: "No account needed", saidTitle: "What testers say",
-    coffeeText: "OVnow is free. Building it takes a lot of time, and Apple charges a yearly fee to put apps in the App Store. A coffee helps cover those costs. Not to make money, just to keep OVnow going.",
-    coffeeLink: "☕ Buy me a coffee",
+    coffeeText: "OVnow is free. Building it takes a lot of time, and Apple charges a yearly fee to put apps in the App Store. A small donation helps cover those costs. Not to make money, just to keep OVnow going.",
+    coffeeLink: "☕ Donate", giveText: "Want to support OVnow? You can with a small donation.",
     title: "Your ride,<br>right now.", soon: "Now in beta", soon2: "on iPhone",
     lede: "Every bus, tram, metro, train and ferry in the Netherlands, live on your iPhone. See what's leaving <strong>now</strong> and where it is.",
     joinTitle: "Test OVnow with TestFlight", betaButton: "Sign up for the beta", joinIntro: "TestFlight is Apple's app for trying out new apps. Your invite goes to the email address of your Apple ID.", pageTitle: "OVnow: your ride, right now", joinFirst: "First name", joinLast: "Last name", joinEmail: "Email (linked to your Apple ID)", joinModel: "iPhone model", joinSend: "Sign me up", joinBusy: "Sending…", joinNote: "Only for your TestFlight invite.", joinDone: "You're on the list. Your invite will come by email.", joinListed: "You're on the list", joinStopDone: "Signed up", joinStopNext: "TestFlight invite", joinStopLater: "Coming later by email", joinFail: 'That didn\'t work. Try again, or email <a href="mailto:mail@ovnow.app">mail@ovnow.app</a>.',

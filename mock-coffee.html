@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock: koffie na aanmelden</title>
+<style>
+  @font-face{font-family:"Bricolage";src:url(fonts/bricolage.woff2) format("woff2");font-weight:700 800}
+  @font-face{font-family:"Onest";src:url(fonts/onest.woff2) format("woff2");font-weight:400 800}
+  :root{--night:#10193d;--deep:#0a1130;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee;--live:#5ee08f}
+  *{box-sizing:border-box}
+  body{margin:0;padding:40px 16px 80px;font:400 17px/1.5 Onest,system-ui,sans-serif;color:var(--text);background:var(--night)}
+  h1{font:800 2rem/1.1 Bricolage,sans-serif;margin:0 auto 8px;max-width:1200px}
+  .intro{max-width:1200px;margin:0 auto 36px;color:var(--soft)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:28px;max-width:1200px;margin:auto}
+  .opt{background:var(--deep);border-radius:22px;padding:26px 24px 30px}
+  .tag{display:inline-block;margin-bottom:6px;font-weight:800;color:var(--line);letter-spacing:.04em;font-size:.82rem}
+  .why{margin:0 0 22px;color:var(--soft);font-size:.95rem;min-height:4.5em}
+  .ride h2{margin:0 0 22px;font:800 2.4rem/1 Bricolage,sans-serif;letter-spacing:-.02em}
+  .ride h2 .who{display:block;color:var(--line)}
+  ol{list-style:none;margin:0;padding:0 0 0 38px;position:relative}
+  ol::before{content:"";position:absolute;left:8px;top:10px;bottom:10px;width:6px;border-radius:3px;background:#2a3670}
+  li{position:relative;padding-bottom:24px;font-weight:700}
+  li:last-child{padding-bottom:0}
+  li i{position:absolute;left:-38px;top:3px;width:22px;height:22px;border-radius:50%;background:var(--deep);border:6px solid #5a6aae}
+  li.on i{border-color:var(--line)}
+  li small{display:block;font-weight:400;color:var(--soft);font-size:.92rem}
+  .cup{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;background:#ffdd00;color:#0d1330;font-weight:700;text-decoration:none;white-space:nowrap}
+  .cup.big{min-height:58px;border-radius:15px;width:100%;justify-content:center;font-size:1.08rem}
+  .box{margin-top:28px;padding:20px;border-radius:16px;background:#1a2552}
+  .box p{margin:0 0 14px;font-size:.98rem;line-height:1.45}
+  .box b{font-family:Bricolage,sans-serif;font-size:1.2rem;display:block;margin-bottom:6px}
+  .line{margin-top:26px;padding-top:20px;border-top:1px solid #2a3670;display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
+  .line p{margin:0;flex:1 1 14em;color:var(--soft);font-size:.95rem}
+  li.cupstop i{border-color:#ffdd00;background:#ffdd00}
+  li.cupstop .cup{margin-top:10px}
+  .map{max-width:1200px;margin:64px auto 0}
+  .map h2{font:800 1.7rem/1.1 Bricolage,sans-serif;margin:0 0 8px}
+  .page{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:28px}
+  @media(max-width:760px){.page{grid-template-columns:1fr}}
+  .wire{display:grid;gap:6px}
+  .blk{position:relative;padding:12px 14px;border-radius:10px;background:#1a2552;color:var(--soft);font-size:.9rem}
+  .blk.pin{outline:2px solid #ffdd00;color:var(--text)}
+  .blk .n{position:absolute;right:-10px;top:-10px;width:26px;height:26px;border-radius:50%;background:#ffdd00;color:#0d1330;font-weight:800;display:grid;place-items:center;font-size:.85rem}
+  .spots{display:grid;gap:18px}
+  .spot{background:var(--deep);border-radius:18px;padding:20px}
+  .spot h3{margin:0 0 4px;font:800 1.15rem Bricolage,sans-serif}
+  .spot h3 span{color:#ffdd00}
+  .spot>p{margin:0 0 14px;color:var(--soft);font-size:.92rem}
+  .demo{padding:16px;border-radius:12px;background:var(--night)}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .logo{font:800 1.2rem Bricolage,sans-serif}
+  .pill{border-radius:999px;padding:6px 12px;background:var(--text);color:var(--night);font-weight:600;font-size:.85rem}
+  .cup.sm{min-height:36px;padding:0 14px;font-size:.9rem}
+  .faqq{font-weight:700;margin:0 0 4px}
+  .faqa{margin:0 0 12px;color:var(--soft)}
+  .foot2{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+  .foot2 p{margin:0;flex:1 1 16em;font-size:.92rem;color:var(--soft)}
+</style>
+</head>
+<body>
+<h1>Koffie na het aanmelden</h1>
+<p class="intro">Drie varianten van wat je ziet nadat je het TestFlight-formulier hebt verstuurd. Voornaam “Sanne” als voorbeeld.</p>
+
+<div class="grid">
+
+  <section class="opt">
+    <span class="tag">A · EXTRA HALTE</span>
+    <p class="why">Koffie wordt de derde halte op de route. Past bij het lijnen-idee, voelt als volgende stap en niet als reclame.</p>
+    <div class="ride">
+      <h2>Je staat op de lijst<span class="who">Sanne</span></h2>
+      <ol>
+        <li class="on"><i></i>Aangemeld</li>
+        <li><i></i>TestFlight-uitnodiging<small>Komt later per mail</small></li>
+        <li class="cupstop"><i></i>Trakteer op een koffie<small>Optioneel. Helpt de kosten van de App Store te dekken.</small>
+          <a class="cup" href="#">☕ Buy me a coffee</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="opt">
+    <span class="tag">B · KAART ONDER DE ROUTE</span>
+    <p class="why">Duidelijkst en meest zichtbaar: een eigen blok met korte uitleg en een grote knop. Het moment waarop iemand net enthousiast ja zei.</p>
+    <div class="ride">
+      <h2>Je staat op de lijst<span class="who">Sanne</span></h2>
+      <ol>
+        <li class="on"><i></i>Aangemeld</li>
+        <li><i></i>TestFlight-uitnodiging<small>Komt later per mail</small></li>
+      </ol>
+      <div class="box">
+        <b>Bedankt, Sanne!</b>
+        <p>OVnow is gratis. Apple vraagt elk jaar geld voor de App Store. Met een koffie help je OVnow draaiende te houden.</p>
+        <a class="cup big" href="#">☕ Trakteer op een koffie</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="opt">
+    <span class="tag">C · RUSTIGE REGEL</span>
+    <p class="why">Subtiel: één zin en een kleine knop onder de route. Het minst opdringerig, maar ook het minst zichtbaar.</p>
+    <div class="ride">
+      <h2>Je staat op de lijst<span class="who">Sanne</span></h2>
+      <ol>
+        <li class="on"><i></i>Aangemeld</li>
+        <li><i></i>TestFlight-uitnodiging<small>Komt later per mail</small></li>
+      </ol>
+      <div class="line">
+        <p>Wil je OVnow steunen? Dat kan met een kleine donatie.</p>
+        <a class="cup" href="#">☕ Doneer</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<section class="map">
+  <h2>Waar op de pagina?</h2>
+  <p class="intro" style="margin:0 0 24px">Links de pagina van boven naar beneden, geel zijn de plekken waar de knop kan komen. Rechts hoe elke plek eruitziet.</p>
+  <div class="page">
+    <div class="wire">
+      <div class="blk pin">Bovenbalk: logo · NL/EN<span class="n">1</span></div>
+      <div class="blk">Hero: “Jouw rit, nu.”</div>
+      <div class="blk">Live rit</div>
+      <div class="blk">Waar is hij? · Hoe lang nog? · Onderweg · 3D</div>
+      <div class="blk pin">Vragen: “Wat kost OVnow?”<span class="n">2</span></div>
+      <div class="blk">Zo werkt OVnow</div>
+      <div class="blk">Jouw locatie blijft van jou</div>
+      <div class="blk pin">Bijna op je iPhone: formulier → na aanmelden (C)<span class="n">3</span></div>
+      <div class="blk pin">Footer: koffie-blok (staat er al, uitgezet)<span class="n">4</span></div>
+    </div>
+    <div class="spots">
+      <div class="spot">
+        <h3><span>1</span> Bovenbalk</h3>
+        <p>Altijd in beeld, ook voor wie nooit naar beneden scrollt. Wel het meest opdringerig, en concurreert met de aanmeldknop.</p>
+        <div class="demo topbar"><span class="logo">OVnow</span><span style="display:flex;gap:8px;align-items:center"><a class="cup sm" href="#">☕ Doneer</a><span class="pill">NL</span></span></div>
+      </div>
+      <div class="spot">
+        <h3><span>2</span> Bij “Wat kost OVnow?”</h3>
+        <p>Op het moment dat iemand zich afvraagt hoe het gratis kan. Logische plek, geen reclamegevoel.</p>
+        <div class="demo"><p class="faqq">Wat kost OVnow?</p><p class="faqa">Niets. OVnow is gratis en je hebt geen account nodig. Wil je het steunen? Dat kan met een kleine donatie.</p><a class="cup sm" href="#">☕ Doneer</a></div>
+      </div>
+      <div class="spot">
+        <h3><span>3</span> Na aanmelden</h3>
+        <p>Variant C hierboven. Alleen voor wie net ja zei, dus de warmste groep.</p>
+      </div>
+      <div class="spot">
+        <h3><span>4</span> Footer</h3>
+        <p>Staat al klaar in de code, uitgezet tot na App Review. Vangnet voor wie onderaan komt.</p>
+        <div class="demo foot2"><p>OVnow is gratis. Met een kleine donatie help je de kosten van de App Store te dekken.</p><a class="cup" href="#">☕ Doneer</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
