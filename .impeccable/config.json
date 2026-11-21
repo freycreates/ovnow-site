@@ -11,6 +11,47 @@
         ],
         "createdAt": "2026-11-19T11:58:48.721Z",
         "reason": "Claude: only .tag uses tracking, a short uppercase label at .04em"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "overview-mockup/index.html"
+        ],
+        "createdAt": "2026-11-20T16:46:09.461Z",
+        "reason": "Claude: user asked for moving graphics and a flashing current hour; the Live dot marks the live route chart"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "resend-invite-mockup/index.html"
+        ],
+        "createdAt": "2026-11-21T19:43:37.170Z"
+      },
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "resend-invite-mockup/index.html"
+        ],
+        "createdAt": "2026-11-21T19:43:37.187Z"
+      },
+      {
+        "rule": "repeated-container-text",
+        "value": "*",
+        "files": [
+          "survey-mockup/index.html"
+        ],
+        "createdAt": "2026-11-21T21:23:35.611Z"
+      },
+      {
+        "rule": "repeated-container-text",
+        "value": "*",
+        "files": [
+          "vraag/index.html"
+        ],
+        "createdAt": "2026-11-21T21:23:35.628Z"
       }
     ]
   }

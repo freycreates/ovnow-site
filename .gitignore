@@ -1,0 +1,7 @@
+# Not part of the website: route-planner data (hundreds of MB) and local working files
+bustracker/
+.claude/
+screenshots/
+*-mockup/
+mock-*.html
+.DS_Store

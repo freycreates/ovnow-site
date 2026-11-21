@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OVnow: een vraag voor jou</title>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="../img/icon-180.png?v=2">
+<link rel="apple-touch-icon" href="../img/icon-180.png?v=2">
+<style>
+  @font-face{font-family:"Bricolage";src:url(../fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
+  @font-face{font-family:"Onest";src:url(../fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{--night:#10193d;--deep:#0a1130;--card:#0d1534;--edge:#2c3a78;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee;--mute:#9fb0e0}
+  *{box-sizing:border-box}
+  ::selection{background:var(--line);color:var(--night)}
+  body{margin:0;background:var(--deep) url(../img/nightmap.webp) center top/1600px auto no-repeat;color:var(--text);font:400 17px/1.55 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  :focus-visible{outline:3px solid var(--line);outline-offset:3px;border-radius:8px}
+  .wrap{max-width:600px;min-height:100vh;margin:0 auto;padding:24px 16px 48px}
+  .card{background:var(--night);border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+  .hd{display:flex;gap:12px;align-items:center;padding:22px 24px;background:#16224f}
+  .hd img{width:44px;height:44px;border-radius:11px}
+  .hd b{display:block;font:800 1.35rem/1 Bricolage,sans-serif;letter-spacing:-.02em}
+  .hd span{display:block;padding-top:4px;font-size:.8rem;color:var(--mute)}
+  .bar{height:5px;background:var(--line)}
+  .in{padding:26px 24px 28px}
+  .kick{margin:0 0 14px;font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--line)}
+  h1{margin:0 0 16px;font:800 1.6rem/1.15 Bricolage,sans-serif;letter-spacing:-.015em}
+  .q{margin:0 0 22px}
+  .q > .t{margin:0 0 10px;font-weight:700;font-size:1.05rem}
+  .opt{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:1.5px solid var(--edge);border-radius:14px;padding:14px 16px;margin:0 0 10px;cursor:pointer}
+  .opt b{display:block;font-size:1rem}
+  .opt small{display:block;margin-top:3px;font-size:.87rem;color:var(--mute)}
+  .opt[aria-pressed="true"]{border-color:var(--line);box-shadow:0 0 0 1px var(--line) inset}
+  .yr{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--deep);background:var(--line);border-radius:99px;padding:3px 8px;vertical-align:2px;margin-left:4px}
+  fieldset{border:0;margin:12px 0 0;padding:0;min-width:0}
+  legend{float:left;width:100%;padding:12px 0 6px;border-top:1px solid var(--edge);font-weight:700}
+  legend + *{clear:both}
+  legend u{text-decoration-color:var(--line);text-underline-offset:3px}
+  .note{margin:0 0 6px;font-size:.85rem;color:var(--mute)}
+  label.r{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;min-height:44px;font-size:1rem;cursor:pointer}
+  label.r input[type=radio],label.r input[type=checkbox]{accent-color:var(--line);width:20px;height:20px;margin:0;flex:none}
+  .other{width:100px;background:var(--deep);border:1px solid var(--edge);border-radius:8px;color:var(--text);padding:6px 8px;font:inherit}
+  .stars{display:flex;gap:6px}
+  .stars button{flex:1;min-height:56px;font-size:1.5rem;color:var(--edge);background:var(--card);border:1.5px solid var(--edge);border-radius:12px;cursor:pointer}
+  .stars button.on{color:var(--line);border-color:var(--line)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .grid label{display:flex;gap:10px;align-items:center;min-height:48px;background:var(--card);border:1.5px solid var(--edge);border-radius:12px;padding:8px 12px;cursor:pointer}
+  .grid label:has(input:checked){border-color:var(--line)}
+  .grid input{accent-color:var(--line);width:18px;height:18px;margin:0;flex:none}
+  textarea{width:100%;min-height:96px;background:var(--card);color:var(--text);border:1.5px solid var(--edge);border-radius:12px;padding:12px;font:inherit;resize:vertical}
+  .send{display:block;width:100%;min-height:52px;margin-top:18px;background:var(--line);color:var(--deep);border:0;border-radius:99px;font:800 1.05rem/1 Onest,sans-serif;cursor:pointer}
+  .send:disabled{opacity:.5;cursor:default}
+  .err{color:#ff8a80;margin:12px 0 0;min-height:1em}
+  .done{text-align:center;padding:12px 0}
+  .done b{display:block;font:800 1.6rem/1.2 Bricolage,sans-serif;margin-bottom:8px}
+  .done a.send{display:inline-block;width:auto;padding:16px 24px;text-decoration:none;margin-top:18px}
+  .foot{padding:0 24px 24px;font-size:.8rem;color:var(--mute)}
+  .foot a{color:var(--line);font-weight:700;text-decoration:none}
+  @media(max-width:460px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="hd"><img src="../img/icon-180.png?v=2" alt=""><div><b>OVnow</b><span id="tag">Een vraag voor jou</span></div></div>
+    <div class="bar"></div>
+    <div class="in" id="main" aria-live="polite"><p class="note" id="loading">Even laden…</p></div>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+<script>
+(() => {
+  const local = ["127.0.0.1", "localhost"].includes(location.hostname);   // testing against a local inbox
+  const API = local ? "http://127.0.0.1:8799/signup" : "https://api.ovnow.app/signup";
+  const DONATE = "https://buymeacoffee.com/freycreates";
+  const params = new URLSearchParams(location.search);
+  const code = params.get("c") || "", pre = params.get("a") || "", unsub = params.get("u") || "";
+  const main = document.getElementById("main");
+  let lang = "nl";
+  const T = {
+    nl: {tag: "Een vraag voor jou", kick: "JOUW ANTWOORD", send: "Versturen", sending: "Even versturen…", comment: "Wil je nog iets kwijt? (mag ook leeg)",
+         thanks: "Dank je wel! 💙", thanksText: "Je antwoord is binnen en is anoniem. Je kunt dit venster sluiten.", donate: "☕ Doneer",
+         used: "Je hebt deze vraag al beantwoord. Dank je wel! 💙", unknown: "Deze link werkt niet (meer).", failed: "Versturen lukte niet. Probeer het zo nog eens.",
+         pick: "Kies eerst een antwoord.", other: "Een ander bedrag:", year: "per jaar", foot: "Je antwoord is anoniem: ik zie niet wie wat heeft ingevuld.",
+         unsubTitle: "Geen mails meer van OVnow?", unsubText: "Je krijgt dan geen updates en vragen meer per mail. De app blijft gewoon werken.", unsubBtn: "Ja, geen mails meer",
+         unsubDone: "Gelukt. Je krijgt geen mails meer van OVnow.", stars: ["Slecht", "", "Oké", "", "Top"]},
+    en: {tag: "A question for you", kick: "YOUR ANSWER", send: "Send", sending: "Sending…", comment: "Anything else? (optional)",
+         thanks: "Thank you! 💙", thanksText: "Your answer is in, and it's anonymous. You can close this window.", donate: "☕ Donate",
+         used: "You've already answered this one. Thank you! 💙", unknown: "This link doesn't work (anymore).", failed: "Sending didn't work. Please try again in a moment.",
+         pick: "Pick an answer first.", other: "Another amount:", year: "per year", foot: "Your answer is anonymous: I can't see who answered what.",
+         unsubTitle: "No more mails from OVnow?", unsubText: "You won't get updates or questions by mail anymore. The app keeps working as usual.", unsubBtn: "Yes, no more mails",
+         unsubDone: "Done. You won't get mails from OVnow anymore.", stars: ["Bad", "", "OK", "", "Great"]},
+  };
+  const t = k => T[lang][k];
+  const el = (tag, attrs = {}, ...kids) => {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) k === "class" ? e.className = v : k.startsWith("on") ? e.addEventListener(k.slice(2), v) : e.setAttribute(k, v);
+    for (const k of kids) if (k != null) e.append(k);
+    return e;
+  };
+  const setLang = l => { lang = l === "en" ? "en" : "nl"; document.documentElement.lang = lang; document.getElementById("tag").textContent = t("tag"); };
+  const show = (...nodes) => { main.replaceChildren(...nodes); };
+  const message = (title, text, extra) => show(el("div", {class: "done"}, el("b", {}, title), text ? el("p", {}, text) : null, extra || null));
+
+  // "No more mails": the link carries a keyed hash, never the address
+  if (unsub) {
+    setLang(params.get("l"));
+    const btn = el("button", {class: "send", type: "button"}, t("unsubBtn"));
+    btn.onclick = async () => {
+      btn.disabled = true;
+      try {
+        const r = await fetch(API + "/unsub", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({u: unsub})});
+        if (!r.ok) throw 0;
+        message(t("unsubDone"));
+      } catch { btn.disabled = false; main.append(el("p", {class: "err"}, t("failed"))); }
+    };
+    show(el("p", {class: "kick"}, "OVNOW"), el("h1", {}, t("unsubTitle")), el("p", {}, t("unsubText")), btn);
+    return;
+  }
+
+  const answer = {};
+  function render(poll) {
+    const nodes = [el("p", {class: "kick"}, t("kick"))];
+    if (poll.title) nodes.push(el("h1", {}, poll.title));
+    for (const q of poll.questions || []) {
+      const box = el("div", {class: "q"}, el("p", {class: "t"}, q.title || ""));
+      if (q.kind === "choice") {
+        const buttons = [];
+        for (const o of q.options) {
+          const b = el("button", {class: "opt", type: "button", "aria-pressed": "false"}, el("b", {}, o.label, o.yearly ? el("span", {class: "yr"}, t("year")) : null), o.sub ? el("small", {}, o.sub) : null);
+          let follow = null;
+          if (o.follow) {
+            const fs = el("fieldset", {hidden: ""}, el("legend", {}, o.follow.title || ""));
+            if (o.follow.note) fs.append(el("p", {class: "note"}, o.follow.note));
+            const name = q.id + "-f";
+            for (const f of o.follow.options || []) {
+              const input = el("input", {type: "radio", name, value: f.id});
+              input.onchange = () => { answer[q.id + ".follow"] = f.id; };
+              fs.append(el("label", {class: "r"}, input, el("b", {}, f.label || f.id), o.follow.yearly ? el("span", {class: "yr"}, t("year")) : null));
+            }
+            const other = el("input", {class: "other", type: "text", inputmode: "decimal", placeholder: "€", "aria-label": t("other")});
+            const radio = el("input", {type: "radio", name, value: "other"});
+            const sync = () => { if (radio.checked) answer[q.id + ".follow"] = "other:" + other.value.trim(); };
+            radio.onchange = sync; other.oninput = () => { radio.checked = true; sync(); };
+            fs.append(el("label", {class: "r"}, radio, t("other"), other, o.follow.yearly ? el("span", {class: "yr"}, t("year")) : null));
+            b.append(fs); follow = fs;
+          }
+          b.onclick = e => {
+            if (e.target.closest("fieldset")) return;
+            answer[q.id] = o.id;
+            if (!follow) delete answer[q.id + ".follow"];
+            buttons.forEach(x => { x.b.setAttribute("aria-pressed", x.b === b); if (x.f) x.f.hidden = x.b !== b; });
+          };
+          buttons.push({b, f: follow, id: o.id});
+          box.append(b);
+        }
+        const hit = buttons.find(x => x.id === pre); if (hit) hit.b.click();
+      } else if (q.kind === "stars") {
+        const row = el("div", {class: "stars", role: "radiogroup"});
+        const btns = [1, 2, 3, 4, 5].map(n => el("button", {type: "button", "aria-label": n + "/5 " + (t("stars")[n - 1] || "")}, "★"));
+        const set = n => { answer[q.id] = n; btns.forEach((b, i) => b.classList.toggle("on", i < n)); };
+        btns.forEach((b, i) => { b.onclick = () => set(i + 1); row.append(b); });
+        box.append(row);
+        if (/^[1-5]$/.test(pre)) set(+pre);
+      } else if (q.kind === "multi") {
+        const grid = el("div", {class: "grid"});
+        answer[q.id] = [];
+        for (const o of q.options) {
+          const input = el("input", {type: "checkbox", value: o.id});
+          input.onchange = () => { answer[q.id] = [...grid.querySelectorAll("input:checked")].map(i => i.value); };
+          grid.append(el("label", {}, input, o.label));
+          if (o.id === pre) { input.checked = true; answer[q.id] = [o.id]; }
+        }
+        box.append(grid);
+      } else if (q.kind === "text") {
+        const ta = el("textarea", {"aria-label": q.title || ""}); ta.oninput = () => { answer[q.id] = ta.value; }; box.append(ta);
+      }
+      nodes.push(box);
+    }
+    const comment = el("textarea", {"aria-label": t("comment")}); comment.oninput = () => { answer.comment = comment.value; };
+    nodes.push(el("p", {class: "note"}, t("comment")), comment);
+    const err = el("p", {class: "err"});
+    const send = el("button", {class: "send", type: "button"}, t("send"));
+    send.onclick = async () => {
+      const filled = Object.entries(answer).some(([k, v]) => k !== "comment" && (Array.isArray(v) ? v.length : v)) || (answer.comment || "").trim();
+      if (!filled) { err.textContent = t("pick"); return; }
+      send.disabled = true; send.textContent = t("sending"); err.textContent = "";
+      try {
+        const r = await fetch(API + "/poll", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({c: code, answer})});
+        if (r.status === 409) return message(t("used"));
+        if (!r.ok) throw 0;
+        const support = Object.values(answer).includes("support");
+        message(t("thanks"), t("thanksText"), support ? el("a", {class: "send", href: DONATE, rel: "noopener"}, t("donate")) : null);
+      } catch { send.disabled = false; send.textContent = t("send"); err.textContent = t("failed"); }
+    };
+    nodes.push(send, err);
+    show(...nodes);
+    document.getElementById("foot").textContent = t("foot");
+  }
+
+  if (!/^[A-Za-z0-9_-]{16,40}$/.test(code)) { message(t("unknown")); return; }
+  fetch(API + "/poll?c=" + encodeURIComponent(code)).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
+    setLang(d.lang);
+    if (d.used) return message(t("used"));
+    render(d.poll || {});
+  }).catch(() => message(t("unknown")));
+})();
+</script>
+</body>
+</html>
