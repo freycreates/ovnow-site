@@ -188,10 +188,9 @@
       send.disabled = true; send.textContent = t("sending"); err.textContent = "";
       try {
         const r = await fetch(API + "/poll", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({c: code, answer})});
-        if (r.status === 409) return message(t("used"));
+        if (r.status === 409) return message(t("used"), null, el("a", {class: "send", href: DONATE, rel: "noopener"}, t("donate")));
         if (!r.ok) throw 0;
-        const support = Object.values(answer).includes("support");
-        message(t("thanks"), t("thanksText"), support ? el("a", {class: "send", href: DONATE, rel: "noopener"}, t("donate")) : null);
+        message(t("thanks"), t("thanksText"), el("a", {class: "send", href: DONATE, rel: "noopener"}, t("donate")));
       } catch { send.disabled = false; send.textContent = t("send"); err.textContent = t("failed"); }
     };
     nodes.push(send, err);
@@ -202,7 +201,7 @@
   if (!/^[A-Za-z0-9_-]{16,40}$/.test(code)) { message(t("unknown")); return; }
   fetch(API + "/poll?c=" + encodeURIComponent(code)).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
     setLang(d.lang);
-    if (d.used) return message(t("used"));
+    if (d.used) return message(t("used"), null, el("a", {class: "send", href: DONATE, rel: "noopener"}, t("donate")));
     render(d.poll || {});
   }).catch(() => message(t("unknown")));
 })();
