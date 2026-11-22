@@ -35,7 +35,7 @@ Countdown to the next departure with platform or pier and walking time; live veh
 - iPhone only. Dutch and English.
 - Live demo uses `/api/corridor` at `https://141-148-243-209.sslip.io`, with a clearly labelled timetable fallback.
 - Analytics: GoatCounter, cookie-free, already on the site.
-- Data credits are required: NDOV Loket, OVapi, Transitous, OpenStreetMap contributors, Apple Maps.
+- Data credits are required: NDOV Loket, OVapi, OpenOV, MOTIS, Transitous (backup), OpenStreetMap contributors, Apple Maps.
 - Contact: hello@ovnow.app.
 
 ## Brand Commitments
