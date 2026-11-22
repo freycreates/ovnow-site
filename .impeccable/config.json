@@ -52,6 +52,24 @@
           "vraag/index.html"
         ],
         "createdAt": "2026-11-21T21:23:35.628Z"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "server-share-mockup/index.html"
+        ],
+        "createdAt": "2026-11-22T00:38:52.029Z",
+        "reason": "Claude: only giant display numbers and 2-line keynote titles; small print keeps 1.4"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "server-share-mockup/index.html"
+        ],
+        "createdAt": "2026-11-22T00:38:52.029Z",
+        "reason": "Claude: uppercase is only the short yellow eyebrow labels (a few words each)"
       }
     ]
   }
