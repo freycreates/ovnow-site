@@ -1,0 +1,7 @@
+#!/bin/sh
+# Blocks a commit when a page's script won't run (that broke the TestFlight form on 22 Nov 2026).
+PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
+files=$(git diff --cached --name-only --diff-filter=ACM -- '*.html')
+[ -z "$files" ] && exit 0
+node "$(git rev-parse --show-toplevel)/.githooks/check-scripts.js" $files || {
+  echo "Commit stopped: fix the script error above first."; exit 1; }
