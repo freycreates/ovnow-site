@@ -70,6 +70,15 @@
         ],
         "createdAt": "2026-11-22T00:38:52.029Z",
         "reason": "Claude: uppercase is only the short yellow eyebrow labels (a few words each)"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "nova-final-mockup/index.html"
+        ],
+        "createdAt": "2026-11-23T18:50:37.434Z",
+        "reason": "user confirmed: Frey asked for animated typing dots while nOVa is thinking; they are tied to a real wait"
       }
     ]
   }
