@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Newsletter concepts</title>
+<style>
+  @font-face{font-family:"Bricolage";src:url(../fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
+  @font-face{font-family:"Onest";src:url(../fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{--night:#10193d;--deep:#0a1130;--line:#ffc52e;--blue:#1e6bff;--text:#f4f6ff;--soft:#c9d2ee;--card:#16224f;--edge:#2c3a78;--green:#30d158}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--night);color:var(--text);font:400 17px/1.5 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:110px}
+  .wrap{max-width:1240px;margin:0 auto;padding:28px clamp(16px,3vw,40px) 60px}
+  .mock-tag{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--line);color:var(--night);font-size:.8rem;font-weight:700}
+  h1{margin:14px 0 6px;font:800 clamp(2.2rem,6vw,3.4rem)/1 Bricolage,sans-serif;letter-spacing:-.015em}
+  h2{font:800 1.8rem Bricolage,sans-serif;margin:56px 0 4px}
+  .lede{max-width:48em;margin:0 0 12px;color:var(--soft)}
+  .lede b{color:var(--text)}
+  /* checkboxes */
+  label.ck{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+  label.ck input{appearance:none;flex:none;width:22px;height:22px;margin:1px 0 0;border-radius:7px;border:2px solid #6f7fb8;background:var(--deep);display:grid;place-items:center;cursor:pointer}
+  label.ck input:checked{background:var(--line);border-color:var(--line)}
+  label.ck input:checked::after{content:"";width:6px;height:11px;border:solid var(--night);border-width:0 3px 3px 0;transform:translate(0,-1px) rotate(45deg)}
+  label.ck input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  /* blocks */
+  .blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:18px}
+  .blk{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:14px 16px}
+  .blk:has(input:checked){border-color:var(--line)}
+  .blk b{display:block;font:700 1.05rem Bricolage,sans-serif}
+  .blk small{display:block;color:var(--soft);font-size:.85rem;margin-top:3px}
+  .blk .n{color:var(--line)}
+  /* concepts */
+  .concept{display:grid;grid-template-columns:minmax(0,330px) minmax(0,600px);gap:24px 36px;margin-top:64px;align-items:start}
+  .concept:has(.use:checked) .side h3 span{background:var(--line);color:var(--night)}
+  .side{position:sticky;top:16px}
+  .side h3{margin:0 0 8px;font:800 1.55rem/1.15 Bricolage,sans-serif}
+  .side h3 span{display:inline-block;min-width:1.6em;text-align:center;background:var(--card);border:1px solid var(--edge);color:var(--line);border-radius:9px;padding:0 7px;margin-right:6px}
+  .note{color:var(--soft);font-size:.92rem;margin:0 0 14px}
+  .note b{color:var(--text)}
+  .lbl{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a9b5de;margin:16px 0 6px}
+  .subs{display:grid;gap:7px;font-size:.92rem}
+  .subs label{background:var(--deep);border-radius:10px;padding:7px 10px}
+  .uselbl{background:var(--card);border:1px solid var(--edge);border-radius:12px;padding:10px 12px;font-weight:700;margin-top:14px}
+  .concept:has(.use:checked) .uselbl{border-color:var(--line)}
+  .parts{display:grid;gap:6px;font-size:.9rem}
+  .scaler{width:100%;min-width:0}
+  .langsw{display:inline-flex;background:var(--deep);border-radius:99px;padding:3px;margin-top:10px}
+  .langsw button{border:0;background:none;color:var(--soft);font:700 13px Onest,sans-serif;padding:6px 14px;border-radius:99px;cursor:pointer}
+  .langsw button[aria-pressed=true]{background:var(--line);color:var(--night)}
+  [data-lang=en] .nl,[data-lang=nl] .en{display:none!important}
+  @media (max-width:900px){.concept{grid-template-columns:1fr}.side{position:static}}
+  /* sticky bar */
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:9;background:#0a1130;border-top:1px solid var(--edge);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .bar .in{max-width:1240px;margin:0 auto;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .count{font-size:.95rem;color:var(--soft)}
+  .count b{color:var(--text);font:800 1.3rem Bricolage,sans-serif}
+  .go{border:0;border-radius:999px;background:var(--line);color:var(--night);font:800 1.05rem Bricolage,sans-serif;padding:14px 24px;cursor:pointer}
+  .go:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .done{color:var(--green);font-weight:700;font-size:.95rem}
+
+  /* ===== Apple Mail window (light) ===== */
+  .mw{width:600px;background:#fff;border-radius:12px;overflow:hidden;color:#1d1d1f;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+  .mh{display:flex;gap:12px;padding:14px 20px;border-bottom:1px solid #e3e3e8;background:#fbfbfd}
+  .mh img{width:40px;height:40px;border-radius:50%}
+  .mh .f{font-size:13px;color:#6e6e73}
+  .mh .f b{color:#1d1d1f;font-size:14px}
+  .mh .s{font-weight:700;font-size:15px;color:#1d1d1f;margin-top:1px}
+  .mb{background:#f2f3f7;padding:20px 0}
+  .m{width:560px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;color:#10193d;font-size:16px;line-height:1.55}
+  .m p{margin:0 0 14px}
+  .m a{color:#1559d6}
+  .pad{padding:24px 28px 8px}
+  .bh{display:flex;gap:12px;align-items:center;background:#10193d;padding:18px 24px;color:#f4f6ff}
+  .bh img{width:38px;height:38px;border-radius:10px}
+  .bh b{font-size:19px;font-weight:800}
+  .bh span{display:block;font-size:12.5px;color:#a9b8e6}
+  .yb{height:5px;background:#ffc52e}
+  .kick{font-size:12px;font-weight:800;letter-spacing:.1em;color:#1559d6;margin:0 0 8px!important}
+  .h{font-size:25px;line-height:1.2;font-weight:800;letter-spacing:-.3px;margin:0 0 12px!important;color:#10193d}
+  .btn{display:inline-block;background:#ffc52e;color:#0a1130!important;text-decoration:none;font-weight:800;font-size:16px;padding:13px 22px;border-radius:999px}
+  .btn.nv{background:#10193d;color:#ffc52e!important}
+  .tf{font-size:13.5px;color:#5a6380;margin:8px 0 18px!important}
+  .poll{background:#f2f4fa;border-radius:14px;padding:14px 16px;margin:0 0 16px}
+  .poll b{display:block;margin-bottom:8px}
+  .poll div{display:flex;gap:8px}
+  .poll a{flex:1;text-align:center;text-decoration:none;background:#fff;border:1px solid #c9d0e6;border-radius:10px;padding:9px 4px;font-weight:700;color:#10193d!important;font-size:14.5px}
+  .small{font-size:13.5px;color:#5a6380}
+  .ft{display:flex;gap:10px;align-items:center;margin:8px 28px 0;padding:16px 0 22px;border-top:1px solid #e3e6ef;font-size:12.5px;color:#5a6380}
+  .ft img{width:26px;height:26px;border-radius:7px}
+  .ft a{color:#5a6380}
+  .ovf{display:flex;gap:12px;align-items:center;background:#10193d;color:#fff;border-radius:14px;padding:12px 14px;margin:0 0 16px}
+  .ovf .bk{width:40px;height:40px;border-radius:10px;background:#ffc917;display:grid;place-items:center;flex:none}
+  .ovf .bk svg{width:26px;height:26px}
+  .ovf b{display:block;font-size:15px}
+  .ovf small{display:block;font-size:13px;color:#b9c6ee}
+  .ovf .gr{color:#5ee08a;font-weight:700}
+  .ovf .ch{margin-left:auto;color:#8fa0d6;font-size:20px}
+  .nova{width:52px;height:52px;flex:none}
+  .nova svg,.fc{display:block;width:100%;height:100%}
+  .tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 0 16px}
+  .tiles div{background:#f2f4fa;border-radius:12px;padding:10px;font-size:13px;line-height:1.4}
+  .tiles b{display:block;font-size:14px;margin-bottom:2px}
+  .fix{border-left:4px solid #30d158;background:#effaf2;border-radius:8px;padding:10px 14px;margin:0 0 16px;font-size:14.5px}
+  .fix b{display:block;font-size:12px;letter-spacing:.08em;color:#127a35}
+  .ul{margin:0 0 14px;padding-left:20px}
+  .ul li{margin:0 0 5px}
+  .frey{display:flex;gap:10px;align-items:center;font-size:14.5px;font-style:italic;color:#33405f;background:#fff8e1;border-radius:12px;padding:10px 14px;margin:0 0 16px}
+  .frey i{width:30px;height:30px;border-radius:50%;background:#10193d;color:#ffc52e;display:grid;place-items:center;font:800 13px sans-serif;font-style:normal;flex:none}
+  .ic{width:18px;height:18px;vertical-align:-3px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bike" viewBox="0 0 32 32"><g fill="none" stroke="#003082" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="5.5"/><circle cx="24" cy="21" r="5.5"/><path d="M8 21l5-10h8l3 10M13 11l4 10h-9M11 8h5M21 11l-1-3h3"/></g></symbol>
+  <symbol id="nova" viewBox="0 0 100 100"><rect x="6" y="6" width="88" height="88" rx="24" fill="#141a2e" stroke="#3a4a86" stroke-width="2"/><circle cx="34" cy="46" r="7.8" fill="none" stroke="#1e6bff" stroke-width="4.5"/><circle cx="66" cy="46" r="10" fill="#ffc917"/><path d="M38 68q12 8 24 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="line" viewBox="0 0 120 20"><path d="M4 10h112" stroke="#1e6bff" stroke-width="4" stroke-linecap="round"/><circle cx="40" cy="10" r="6" fill="#10193d" stroke="#1e6bff" stroke-width="4"/><circle cx="96" cy="10" r="7" fill="#ffc917"/></symbol>
+</svg>
+
+<div class="wrap">
+  <span class="mock-tag">Mock-up</span>
+  <h1>Newsletter: next update</h1>
+  <p class="lede">The mail to testers announcing OV-fiets now and nOVa. Tick the building blocks you want, the concepts you like, the parts you would borrow and any subject lines. Then hit the button at the bottom and paste the result to Claude. <b>All numbers, names, stations and times are examples.</b> Nothing here is sent.</p>
+
+  <h2>The building blocks</h2>
+  <p class="lede">What the mail is made of. Five are ticked as a starting point.</p>
+  <div class="blocks">
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="1 OV-fiets hero" checked><span><b><span class="n">1</span> OV-fiets hero</b><small>Live availability at every station, bikes on the map, Continue by OV-fiets, widget. Data from NS.</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="2 nOVa briefly" checked><span><b><span class="n">2</span> nOVa briefly</b><small>Plan in plain words, say "later", report problems, talk with the mic.</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="3 Your feedback, fixed" checked><span><b><span class="n">3</span> Your feedback, fixed</b><small>Normal Intercity next to the IC direct; "No routes found" became a walk.</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="4 Three small tiles for the minor features"><span><b><span class="n">4</span> Three small tiles</b><small>Supplement label, bike routes, Add to Calendar, platform signs, Liquid Glass card and more.</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="5 Try this today (3 tasks)"><span><b><span class="n">5</span> Try this today</b><small>Three small tasks to test the new update.</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="6 Update in TestFlight button" checked><span><b><span class="n">6</span> Update in TestFlight</b><small>Button plus "don't delete and reinstall the app".</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="7 One-tap poll (OV-fiets, nOVa or the map)" checked><span><b><span class="n">7</span> One-tap poll</b><small>"Which do you use most: OV-fiets, nOVa or the map?"</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="8 Personal line from Frey"><span><b><span class="n">8</span> Personal line from Frey</b><small>One or two sentences, signed.</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="9 English and Dutch"><span><b><span class="n">9</span> English and Dutch</b><small>Both, a switch, or one after the other.</small></span></label>
+    <label class="ck blk"><input type="checkbox" data-g="blocks" data-s="10 Subject lines (use the ones I ticked)"><span><b><span class="n">10</span> Subject lines</b><small>Use the subject lines ticked below.</small></span></label>
+  </div>
+
+  <h2>15 concepts</h2>
+  <p class="lede">Each one drawn as it would look in Apple Mail. Light mails sit on a white body so they hold up in light clients; concept 12 is the navy style of the earlier mailings. Width 600, scaled down on phones.</p>
+
+  <!-- 1 -->
+  <section class="concept" data-n="1" data-name="Big number">
+    <div class="side">
+      <h3><span>1</span>Big number</h3>
+      <p class="note"><b>+</b> One huge fact grabs you in the inbox preview. <b>-</b> The number is live data; a frozen number in a mail can look wrong a day later.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="17 OV-fiets waiting at Ede-Wageningen"><span>17 OV-fiets waiting at Ede-Wageningen</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="See every OV-fiets before you get off the train"><span>See every OV-fiets before you get off the train</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="New update: OV-fiets now + nOVa"><span>New update: OV-fiets now + nOVa</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its big-number header"><span>Its big-number header</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its OV-fiets row"><span>Its OV-fiets row</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its Dutch version after the English"><span>Its Dutch version after the English</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">17 OV-fiets waiting at Ede-Wageningen</div></div></div>
+      <div class="mb"><div class="m">
+        <div style="background:#10193d;color:#fff;padding:30px 28px 26px">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#a9b8e6"><img src="../img/icon-180.png" alt="" style="width:26px;height:26px;border-radius:7px">OVnow · new in TestFlight</div>
+          <div style="font-size:120px;line-height:1;font-weight:800;color:#ffc917;letter-spacing:-4px;margin-top:14px">17</div>
+          <div style="font-size:26px;font-weight:800;line-height:1.2">OV-fiets waiting at Ede-Wageningen</div>
+          <div style="font-size:14px;color:#b9c6ee;margin-top:6px">Open until 01:00. Right now, in OVnow.</div>
+        </div>
+        <div class="yb"></div>
+        <div class="pad">
+          <p>Every station now shows how many OV-fiets are available, live. Tap it to see the locations, find the bikes on the map, and pick <b>Continue by OV-fiets</b> in your route. There is a Home Screen widget too.</p>
+          <div class="ovf"><span class="bk"><svg><use href="#bike"/></svg></span><span><b>OV-fiets</b><small><span class="gr">17 available</span> · open until 01:00</small></span><span class="ch">&rsaquo;</span></div>
+          <p class="small">Data from NS. Even the NS app doesn't show this.</p>
+          <p><b>Also new: nOVa.</b> Type or say "Amsterdam Zuid to Rotterdam Centraal" and she plans it. Say "later" for the next one.</p>
+          <a class="btn" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app.</p>
+          <div class="poll"><b>Which do you use most?</b><div><a href="#">OV-fiets</a><a href="#">nOVa</a><a href="#">The map</a></div></div>
+          <p class="small"><i>PS from Frey: I checked Zuid at 23:40 last night. 12 left. It works.</i></p>
+          <hr style="border:0;border-top:1px solid #e3e6ef;margin:18px 0">
+          <p class="kick">IN HET NEDERLANDS</p>
+          <p style="font-size:15px"><b>17 OV-fietsen klaar op Ede-Wageningen.</b> Elk station laat nu live zien hoeveel OV-fietsen er zijn. Tik voor de locaties, zie ze op de kaart en kies <b>Verder met OV-fiets</b> in je route. En nieuw: nOVa, je assistent. Update via TestFlight, verwijder de app niet.</p>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="concept" data-n="2" data-name="Phone screenshot">
+    <div class="side">
+      <h3><span>2</span>Phone screenshot</h3>
+      <p class="note"><b>+</b> Shows exactly where it lives in the app; no guessing. <b>-</b> Needs a real screenshot per language; images are blocked in some clients.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="This is new on every station card"><span>This is new on every station card</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Look at your station in the new update"><span>Look at your station in the new update</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its phone picture"><span>Its phone picture</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its numbered callouts"><span>Its numbered callouts</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">This is new on every station card</div></div></div>
+      <div class="mb"><div class="m">
+        <div class="bh"><img src="../img/icon-180.png" alt=""><div><b>OVnow</b><span>New update in TestFlight · <a href="#" style="color:#ffc52e">Nederlands</a></span></div></div><div class="yb"></div>
+        <div class="pad" style="display:flex;gap:22px;align-items:flex-start">
+          <div style="width:200px;flex:none;background:#000;border-radius:30px;border:3px solid #3a3a3e;padding:10px 8px 14px;color:#fff;font-size:11px">
+            <div style="display:flex;justify-content:space-between;padding:0 10px 6px;font-weight:600">9:41<span>&#9679;&#9679;&#9679;</span></div>
+            <div style="background:#1c1c1e;border-radius:16px;padding:10px">
+              <div style="font-size:15px;font-weight:700">Ede-Wageningen</div>
+              <div style="color:#98989f;margin-bottom:8px">Train station</div>
+              <div style="background:#2c2c2e;border-radius:10px;padding:7px 8px;display:flex;gap:7px;align-items:center;outline:2px solid #ffc52e"><span style="width:24px;height:24px;border-radius:6px;background:#ffc917;display:grid;place-items:center"><svg style="width:16px;height:16px"><use href="#bike"/></svg></span><span><b style="font-size:12px">OV-fiets</b><br><span style="color:#30d158">17 available</span> · until 01:00</span></div>
+              <div style="margin-top:8px;display:grid;gap:5px">
+                <div style="display:flex;justify-content:space-between;background:#2c2c2e;border-radius:8px;padding:6px 8px"><span><b style="background:#ffc917;color:#003082;border-radius:4px;padding:0 4px">IC</b> Schiphol Airport</span><span>21:12 <b style="border:1.5px solid #ffc52e;border-radius:4px;padding:0 3px">3</b></span></div>
+                <div style="display:flex;justify-content:space-between;background:#2c2c2e;border-radius:8px;padding:6px 8px"><span><b style="background:#ffc917;color:#003082;border-radius:4px;padding:0 4px">IC</b> Arnhem Centraal</span><span>21:16 <b>1</b></span></div>
+              </div>
+              <div style="margin-top:8px;height:70px;border-radius:10px;background:repeating-linear-gradient(35deg,#111a2c 0 12px,#0e1626 12px 24px);position:relative"><span style="position:absolute;left:30px;top:20px;width:16px;height:16px;border-radius:5px;background:#ffc917"></span><span style="position:absolute;left:96px;top:38px;width:16px;height:16px;border-radius:5px;background:#ffc917"></span></div>
+            </div>
+          </div>
+          <div style="font-size:15px">
+            <p class="h" style="font-size:22px">Your station, now with bikes</p>
+            <p><b style="color:#1559d6">1</b> OV-fiets now count and opening hours on every station.</p>
+            <p><b style="color:#1559d6">2</b> Tap a platform number to see that platform's sign.</p>
+            <p><b style="color:#1559d6">3</b> OV-fiets locations on the map.</p>
+            <p class="small">Data from NS. Even the NS app doesn't show this.</p>
+          </div>
+        </div>
+        <div class="pad" style="padding-top:4px">
+          <p><b>And meet nOVa,</b> the OVnow assistant. Plan in plain words or with the mic, and report problems.</p>
+          <a class="btn nv" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app.</p>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="concept" data-n="3" data-name="nOVa speaks" data-lang="en">
+    <div class="side">
+      <h3><span>3</span>nOVa speaks</h3>
+      <p class="note"><b>+</b> Warm, gives nOVa a character from day one; the mail itself is the demo. <b>-</b> OV-fiets, the bigger news, has to come out of her mouth too.</p>
+      <div class="langsw"><button aria-pressed="true" data-l="en">EN</button><button aria-pressed="false" data-l="nl">NL</button></div>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Hi, I'm nOVa"><span>Hi, I'm nOVa</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="nOVa here. I found you a bike"><span>nOVa here. I found you a bike</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Hoi, ik ben nOVa"><span>Hoi, ik ben nOVa</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its nOVa intro (first person)"><span>Its nOVa intro (first person)</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its EN/NL switch"><span>Its EN/NL switch</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its sign-off by nOVa"><span>Its sign-off by nOVa</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>nOVa from OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s"><span class="en">Hi, I'm nOVa</span><span class="nl">Hoi, ik ben nOVa</span></div></div></div>
+      <div class="mb"><div class="m">
+        <div style="background:#10193d;padding:30px 28px;text-align:center;color:#fff">
+          <div style="width:96px;height:96px;margin:0 auto 12px"><svg class="fc"><use href="#nova"/></svg></div>
+          <div style="font-size:28px;font-weight:800"><span class="en">Hi, I'm nOVa</span><span class="nl">Hoi, ik ben nOVa</span></div>
+          <div style="color:#b9c6ee;font-size:15px"><span class="en">The new OVnow assistant</span><span class="nl">De nieuwe assistent van OVnow</span></div>
+        </div><div class="yb"></div>
+        <div class="pad">
+          <div class="en">
+            <p>Tell me where you want to go, the way you'd say it to a friend. "Amsterdam Zuid to Rotterdam Centraal." "Tomorrow at 7 to Utrecht." Not that one? Say "later". You can also just tap the mic and talk.</p>
+            <p>Something wrong on your trip? Tell me that too, and I pass it on.</p>
+            <p>And I can see bikes now. Every station shows how many OV-fiets are free, live, with opening hours. If one fits your trip, I'll say <b>Continue by OV-fiets</b>.</p>
+            <a class="btn" href="#">Update in TestFlight</a>
+            <p class="tf">Update in TestFlight, don't delete and reinstall the app.</p>
+            <p>See you on the line,<br><b>nOVa</b></p>
+          </div>
+          <div class="nl">
+            <p>Zeg me waar je heen wilt, zoals je het tegen een vriend zou zeggen. "Amsterdam Zuid naar Rotterdam Centraal." "Morgen om 7 naar Utrecht." Niet die? Zeg "later". Of tik op de microfoon en praat gewoon.</p>
+            <p>Gaat er iets mis onderweg? Zeg het ook tegen mij, dan geef ik het door.</p>
+            <p>En ik zie nu fietsen. Elk station laat live zien hoeveel OV-fietsen er vrij zijn, met openingstijden. Past er een in je reis, dan zeg ik <b>Verder met OV-fiets</b>.</p>
+            <a class="btn" href="#">Update via TestFlight</a>
+            <p class="tf">Update via TestFlight. Verwijder de app niet om hem opnieuw te installeren.</p>
+            <p>Tot onderweg,<br><b>nOVa</b></p>
+          </div>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div><span class="en">You get this because you test OVnow via TestFlight.</span><span class="nl">Je krijgt deze mail omdat je OVnow test via TestFlight.</span><br><a href="#">ovnow.app</a> · <a href="#"><span class="en">No more mails</span><span class="nl">Geen mails meer</span></a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="concept" data-n="4" data-name="Chat transcript">
+    <div class="side">
+      <h3><span>4</span>Chat transcript</h3>
+      <p class="note"><b>+</b> Shows what to type without explaining it; feels like the app. <b>-</b> Bubbles built from tables need care in Outlook; long if you add everything else.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="&quot;Amsterdam Zuid to Rotterdam&quot; - that's all you type now"><span>"Amsterdam Zuid to Rotterdam" - that's all you type now</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Just say where you're going"><span>Just say where you're going</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its chat bubbles"><span>Its chat bubbles</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its OV-fiets answer inside the chat"><span>Its OV-fiets answer inside the chat</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">"Amsterdam Zuid to Rotterdam" - that's all you type now</div></div></div>
+      <div class="mb"><div class="m">
+        <div class="bh"><img src="../img/icon-180.png" alt=""><div><b>OVnow</b><span>New update · <a href="#" style="color:#ffc52e">Lees in het Nederlands</a></span></div></div><div class="yb"></div>
+        <div class="pad">
+          <p class="kick">MEET NOVA</p>
+          <p class="h">A chat that plans your trip</p>
+          <div style="display:grid;gap:8px;margin:0 0 16px;font-size:15px">
+            <div style="justify-self:end;background:#1e6bff;color:#fff;border-radius:18px 18px 5px 18px;padding:9px 14px">Amsterdam Zuid to Rotterdam Centraal</div>
+            <div style="display:flex;gap:8px;align-items:flex-end"><span style="width:30px;height:30px;flex:none"><svg class="fc"><use href="#nova"/></svg></span><div style="background:#eef0f6;border-radius:18px 18px 18px 5px;padding:9px 14px">Intercity direct at 21:16, 42 min. Heads-up: <b>Supplement</b>. The normal Intercity at 21:12 has no supplement and is 23 min longer.</div></div>
+            <div style="justify-self:end;background:#1e6bff;color:#fff;border-radius:18px 18px 5px 18px;padding:9px 14px">later</div>
+            <div style="display:flex;gap:8px;align-items:flex-end"><span style="width:30px;height:30px;flex:none"><svg class="fc"><use href="#nova"/></svg></span><div style="background:#eef0f6;border-radius:18px 18px 18px 5px;padding:9px 14px">Next one at 21:46. At Rotterdam Centraal there are 51 OV-fiets free. <b>Continue by OV-fiets?</b></div></div>
+            <div style="justify-self:end;background:#1e6bff;color:#fff;border-radius:18px 18px 5px 18px;padding:9px 14px;display:flex;gap:6px;align-items:center"><svg viewBox="0 0 24 24" style="width:16px;height:16px"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M6 11a6 6 0 0012 0M12 17v4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>"tomorrow at 7 to Utrecht"</div>
+          </div>
+          <p>Type it or tap the mic. You can report problems to nOVa too. And every station now shows OV-fiets now, data from NS.</p>
+          <a class="btn" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app.</p>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="concept" data-n="5" data-name="Departure board">
+    <div class="side">
+      <h3><span>5</span>Departure board</h3>
+      <p class="note"><b>+</b> Instantly "public transport", fun to scan; each row is one feature. <b>-</b> Board style is busy; the board must stay readable as live text, not an image.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Now departing: OVnow update"><span>Now departing: OVnow update</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Platform 1: OV-fiets. Platform 2: nOVa"><span>Platform 1: OV-fiets. Platform 2: nOVa</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its departure-board header"><span>Its departure-board header</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its feedback-fixed box"><span>Its feedback-fixed box</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">Now departing: OVnow update</div></div></div>
+      <div class="mb"><div class="m">
+        <div style="background:#003082;color:#fff;padding:20px 22px;font-family:'Helvetica Neue',Arial,sans-serif">
+          <div style="display:flex;justify-content:space-between;font-size:13px;color:#c8d6ff;border-bottom:1px solid #2a56b0;padding-bottom:8px"><span>VERTREK · DEPARTURES</span><span>OVnow · 21:12</span></div>
+          <table style="width:100%;border-collapse:collapse;font-size:16px;margin-top:6px">
+            <tr style="border-bottom:1px solid #2a56b0"><td style="padding:9px 0;width:64px;color:#ffc917;font-weight:700">Now</td><td style="font-weight:700">OV-fiets now</td><td style="color:#c8d6ff;font-size:14px">every station</td><td style="text-align:right"><span style="display:inline-block;width:28px;border:2px solid #fff;border-radius:5px;text-align:center;font-weight:700">1</span></td></tr>
+            <tr style="border-bottom:1px solid #2a56b0"><td style="padding:9px 0;color:#ffc917;font-weight:700">Now</td><td style="font-weight:700">nOVa</td><td style="color:#c8d6ff;font-size:14px">chat + mic</td><td style="text-align:right"><span style="display:inline-block;width:28px;border:2px solid #fff;border-radius:5px;text-align:center;font-weight:700">2</span></td></tr>
+            <tr style="border-bottom:1px solid #2a56b0"><td style="padding:9px 0;color:#fff">+3</td><td>Supplement label</td><td style="color:#c8d6ff;font-size:14px">IC direct</td><td style="text-align:right"><span style="display:inline-block;width:28px;border:2px solid #fff;border-radius:5px;text-align:center;font-weight:700">3</span></td></tr>
+            <tr><td style="padding:9px 0;color:#fff">+5</td><td>Platform signs</td><td style="color:#c8d6ff;font-size:14px">tap the number</td><td style="text-align:right"><span style="display:inline-block;width:28px;border:2px solid #fff;border-radius:5px;text-align:center;font-weight:700">4</span></td></tr>
+          </table>
+        </div><div class="yb"></div>
+        <div class="pad">
+          <p><b>Platform 1: OV-fiets.</b> Every station shows live how many OV-fiets are free and until when it's open. Tap for the locations, see the bikes on the map, pick Continue by OV-fiets in your route, or put it in a widget.</p>
+          <p><b>Platform 2: nOVa.</b> Plan in plain words: "tomorrow at 7 to Utrecht". Say "later" for the next one. Report problems. Or talk with the mic.</p>
+          <div class="fix"><b>YOU ASKED, WE FIXED</b>The normal Intercity now shows next to the IC direct. And "No routes found" became a walking route when it's close.</div>
+          <a class="btn nv" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app. <a href="#">Nederlands</a></p>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 6 -->
+  <section class="concept" data-n="6" data-name="Magazine">
+    <div class="side">
+      <h3><span>6</span>Magazine</h3>
+      <p class="note"><b>+</b> Feels considered and calm; room for one lead story and a sidebar of small things. <b>-</b> More reading; the serif face differs from the app.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="OVnow Notes, No. 7: The bike is back"><span>OVnow Notes, No. 7: The bike is back</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="The last mile, solved (and a new assistant)"><span>The last mile, solved (and a new assistant)</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its masthead"><span>Its masthead</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its 'In brief' sidebar"><span>Its "In brief" sidebar</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its editor's note from Frey"><span>Its editor's note from Frey</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">OVnow Notes, No. 7: The bike is back</div></div></div>
+      <div class="mb"><div class="m" style="font-family:Georgia,'Times New Roman',serif">
+        <div style="padding:24px 28px 10px;border-bottom:3px double #10193d;display:flex;justify-content:space-between;align-items:flex-end">
+          <div style="font:800 30px/1 -apple-system,Helvetica,sans-serif;letter-spacing:-1px">OVnow <span style="color:#1559d6">Notes</span></div>
+          <div style="font:12px -apple-system,Helvetica,sans-serif;color:#5a6380;text-align:right">No. 7 · November 2026<br><a href="#">Nederlandse editie</a></div>
+        </div>
+        <div class="pad">
+          <svg style="width:100%;height:20px;margin-bottom:10px"><use href="#line"/></svg>
+          <p style="font:700 12px -apple-system,Helvetica,sans-serif;letter-spacing:.1em;color:#1559d6;margin:0 0 6px">LEAD STORY</p>
+          <p style="font-size:30px;line-height:1.15;font-weight:700;margin:0 0 12px">The last mile is a bike, and now you can see it coming</p>
+          <p style="font-size:17px">Every station in OVnow now shows how many OV-fiets are free, live, and until when the shop is open. Tap it for the locations. Plan a trip and the app offers <i>Continue by OV-fiets</i>. Put it on your Home Screen as a widget. The data comes from NS. Even the NS app doesn't show this.</p>
+          <div style="display:flex;gap:20px;margin:6px 0 16px">
+            <div style="flex:1.4">
+              <p style="font:700 12px -apple-system,Helvetica,sans-serif;letter-spacing:.1em;color:#1559d6;margin:0 0 6px">ALSO</p>
+              <p style="font-size:20px;font-weight:700;margin:0 0 6px">Meet nOVa</p>
+              <p style="font-size:15.5px">A chat for planning in plain words, with a voice if you want one. "Tomorrow at 7 to Utrecht." "Later." And the place to report what went wrong.</p>
+            </div>
+            <div style="flex:1;border-left:1px solid #d5d9e6;padding-left:16px;font:14px/1.45 -apple-system,Helvetica,sans-serif">
+              <b style="font-size:12px;letter-spacing:.1em;color:#5a6380">IN BRIEF</b>
+              <p style="margin:6px 0">"Supplement" on the IC direct</p>
+              <p style="margin:6px 0">Bike routes, in Settings</p>
+              <p style="margin:6px 0">Add to Calendar</p>
+              <p style="margin:6px 0">Tap a platform, see its sign</p>
+              <p style="margin:6px 0">Liquid Glass trip card</p>
+            </div>
+          </div>
+          <p style="font-size:15.5px;font-style:italic;color:#33405f;border-top:1px solid #d5d9e6;padding-top:12px">Editor's note: two of the fixes in this update came straight from your feedback. Keep it coming. Frey</p>
+          <a class="btn nv" href="#" style="font-family:-apple-system,Helvetica,sans-serif">Update in TestFlight</a>
+          <p class="tf" style="font-family:-apple-system,Helvetica,sans-serif">Update in TestFlight, don't delete and reinstall the app.</p>
+        </div>
+        <div class="ft" style="font-family:-apple-system,Helvetica,sans-serif"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 7 -->
+  <section class="concept" data-n="7" data-name="Plain letter from Frey">
+    <div class="side">
+      <h3><span>7</span>Plain letter from Frey</h3>
+      <p class="note"><b>+</b> Most personal; lands in Primary, not Promotions; replies feel natural. <b>-</b> No visuals, so OV-fiets has to sell itself in words.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Something I've wanted in a train app for years"><span>Something I've wanted in a train app for years</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Even de nieuwe update / Quick note on the new update"><span>Even de nieuwe update / Quick note on the new update</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its plain-text tone"><span>Its plain-text tone</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its Dutch-first, English-after order"><span>Its Dutch first, English after</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its 'just reply' ending"><span>Its "just reply" ending</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>Frey from OVnow</b> &lt;frey@ovnow.app&gt;</div><div class="s">Something I've wanted in a train app for years</div></div></div>
+      <div style="padding:26px 30px 30px;font:15.5px/1.6 -apple-system,Helvetica,sans-serif;color:#1d1d1f">
+        <p style="margin:0 0 14px">Hoi,</p>
+        <p style="margin:0 0 14px">Je kent het: trein uit, naar het OV-fietsenhok, en dan blijkt het leeg. Vanaf deze update zie je in OVnow bij elk station hoeveel OV-fietsen er vrij zijn en tot hoe laat het open is. Live, van NS. Zelfs de NS-app laat dat niet zien.</p>
+        <p style="margin:0 0 14px">Er is ook iemand nieuw: nOVa. Typ of zeg gewoon "morgen om 7 naar Utrecht" en ze plant het.</p>
+        <p style="margin:0 0 14px">Update via TestFlight: <a href="#" style="color:#0066cc">testflight.apple.com/join/...</a><br>Verwijder de app niet om hem opnieuw te installeren.</p>
+        <p style="margin:0 0 14px">Iets kapot of raar? Antwoord gewoon op deze mail.</p>
+        <p style="margin:0 0 22px">Frey</p>
+        <p style="margin:0 0 14px;color:#6e6e73">--- English ---</p>
+        <p style="margin:0 0 14px">You know the feeling: off the train, to the OV-fiets shed, and it's empty. From this update, OVnow shows how many OV-fiets are free at every station and until when it's open. Live, from NS. Even the NS app doesn't show that.</p>
+        <p style="margin:0 0 14px">There's someone new too: nOVa. Type or say "tomorrow at 7 to Utrecht" and she plans it.</p>
+        <p style="margin:0 0 14px">Update in TestFlight: <a href="#" style="color:#0066cc">testflight.apple.com/join/...</a><br>Update in TestFlight, don't delete and reinstall the app.</p>
+        <p style="margin:0 0 14px">Something broken or odd? Just reply to this mail.</p>
+        <p style="margin:0">Frey</p>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- 8 -->
+  <section class="concept" data-n="8" data-name="Two-column feature grid">
+    <div class="side">
+      <h3><span>8</span>Two-column feature grid</h3>
+      <p class="note"><b>+</b> Fits all the small features without a wall of text; easy to skim. <b>-</b> Everything looks equally important; the two headliners lose some punch. Stacks to one column on phones.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="8 new things in OVnow"><span>8 new things in OVnow</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="OV-fiets, nOVa and six more"><span>OV-fiets, nOVa and six more</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its feature grid"><span>Its feature grid</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its two big headliner cards"><span>Its two big headliner cards</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">OV-fiets, nOVa and six more</div></div></div>
+      <div class="mb"><div class="m">
+        <div class="bh"><img src="../img/icon-180.png" alt=""><div><b>OVnow</b><span>What's new in this update</span></div></div><div class="yb"></div>
+        <div class="pad">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 10px">
+            <div style="background:#10193d;color:#fff;border-radius:14px;padding:14px"><span class="bk" style="width:36px;height:36px;border-radius:9px;background:#ffc917;display:grid;place-items:center;margin-bottom:8px"><svg style="width:24px;height:24px"><use href="#bike"/></svg></span><b style="font-size:17px">OV-fiets now</b><div style="font-size:13.5px;color:#c9d2ee">At every station: how many, open until when, on the map, in your route, as a widget.</div></div>
+            <div style="background:#10193d;color:#fff;border-radius:14px;padding:14px"><span style="display:block;width:36px;height:36px;margin-bottom:8px"><svg class="fc"><use href="#nova"/></svg></span><b style="font-size:17px">nOVa</b><div style="font-size:13.5px;color:#c9d2ee">Plan in plain words or by voice. Say "later". Report problems.</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px;font-size:13.5px;line-height:1.4">
+            <div style="background:#f2f4fa;border-radius:12px;padding:11px"><b style="display:block;font-size:14.5px">Supplement label</b>On the IC direct, with "No supplement · 23 min longer" on the normal one.</div>
+            <div style="background:#f2f4fa;border-radius:12px;padding:11px"><b style="display:block;font-size:14.5px">Bike routes</b>Settings, Show bike routes.</div>
+            <div style="background:#f2f4fa;border-radius:12px;padding:11px"><b style="display:block;font-size:14.5px">Add to Calendar</b>Your trip, one tap.</div>
+            <div style="background:#f2f4fa;border-radius:12px;padding:11px"><b style="display:block;font-size:14.5px">Platform signs</b>Tap a platform number to see its sign.</div>
+            <div style="background:#f2f4fa;border-radius:12px;padding:11px"><b style="display:block;font-size:14.5px">Liquid Glass card</b>Prefer solid? Settings, Solid card style.</div>
+            <div style="background:#f2f4fa;border-radius:12px;padding:11px"><b style="display:block;font-size:14.5px">In your language</b>Disruptions translated for you.</div>
+          </div>
+          <p class="small">Plus: "Change not possible? Find another connection", a pop-up when something is broken on our side, and the iPhone Duo closed-screen layout.</p>
+          <a class="btn" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app. · <a href="#">Nederlands</a></p>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 9 -->
+  <section class="concept" data-n="9" data-name="Before / after">
+    <div class="side">
+      <h3><span>9</span>Before / after</h3>
+      <p class="note"><b>+</b> Proves you listen; testers see their own report fixed, which makes them report more. <b>-</b> Leads with fixes, so the OV-fiets news comes second.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="You said &quot;No routes found&quot;. We said: walk"><span>You said "No routes found". We said: walk</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Your feedback, fixed (plus OV-fiets now)"><span>Your feedback, fixed (plus OV-fiets now)</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its before/after pairs"><span>Its before/after pairs</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its 'thanks to you' line"><span>Its "thanks to you" line</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">You said "No routes found". We said: walk</div></div></div>
+      <div class="mb"><div class="m">
+        <div class="bh"><img src="../img/icon-180.png" alt=""><div><b>OVnow</b><span>Your feedback, fixed</span></div></div><div class="yb"></div>
+        <div class="pad">
+          <p class="h">Before and after</p>
+          <p>Two things you told us about, both fixed in this update.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 10px;font-size:14px">
+            <div style="background:#f6f6f8;border:1px solid #e1e3ea;border-radius:12px;padding:12px"><b style="font-size:11.5px;letter-spacing:.08em;color:#b3261e">BEFORE</b><div style="margin-top:8px;text-align:center;color:#5a6380;padding:14px 0">No routes found</div></div>
+            <div style="background:#effaf2;border:1px solid #bfe8cc;border-radius:12px;padding:12px"><b style="font-size:11.5px;letter-spacing:.08em;color:#127a35">AFTER</b><div style="margin-top:8px"><b>Walk · 9 min</b><br><span style="color:#5a6380">It's close: 650 m to Museumplein</span></div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px;font-size:14px">
+            <div style="background:#f6f6f8;border:1px solid #e1e3ea;border-radius:12px;padding:12px"><b style="font-size:11.5px;letter-spacing:.08em;color:#b3261e">BEFORE</b><div style="margin-top:8px">21:16 <b>ICd</b> Rotterdam C.<br><span style="color:#5a6380">only the IC direct</span></div></div>
+            <div style="background:#effaf2;border:1px solid #bfe8cc;border-radius:12px;padding:12px"><b style="font-size:11.5px;letter-spacing:.08em;color:#127a35">AFTER</b><div style="margin-top:8px">21:16 <b>ICd</b> · Supplement<br>21:12 <b>IC</b> · <span style="color:#127a35">No supplement · 23 min longer</span></div></div>
+          </div>
+          <p class="small">Thanks to everyone who sent these in through TestFlight.</p>
+          <p><b>New too:</b> OV-fiets now at every station, and nOVa, the assistant you can just talk to.</p>
+          <div class="ovf"><span class="bk"><svg><use href="#bike"/></svg></span><span><b>OV-fiets · Ede-Wageningen</b><small><span class="gr">17 available</span> · open until 01:00</small></span><span class="ch">&rsaquo;</span></div>
+          <a class="btn nv" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app. · <a href="#">Nederlands</a></p>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 10 -->
+  <section class="concept" data-n="10" data-name="Changelog">
+    <div class="side">
+      <h3><span>10</span>Changelog</h3>
+      <p class="note"><b>+</b> Complete and honest, testers like knowing everything; cheap to make every update. <b>-</b> Dry; nothing says "this one is special".</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="OVnow update: what changed"><span>OVnow update: what changed</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Release notes: OV-fiets, nOVa, 11 more"><span>Release notes: OV-fiets, nOVa, 11 more</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its New/Improved/Fixed list"><span>Its New / Improved / Fixed list</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its update badge"><span>Its update badge</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">OVnow update: what changed</div></div></div>
+      <div class="mb"><div class="m">
+        <div class="bh"><img src="../img/icon-180.png" alt=""><div><b>OVnow</b><span>Release notes · <a href="#" style="color:#ffc52e">NL</a></span></div><span style="margin-left:auto;background:#30d158;color:#04210c;font:800 12px ui-monospace,Menlo,monospace;border-radius:99px;padding:5px 10px">NEW UPDATE</span></div><div class="yb"></div>
+        <div class="pad" style="font-size:15px">
+          <p style="font:800 12px ui-monospace,Menlo,monospace;color:#1559d6;margin:0 0 6px">NEW</p>
+          <ul class="ul">
+            <li><b>OV-fiets now</b> at every station: count, opening hours, locations, on the map, Continue by OV-fiets, widget. Data from NS.</li>
+            <li><b>nOVa</b>, the assistant: plan in plain words or by voice, say "later", report problems.</li>
+            <li>"Supplement" label on the Intercity direct</li>
+            <li>Bike routes (Settings, Show bike routes)</li>
+            <li>Add to Calendar</li>
+            <li>Tap a platform number to see that platform's sign</li>
+          </ul>
+          <p style="font:800 12px ui-monospace,Menlo,monospace;color:#1559d6;margin:0 0 6px">IMPROVED</p>
+          <ul class="ul">
+            <li>Liquid Glass trip card (Settings, Solid card style if you prefer)</li>
+            <li>Disruptions translated to your language</li>
+            <li>"Change not possible? Find another connection"</li>
+            <li>A pop-up when something is broken on our side</li>
+            <li>iPhone Duo closed-screen layout</li>
+          </ul>
+          <p style="font:800 12px ui-monospace,Menlo,monospace;color:#127a35;margin:0 0 6px">FIXED, FROM YOUR FEEDBACK</p>
+          <ul class="ul">
+            <li>The normal Intercity shows next to the IC direct</li>
+            <li>"No routes found" is now a walking route when it's close</li>
+          </ul>
+          <a class="btn nv" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app.</p>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 11 -->
+  <section class="concept" data-n="11" data-name="Poll first">
+    <div class="side">
+      <h3><span>11</span>Poll first</h3>
+      <p class="note"><b>+</b> Highest response; the question itself tells you what's new. Bilingual line by line. <b>-</b> The update button sits lower; some people tap the poll and stop there.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="One tap: OV-fiets, nOVa or the map?"><span>One tap: OV-fiets, nOVa or the map?</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Quick vote / Snelle stem"><span>Quick vote / Snelle stem</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its big poll buttons"><span>Its big poll buttons</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its line-by-line EN + NL"><span>Its line-by-line EN + NL</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">One tap: OV-fiets, nOVa or the map?</div></div></div>
+      <div class="mb"><div class="m">
+        <div class="pad" style="padding-top:28px;text-align:center">
+          <img src="../img/icon-180.png" alt="" style="width:44px;height:44px;border-radius:11px">
+          <p class="h" style="margin-top:12px!important">Which do you use most?</p>
+          <p style="color:#5a6380;margin-top:-8px">Wat gebruik jij het meest?</p>
+          <div style="display:grid;gap:10px;margin:0 0 14px;text-align:left">
+            <a href="#" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:#fff;background:#10193d;border-radius:14px;padding:14px 16px"><span style="width:38px;height:38px;border-radius:10px;background:#ffc917;display:grid;place-items:center;flex:none"><svg style="width:26px;height:26px"><use href="#bike"/></svg></span><span><b style="font-size:17px">OV-fiets</b><br><span style="font-size:13.5px;color:#b9c6ee">New: live at every station</span></span></a>
+            <a href="#" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:#fff;background:#10193d;border-radius:14px;padding:14px 16px"><span style="width:38px;height:38px;flex:none"><svg class="fc"><use href="#nova"/></svg></span><span><b style="font-size:17px">nOVa</b><br><span style="font-size:13.5px;color:#b9c6ee">New: plan by chat or voice</span></span></a>
+            <a href="#" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:#fff;background:#10193d;border-radius:14px;padding:14px 16px"><span style="width:38px;height:38px;border-radius:10px;background:#1e6bff;display:grid;place-items:center;flex:none"><svg viewBox="0 0 120 20" style="width:30px;height:10px"><use href="#line"/></svg></span><span><b style="font-size:17px">The map</b><br><span style="font-size:13.5px;color:#b9c6ee">Live vehicles, as always / De kaart</span></span></a>
+          </div>
+          <p class="small">One tap, anonymous. / Eén tik, anoniem.</p>
+        </div>
+        <div class="pad" style="border-top:1px solid #e3e6ef;padding-top:20px">
+          <p><b>Haven't tried the first two?</b> They're in the new update.<br><span style="color:#5a6380">Nog niet geprobeerd? Ze zitten in de nieuwe update.</span></p>
+          <a class="btn" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app.<br>Update via TestFlight, verwijder de app niet.</p>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 12 -->
+  <section class="concept" data-n="12" data-name="Dark mail (house style)" data-lang="nl">
+    <div class="side">
+      <h3><span>12</span>Dark mail</h3>
+      <p class="note"><b>+</b> The exact look of the earlier mailings (navy in every client), so it feels like OVnow straight away. <b>-</b> Familiar, so less of a "this one is big" moment.</p>
+      <div class="langsw"><button aria-pressed="false" data-l="en">EN</button><button aria-pressed="true" data-l="nl">NL</button></div>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Nieuw in OVnow: OV-fiets now en nOVa"><span>Nieuw in OVnow: OV-fiets now en nOVa</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="New in OVnow: OV-fiets now and nOVa"><span>New in OVnow: OV-fiets now and nOVa</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its navy house style"><span>Its navy house style</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its three small tiles"><span>Its three small tiles</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its EN/NL switch"><span>Its EN/NL switch</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s"><span class="nl">Nieuw in OVnow: OV-fiets now en nOVa</span><span class="en">New in OVnow: OV-fiets now and nOVa</span></div></div></div>
+      <div style="background:#0a1130;padding:24px 20px">
+        <div style="background:#10193d;border-radius:22px;overflow:hidden;color:#dfe5f7;font-size:16px;line-height:1.55">
+          <div style="display:flex;gap:12px;align-items:center;padding:20px 24px;background:#16224f"><img src="../img/icon-180.png" alt="" style="width:42px;height:42px;border-radius:11px"><div><b style="font-size:20px;color:#f4f6ff">OVnow</b><div style="font-size:12.5px;color:#9fb0e0"><span class="nl">Live OV in Nederland, op de kaart</span><span class="en">Live public transport in the Netherlands</span></div></div></div>
+          <div class="yb"></div>
+          <div style="padding:26px 24px 8px">
+            <p style="margin:0 0 10px;font-size:12px;font-weight:700;color:#ffc52e;letter-spacing:.1em"><span class="nl">NIEUW IN OVNOW</span><span class="en">NEW IN OVNOW</span></p>
+            <span style="display:inline-block;margin:0 0 16px;border-radius:99px;padding:6px 12px;font-size:11.5px;font-weight:800;background:#30d158;color:#04210c">NEW UPDATE</span>
+            <p style="margin:0 0 14px"><span class="nl">Hoi Sanne,</span><span class="en">Hi Sanne,</span></p>
+            <div class="ovf" style="background:#0d1534;border:1px solid #2c3a78"><span class="bk"><svg><use href="#bike"/></svg></span><span><b>OV-fiets</b><small><span class="gr"><span class="nl">17 beschikbaar</span><span class="en">17 available</span></span> · <span class="nl">open tot 01:00</span><span class="en">open until 01:00</span></small></span><span class="ch">&rsaquo;</span></div>
+            <p style="margin:0 0 14px"><span class="nl">Bij elk station zie je nu live hoeveel OV-fietsen er zijn. Tik voor de locaties, zie ze op de kaart, kies <b style="color:#fff">Verder met OV-fiets</b> in je route of zet het in een widget. Zelfs de NS-app laat dit niet zien.</span><span class="en">Every station now shows live how many OV-fiets there are. Tap for the locations, see them on the map, pick <b style="color:#fff">Continue by OV-fiets</b> in your route or put it in a widget. Even the NS app doesn't show this.</span></p>
+            <div style="display:flex;gap:12px;align-items:center;background:#0d1534;border-radius:14px;padding:12px 14px;margin:0 0 16px"><span class="nova" style="width:44px;height:44px"><svg class="fc"><use href="#nova"/></svg></span><span style="font-size:15px"><b style="color:#fff">nOVa</b> · <span class="nl">plan in gewone woorden of met de microfoon, en meld problemen.</span><span class="en">plan in plain words or with the mic, and report problems.</span></span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 0 16px;font-size:13px;line-height:1.4">
+              <div style="background:#0d1534;border:1px solid #2c3a78;border-radius:12px;padding:10px"><b style="color:#fff;display:block"><span class="nl">Toeslag</span><span class="en">Supplement</span></b><span class="nl">Op de IC direct, en "Geen toeslag" op de gewone.</span><span class="en">On the IC direct, "No supplement" on the normal one.</span></div>
+              <div style="background:#0d1534;border:1px solid #2c3a78;border-radius:12px;padding:10px"><b style="color:#fff;display:block"><span class="nl">Spoorbord</span><span class="en">Platform sign</span></b><span class="nl">Tik op een spoornummer.</span><span class="en">Tap a platform number.</span></div>
+              <div style="background:#0d1534;border:1px solid #2c3a78;border-radius:12px;padding:10px"><b style="color:#fff;display:block"><span class="nl">Agenda</span><span class="en">Calendar</span></b><span class="nl">Zet je reis in je agenda.</span><span class="en">Add your trip in one tap.</span></div>
+            </div>
+            <a href="#" style="display:inline-block;background:#ffc52e;color:#0a1130;text-decoration:none;font-weight:800;font-size:16px;padding:13px 22px;border-radius:999px"><span class="nl">Update via TestFlight</span><span class="en">Update in TestFlight</span></a>
+            <p style="margin:8px 0 18px;font-size:13.5px;color:#9fb0e0"><span class="nl">Update via TestFlight. Verwijder de app niet om hem opnieuw te installeren.</span><span class="en">Update in TestFlight, don't delete and reinstall the app.</span></p>
+            <p style="margin:0 0 14px"><span class="nl">Groet,</span><span class="en">Cheers,</span><br>OVnow</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;margin:14px 24px 0;padding:18px 0 24px;border-top:1px solid #2c3a78;font-size:12.5px;color:#9aa7d2"><img src="../img/icon-180.png" alt="" style="width:28px;height:28px;border-radius:7px"><div><span class="nl">Je krijgt deze mail omdat je OVnow test via TestFlight.</span><span class="en">You get this because you test OVnow via TestFlight.</span><br><a href="#" style="color:#ffc52e;font-weight:700;text-decoration:none">ovnow.app</a> · <a href="#" style="color:#9fb0e0"><span class="nl">Geen mails meer</span><span class="en">No more mails</span></a></div></div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- 13 -->
+  <section class="concept" data-n="13" data-name="Story of one trip">
+    <div class="side">
+      <h3><span>13</span>Story of one trip</h3>
+      <p class="note"><b>+</b> Shows every new feature in the order you'd meet it; uses the brand line and stop rings. <b>-</b> Longest to read; works best if the trip feels real.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Amsterdam Zuid, 21:12. Rotterdam, then a bike"><span>Amsterdam Zuid, 21:12. Rotterdam, then a bike</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="One trip, six new things"><span>One trip, six new things</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="From the train straight onto an OV-fiets"><span>From the train straight onto an OV-fiets</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its stop-by-stop timeline"><span>Its stop-by-stop timeline</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its sign-off from Frey"><span>Its sign-off from Frey</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">Amsterdam Zuid, 21:12. Rotterdam, then a bike</div></div></div>
+      <div class="mb"><div class="m">
+        <div class="bh"><img src="../img/icon-180.png" alt=""><div><b>OVnow</b><span>One trip with the new update · <a href="#" style="color:#ffc52e">NL</a></span></div></div><div class="yb"></div>
+        <div class="pad">
+          <p class="h">One evening, one trip</p>
+          <div style="margin:4px 0 16px">
+            <div style="display:grid;grid-template-columns:52px 20px 1fr;gap:12px;font-size:15px">
+              <span style="color:#5a6380;font-variant-numeric:tabular-nums">21:02</span><span style="position:relative"><i style="position:absolute;left:8px;top:10px;bottom:-14px;width:4px;background:#1e6bff"></i><i style="position:relative;display:block;width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid #1e6bff"></i></span><div style="padding-bottom:16px"><b>At home.</b> You tell nOVa: "Amsterdam Zuid to Rotterdam Centraal". She finds it. You say "later".</div>
+              <span style="color:#5a6380">21:12</span><span style="position:relative"><i style="position:absolute;left:8px;top:10px;bottom:-14px;width:4px;background:#1e6bff"></i><i style="position:relative;display:block;width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid #1e6bff"></i></span><div style="padding-bottom:16px"><b>Amsterdam Zuid.</b> The IC direct says <b>Supplement</b>; the normal Intercity next to it says <i>No supplement · 23 min longer</i>. You tap platform 3 and see its sign.</div>
+              <span style="color:#5a6380">21:20</span><span style="position:relative"><i style="position:absolute;left:8px;top:10px;bottom:-14px;width:4px;background:#1e6bff"></i><i style="position:relative;display:block;width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid #1e6bff"></i></span><div style="padding-bottom:16px"><b>On the train.</b> A disruption pops up, already in your language. The trip card is Liquid Glass now.</div>
+              <span style="color:#5a6380">22:01</span><span style="position:relative"><i style="position:absolute;left:8px;top:10px;bottom:-14px;width:4px;background:#1e6bff"></i><i style="position:relative;display:block;width:20px;height:20px;border-radius:50%;background:#ffc917"></i></span><div style="padding-bottom:16px"><b>Rotterdam Centraal.</b> <span class="ovf" style="margin:8px 0 0;padding:9px 12px"><span class="bk" style="width:32px;height:32px"><svg style="width:22px;height:22px"><use href="#bike"/></svg></span><span><b>OV-fiets</b><small><span class="gr">51 available</span> · open until 01:00</small></span></span><span style="display:block;margin-top:6px">You tap <b>Continue by OV-fiets</b> and the bike route shows up.</span></div>
+              <span style="color:#5a6380">22:14</span><span><i style="display:block;width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid #1e6bff"></i></span><div><b>Home.</b> Twelve minutes on a bike you knew was there.</div>
+            </div>
+          </div>
+          <a class="btn" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app.</p>
+          <div class="frey"><i>F</i>I made this trip last Friday to test it. The bike was there. Frey</div>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 14 -->
+  <section class="concept" data-n="14" data-name="Q and A">
+    <div class="side">
+      <h3><span>14</span>Q &amp; A</h3>
+      <p class="note"><b>+</b> Answers the questions testers actually ask ("do I need to reinstall?"); very clear. <b>-</b> Less exciting as an opener; questions feel invented if too many.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="What's new, where is it, and do I reinstall? (No)"><span>What's new, where is it, and do I reinstall? (No)</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Your questions about the new update"><span>Your questions about the new update</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its 'Do I need to reinstall? No' answer"><span>Its "Do I need to reinstall? No"</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its 'Where do I find it?' answers"><span>Its "Where do I find it?" answers</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">What's new, where is it, and do I reinstall? (No)</div></div></div>
+      <div class="mb"><div class="m">
+        <div class="bh"><img src="../img/icon-180.png" alt=""><div><b>OVnow</b><span>New update, five questions · <a href="#" style="color:#ffc52e">Nederlands</a></span></div></div><div class="yb"></div>
+        <div class="pad" style="font-size:15.5px">
+          <p style="font-weight:800;font-size:17px;margin:0 0 4px!important">What's the big one?</p>
+          <p>OV-fiets now. Every station shows how many are free and until when it's open, from NS. Even the NS app doesn't show this.</p>
+          <p style="font-weight:800;font-size:17px;margin:0 0 4px!important">Where do I find it?</p>
+          <p>Open any station. Tap the OV-fiets row for locations. Bikes are on the map, in your route as "Continue by OV-fiets", and in a Home Screen widget.</p>
+          <p style="font-weight:800;font-size:17px;margin:0 0 4px!important">Who is nOVa?</p>
+          <p>The OVnow assistant. Type or say "tomorrow at 7 to Utrecht", say "later" for the next one, or tell her what went wrong.</p>
+          <p style="font-weight:800;font-size:17px;margin:0 0 4px!important">Did you fix what I reported?</p>
+          <p>If it was the missing normal Intercity, or "No routes found" for a short trip: yes.</p>
+          <p style="font-weight:800;font-size:17px;margin:0 0 4px!important">Do I need to reinstall?</p>
+          <p><b>No.</b> Update in TestFlight, don't delete and reinstall the app. Deleting it loses your favourites.</p>
+          <a class="btn nv" href="#">Update in TestFlight</a>
+          <div class="poll" style="margin-top:18px"><b>One more: which do you use most?</b><div><a href="#">OV-fiets</a><a href="#">nOVa</a><a href="#">The map</a></div></div>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+
+  <!-- 15 -->
+  <section class="concept" data-n="15" data-name="3 things to try">
+    <div class="side">
+      <h3><span>15</span>3 things to try</h3>
+      <p class="note"><b>+</b> Turns readers into testers; you get feedback on exactly the new parts. <b>-</b> Feels like homework to some; needs a follow-up to close the loop.</p>
+      <div class="lbl">Subject lines</div>
+      <div class="subs">
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="3 things to try in the new update (5 minutes)"><span>3 things to try in the new update (5 minutes)</span></label>
+        <label class="ck"><input type="checkbox" data-g="subjects" data-s="Your mission this week"><span>Your mission this week</span></label>
+      </div>
+      <label class="ck uselbl"><input type="checkbox" class="use" data-g="concepts" data-s="Use this concept"><span>Use this concept</span></label>
+      <div class="lbl">Borrow parts</div>
+      <div class="parts">
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its 3-task checklist"><span>Its 3-task checklist</span></label>
+        <label class="ck"><input type="checkbox" data-g="borrow" data-s="its 'reply DONE' ending"><span>Its "reply DONE" ending</span></label>
+      </div>
+    </div>
+    <div class="scaler"><div class="mw">
+      <div class="mh"><img src="../img/icon-180.png" alt=""><div><div class="f"><b>OVnow</b> &lt;mail@ovnow.app&gt;</div><div class="s">3 things to try in the new update (5 minutes)</div></div></div>
+      <div class="mb"><div class="m">
+        <div style="background:#ffc52e;padding:24px 28px;color:#10193d"><div style="font-size:13px;font-weight:800;letter-spacing:.1em">OVNOW TESTER CHALLENGE</div><div style="font-size:30px;font-weight:800;line-height:1.15;margin-top:6px">3 things to try today</div><div style="font-size:14.5px;margin-top:4px">About 5 minutes. <a href="#" style="color:#10193d">Nederlands</a></div></div>
+        <div class="pad">
+          <div style="display:grid;gap:10px;margin:0 0 16px">
+            <div style="display:flex;gap:12px;border:1px solid #d5d9e6;border-radius:14px;padding:12px 14px"><span style="width:28px;height:28px;border-radius:8px;border:2.5px solid #10193d;flex:none"></span><div><b>Check your station's OV-fiets</b><br><span class="small">Open your home station. How many are free right now? Tap for the locations.</span></div></div>
+            <div style="display:flex;gap:12px;border:1px solid #d5d9e6;border-radius:14px;padding:12px 14px"><span style="width:28px;height:28px;border-radius:8px;border:2.5px solid #10193d;flex:none"></span><div><b>Ask nOVa out loud</b><br><span class="small">Tap the mic and say "tomorrow at 7 to Utrecht". Then say "later".</span></div></div>
+            <div style="display:flex;gap:12px;border:1px solid #d5d9e6;border-radius:14px;padding:12px 14px"><span style="width:28px;height:28px;border-radius:8px;border:2.5px solid #10193d;flex:none"></span><div><b>Tap a platform number</b><br><span class="small">In any departure, tap the platform. You'll see that platform's sign.</span></div></div>
+          </div>
+          <p>Did all three? Reply <b>DONE</b>, or tell me what didn't work.</p>
+          <a class="btn nv" href="#">Update in TestFlight</a>
+          <p class="tf">Update in TestFlight, don't delete and reinstall the app.</p>
+          <div class="poll"><b>Which do you use most: OV-fiets, nOVa or the map?</b><div><a href="#">OV-fiets</a><a href="#">nOVa</a><a href="#">The map</a></div></div>
+        </div>
+        <div class="ft"><img src="../img/icon-180.png" alt=""><div>You get this because you test OVnow via TestFlight.<br><a href="#">ovnow.app</a> · <a href="#">No more mails</a></div></div>
+      </div></div>
+    </div></div>
+  </section>
+</div>
+
+<div class="bar"><div class="in">
+  <span class="count"><b id="cnt">0</b> ticked <span id="ok" class="done" hidden>Copied: paste it to Claude</span></span>
+  <button class="go" id="go">Okay, make a newsletter out of my checked items</button>
+</div></div>
+
+<script>
+// Mails are 600 wide; shrink them to fit narrow screens.
+const fit=()=>document.querySelectorAll(".scaler").forEach(s=>s.firstElementChild.style.zoom=Math.min(1,s.clientWidth/600));
+addEventListener("resize",fit);fit();
+
+document.querySelectorAll(".card a,.m a,.mw a").forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
+
+document.querySelectorAll(".langsw button").forEach(b=>b.onclick=()=>{
+  const sec=b.closest(".concept");sec.dataset.lang=b.dataset.l;
+  sec.querySelectorAll(".langsw button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+});
+
+const boxes=[...document.querySelectorAll("input[data-g]")];
+const cnt=document.getElementById("cnt"),ok=document.getElementById("ok");
+const count=()=>{cnt.textContent=boxes.filter(b=>b.checked).length;ok.hidden=true};
+boxes.forEach(b=>b.addEventListener("change",count));count();
+
+function summary(){
+  const on=g=>boxes.filter(b=>b.dataset.g===g&&b.checked);
+  const who=b=>{const s=b.closest(".concept");return s?`${s.dataset.n} ${s.dataset.name}`:""};
+  const L=["OVnow newsletter (next update): my picks",""];
+  L.push("BUILDING BLOCKS (use):",...(on("blocks").map(b=>"- "+b.dataset.s)),"");
+  const off=boxes.filter(b=>b.dataset.g==="blocks"&&!b.checked);
+  if(off.length)L.push("Leave out:",...off.map(b=>"- "+b.dataset.s),"");
+  const c=on("concepts");L.push("CONCEPTS TO USE:",...(c.length?c.map(b=>"- "+who(b)):["- none picked"]),"");
+  const p=on("borrow");if(p.length)L.push("BORROW THESE PARTS:",...p.map(b=>`- from ${who(b)}: ${b.dataset.s}`),"");
+  const s=on("subjects");if(s.length)L.push("SUBJECT LINES I LIKE:",...s.map(b=>`- "${b.dataset.s}" (concept ${who(b)})`),"");
+  L.push("Source: newsletter-concepts/index.html. Numbers and names in the mock-ups are examples.");
+  return L.join("\n");
+}
+document.getElementById("go").onclick=async()=>{
+  const t=summary();
+  try{await navigator.clipboard.writeText(t);ok.hidden=false}
+  catch(e){prompt("Copy this and paste it to Claude:",t)}
+};
+</script>
+</body>
+</html>

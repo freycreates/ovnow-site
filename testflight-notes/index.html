@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TestFlight notes: what changed</title>
+<style>
+  @font-face{font-family:"Bricolage";src:url(../fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
+  @font-face{font-family:"Onest";src:url(../fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{--night:#10193d;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee;--blue:#0a84ff;--card:#0b0f22;--green:#7fe39a;--orange:#ffb35c}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--night);color:var(--text);font:400 16px/1.5 Onest,system-ui,sans-serif}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 16px 80px}
+  .mock-tag{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--line);color:var(--night);font-size:.8rem;font-weight:700}
+  h1{margin:14px 0 6px;font:800 clamp(2rem,6vw,3rem)/1.05 Bricolage,sans-serif}
+  h2{font:800 1.45rem Bricolage,sans-serif;margin:34px 0 4px}
+  .lede,.sec{color:var(--soft)}.sec{margin:0 0 12px;font-size:14px}
+  .bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 0;background:var(--night)}
+  .btn{font:600 14px Onest,sans-serif;border:0;border-radius:999px;padding:7px 14px;cursor:pointer;background:var(--blue);color:#fff}
+  .btn.ghost{background:none;border:1px solid #3a4470;color:var(--soft)}
+  .count{color:var(--soft);font-size:14px;margin-right:auto}
+  .item{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:2px solid transparent;border-radius:14px;padding:12px 14px;margin-bottom:8px}
+  .item.on{border-color:var(--line)}
+  .item input{width:18px;height:18px;accent-color:#ffc52e;margin-top:3px;flex:none}
+  .item .txt{flex:1;outline:none;border-radius:6px}
+  .item .txt:focus{box-shadow:0 0 0 2px var(--line)}
+  .item small{display:block;color:var(--soft);font-size:12.5px;margin-top:4px}
+  .tag{font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;margin-left:6px;vertical-align:2px}
+  .t-b{background:rgba(127,227,154,.15);color:var(--green)}.t-c{background:rgba(255,179,92,.15);color:var(--orange)}.t-s{background:rgba(10,132,255,.2);color:#9ccbff}
+  .note{background:var(--card);border-radius:14px;padding:12px 14px;color:var(--soft);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="mock-tag">Draft</span>
+  <h1>TestFlight notes: everything since 2026112202</h1>
+  <p class="lede">The last build external testers have is <b>2026112202</b>. Below is everything that changed since then. Tick what goes into the notes, and tap any text to edit it. "Copy my picks" copies your list so you can paste it to me; I then write the full English and Dutch notes in the same style as before and put them in Notes.</p>
+  <div class="note">Labels: <span class="tag t-b">In a build</span> already in build 2026112301–2026112304 &nbsp; <span class="tag t-c">Code only</span> in the code, needs a new build first &nbsp; <span class="tag t-s">Server, live</span> already working for everyone</div>
+  <div class="bar"><span class="count"><b id="n">0</b> picked</span><button class="btn ghost" id="rec">Pick my suggestion</button><button class="btn ghost" id="none">Clear</button><button class="btn" id="copy">Copy my picks</button></div>
+  <div id="list"></div>
+</div>
+<script>
+const G=[
+["nOVa, the assistant","nOVa grew from a report form into a chat. Biggest change for testers.",[
+ ["b","Meet nOVa, the OVnow assistant: a real chat with its own face (two stops: a blue ring and a yellow dot). Ask it things, plan a trip, or tell it what's wrong.",1],
+ ["b","Plan in plain words: \"Amsterdam Zuid to Rotterdam Centraal\" or \"tomorrow at 7 to Utrecht\". Say \"later\", \"earlier\" or \"arrive by 9\" to change it.",1],
+ ["b","Ask nOVa: \"When should I leave?\", \"Why is my tram late?\", \"Where is my bus?\", \"I missed it\" and \"Take me home\".",1],
+ ["b","Talk to nOVa: tap the microphone and say it.",1],
+ ["b","nOVa checks reports on our server and tells you if it sees the same problem (\"Confirmed\").",0],
+ ["b","Jokes, comebacks and train facts, in English and Dutch.",1],
+ ["b","Find nOVa: an \"Ask nOVa\" card in Search, \"Why? Ask nOVa\" under a delay, \"Something off? Tell nOVa\" under routes, and a quick action when you long-press the app icon.",1],
+ ["b","One switch in Settings turns nOVa off completely. Your chats stay on your iPhone and you can delete them.",1],
+ ["c","New first screen: Plan a trip, Report a problem, Other questions (facts, useful info or a joke), with a \"Did you know?\" tip.",1],
+ ["c","nOVa suggests what to ask next, and offers \"Did you mean…\" when it isn't sure.",1],
+ ["c","\"Another one\" gives a new joke or fact, and nOVa doesn't repeat itself until it has told them all.",1],
+ ["c","Coming back to nOVa continues your chat, and \"Back to nOVa\" on a route takes you straight back.",1],
+ ["c","\"Are there OV-fiets at Zuid?\" (live number).",0]]],
+["Planning","Routes, choices and walking.",[
+ ["s","The normal Intercity now shows next to the Intercity direct, so you can choose (for example Amsterdam Zuid to Rotterdam).",1],
+ ["c","\"Supplement\" label on the Intercity direct, and \"No supplement · 23 min longer\" on the normal Intercity. Tap it for an explanation.",1],
+ ["c","Sort by: Departure or Arrival.",1],
+ ["c","No more \"No routes found\" when it's close: \"Looks like there's no transport option, but you can walk: 11 min (768 m).\" with the walking route on the map.",1],
+ ["c","Bike routes as an option: Settings, Show bike routes.",1],
+ ["c","Arrive by: shows the trips closest to your time, with \"x min early\".",1],
+ ["c","Stations you pick in Plan show up in Recents.",0],
+ ["b","Add to Calendar on a planned route.",1],
+ ["b","Tap a platform number to see what that platform's sign shows.",1]]],
+["OV-fiets","Live availability (code in progress, needs your NS key on the server).",[
+ ["c","OV-fiets at stations: \"OV-fiets: 34 available · open until 01:00\", with the locations, a map pin with the count, and \"Continue by OV-fiets\" in your route.",1],
+ ["c","A Home Screen widget with the OV-fiets count for your home station.",1]]],
+["Map, times and the iPhone Duo","",[
+ ["b","iPhone Duo: the closed screen gets the side layout too, with the buttons and tabs in one column on the right; the panel stays under the clock.",1],
+ ["b","Settings, Map: choose which stop the map opens on. Long-press a stop for \"Open the map here\".",1],
+ ["b","One clock everywhere: the trip bar, the card and the list always show the same countdown, and seconds tick together.",1],
+ ["b","Search: the search field is always there, no need to touch the screen first.",1]]],
+["From build 2026112301 (internal only so far)","Externals haven't had these yet.",[
+ ["b","Liquid Glass: your trip and the Lock Screen card are glass. Prefer black? Settings, Solid card style.",1],
+ ["b","Disruptions in your language: Dutch notices are translated on your iPhone. Tap one to see the original.",1],
+ ["b","\"Change not possible\"? Find another connection plans from that station and shows how much later you arrive.",1],
+ ["b","Delays count whole minutes, like NS and 9292.",1],
+ ["b","When something is broken on our side, the app tells you once in a pop-up.",1],
+ ["b","Fixed: delays and disruption notices were missing for a day.",0]]],
+["Privacy","",[
+ ["s","Privacy page updated: nOVa chats stay on your iPhone, voice input, anonymous nOVa usage counts, Add to Calendar.",0],
+ ["b","nOVa counts anonymously how it's used (no names, no messages), so we know what to improve. Switching nOVa off stops it.",1]]],
+["Please try","The 'Please try' list at the end of the notes.",[
+ ["x","Ask nOVa to plan a trip you know, then say \"later\".",1],
+ ["x","Plan Amsterdam Zuid to Rotterdam: do you see the normal Intercity and the Supplement label?",1],
+ ["x","Plan to a place that's a short walk away.",1],
+ ["x","Ask nOVa for a joke, then say \"another one\".",1],
+ ["x","On an iPhone Duo: close it and open it.",0]]],
+];
+let st={pick:{},edit:{}};
+const lab={b:'<span class="tag t-b">In a build</span>',c:'<span class="tag t-c">Code only</span>',s:'<span class="tag t-s">Server, live</span>',x:""};
+function render(){document.getElementById("list").innerHTML=G.map(([t,d,items],gi)=>`<h2>${t}</h2>${d?`<p class="sec">${d}</p>`:""}${items.map(([k,txt],i)=>{const id=gi+"-"+i;return `<div class="item${st.pick[id]?" on":""}"><input type="checkbox" data-id="${id}"${st.pick[id]?" checked":""}><div style="flex:1"><div class="txt" contenteditable="plaintext-only" data-e="${id}">${(st.edit[id]??txt).replace(/</g,"&lt;")}</div>${lab[k]?`<small>${lab[k]}</small>`:""}</div></div>`}).join("")}`).join("");count()}
+const count=()=>document.getElementById("n").textContent=Object.values(st.pick).filter(Boolean).length;
+document.addEventListener("change",e=>{const id=e.target.dataset.id;if(!id)return;st.pick[id]=e.target.checked;e.target.closest(".item").classList.toggle("on",e.target.checked);count()});
+document.addEventListener("input",e=>{const k=e.target.dataset.e;if(k)st.edit[k]=e.target.textContent});
+document.getElementById("rec").onclick=()=>{G.forEach(([,,items],gi)=>items.forEach(([,,r],i)=>st.pick[gi+"-"+i]=!!r));render()};
+document.getElementById("none").onclick=()=>{st.pick={};render()};
+document.getElementById("copy").onclick=async()=>{const out=[];G.forEach(([t,,items],gi)=>{const p=items.map(([k,txt],i)=>[gi+"-"+i,k,txt]).filter(([id])=>st.pick[id]);if(p.length)out.push("["+t+"]\n"+p.map(([id,k,txt])=>"- "+(st.edit[id]??txt)+(k==="c"?" (code only)":k==="s"?" (server, live)":"")).join("\n"))});const s=out.join("\n\n")||"Nothing picked yet";try{await navigator.clipboard.writeText(s);document.getElementById("copy").textContent="Copied"}catch(e){prompt("Copy this:",s)}setTimeout(()=>document.getElementById("copy").textContent="Copy my picks",1500)};
+render();
+</script>
+</body>
+</html>

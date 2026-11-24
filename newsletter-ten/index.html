@@ -1,0 +1,346 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Ten update mails</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0a1130;color:#f4f6ff;font:400 15px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+.top{max-width:1220px;margin:0 auto;padding:24px 16px 0}
+.tag{display:inline-block;padding:3px 10px;border-radius:999px;background:#ffc52e;color:#10193d;font-size:12px;font-weight:700}
+h1{font-size:28px;font-weight:800;line-height:1.1;margin:12px 0 6px}
+h2{font-size:22px;font-weight:800;line-height:1.2;margin:0}
+.sub{color:#c9d2ee;margin:0 0 6px;max-width:52em}
+/* sticky bar + checklist */
+.bar{position:sticky;top:0;z-index:20;background:rgba(10,17,48,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #2c3a78}
+.bar .in{max-width:1220px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.bar .st{color:#c9d2ee;font-size:13.5px;flex:1;min-width:200px}
+.bar .st b{color:#ffc52e}
+.go{font:800 14.5px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;border:0;background:#ffc52e;color:#0a1130;padding:11px 16px;border-radius:99px;cursor:pointer}
+.done{color:#30d158;font-weight:700;font-size:13.5px}
+.check{max-width:1220px;margin:18px auto 0;padding:0 16px}
+.check .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.check fieldset{border:1px solid #2c3a78;border-radius:14px;margin:0;padding:12px 14px;background:#10193d}
+.check legend{font-size:12px;font-weight:700;letter-spacing:.08em;color:#9fb0e0;padding:0 6px}
+label.c{display:flex;gap:8px;align-items:flex-start;padding:4px 0;font-size:14px;color:#dfe5f7;cursor:pointer}
+label.c input{margin-top:3px;accent-color:#ffc52e;flex:none}
+/* mocks */
+.mock{max-width:1220px;margin:44px auto 0;padding:0 16px}
+.mhead{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;border-top:1px solid #2c3a78;padding-top:18px}
+.num{font-size:34px;font-weight:900;line-height:1;color:#ffc52e;letter-spacing:-.03em}
+.note{color:#c9d2ee;margin:4px 0 0;flex-basis:100%}
+.pick{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;flex-basis:100%;font-size:13.5px;color:#9fb0e0}
+.pick label{display:inline-flex;gap:6px;align-items:center;cursor:pointer;color:#dfe5f7}
+.pick input{accent-color:#ffc52e}
+.pick .use{font-weight:700;color:#ffc52e}
+.cols{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.cols>div{width:min(584px,100%)}
+.lab{text-align:center;color:#9fb0e0;font-weight:700;font-size:12px;letter-spacing:.08em;margin-top:18px}
+.subj{max-width:560px;margin:8px auto -12px;padding:0 12px;font-size:12.5px;color:#9fb0e0;text-align:left}
+.subj b{color:#f4f6ff}
+/* phone screenshot (stands in for the {image} picture) */
+.ph{width:100%;max-width:324px;height:560px;margin:0 auto;border-radius:48px;background:#000;border:4px solid #3a3a3e;overflow:hidden;display:flex;flex-direction:column;font:400 13.5px/1.35 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#fff;text-align:left}
+.ph .sb{display:flex;justify-content:space-between;align-items:center;padding:14px 28px 8px;font-weight:600;font-size:14px}
+.ph .isl{width:86px;height:24px;border-radius:99px;background:#111}
+.ph .bat{width:22px;height:11px;border:1.5px solid #fff;border-radius:3px;position:relative}
+.ph .bat:after{content:"";position:absolute;inset:1px;background:#fff;border-radius:1px}
+.ph .sheet{flex:1;background:#1c1c1e;border-radius:28px 28px 0 0;display:flex;flex-direction:column;overflow:hidden}
+.ph .hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 12px 8px}
+.ph .circ{width:36px;height:36px;border-radius:50%;border:1px solid #3a3a3c;display:grid;place-items:center}
+.ph .tt{display:flex;align-items:center;gap:8px;font-weight:600;font-size:17px}
+.ph .tt svg{width:28px;height:28px}
+.ph .body{flex:1;padding:6px 10px 8px;display:flex;flex-direction:column;justify-content:flex-end;gap:7px;overflow:hidden}
+.ph .m{display:flex;gap:6px;align-items:flex-end;max-width:96%}
+.ph .m>svg{width:28px;height:28px;flex:none}
+.ph .b{background:#2c2c2e;border-radius:18px 18px 18px 5px;padding:8px 12px}
+.ph .me{align-self:flex-end;background:#0a84ff;border-radius:18px 18px 5px 18px;padding:8px 12px;max-width:78%}
+.ph .rc{background:#3a3a3c;border-radius:12px;padding:8px 10px;margin-top:6px}
+.ph .rc .r1{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.ph .tm{font-weight:700;font-size:13px;white-space:nowrap}
+.ph .dur,.ph .g{color:#98989f;font-size:12px}.ph .dur{white-space:nowrap}
+.ph .tg{display:inline-block;padding:1px 6px;border-radius:5px;font-weight:800;font-size:11px;background:#ffc917;color:#003082;margin-right:4px}
+.ph .sup{display:inline-block;padding:0 7px;border-radius:99px;font-size:10.5px;font-weight:600;border:1px solid rgba(94,176,255,.6);color:#9ccbff;margin-left:3px}
+.ph .best{font-size:10.5px;font-weight:800;color:#ffc917;letter-spacing:.04em;margin-top:3px}
+.ph .chips{display:flex;flex-wrap:wrap;gap:5px;padding-left:30px}
+.ph .chip{padding:4px 10px;border-radius:99px;border:1px solid rgba(10,132,255,.6);color:#3d9bff;font-size:12px}
+.ph .comp{padding:8px 10px 24px;background:#232325}
+.ph .field{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-radius:99px;background:#2c2c2e;color:#8e8e93}
+.ph .hello{display:flex;flex-direction:column;align-items:center;gap:2px;margin:0 0 6px;text-align:center}
+.ph .hello svg{width:52px;height:52px}
+.ph .hello b{font-size:19px}
+.ph .hello span{color:#98989f}
+.ph .tiles{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.ph .tile{background:#141a2e;border:1px solid #263266;border-radius:14px;padding:9px 10px}
+.ph .tile i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;font-style:normal;font-weight:800;margin-bottom:6px}
+.ph .tile b{display:block;font-size:13.5px}
+.ph .tile small{color:#9fb0e0;font-size:11px}
+.ph .wide{grid-column:1/-1;display:flex;gap:10px;align-items:center}
+.ph .wide svg{width:26px;height:26px;flex:none}
+.ph .tip{grid-column:1/-1;border-color:rgba(255,201,23,.55)}
+.ph .tip em{font-style:normal;font-weight:800;color:#ffc917;font-size:10.5px;letter-spacing:.04em}
+.ph .bk{display:flex;gap:8px;align-items:center}
+.ph .bk svg{width:22px;height:22px;flex:none}
+.ph .late{color:#ff453a;font-weight:700}
+.ph .big6{font-size:30px;font-weight:800;line-height:1;color:#ffc917}
+</style></head><body>
+
+<div class="bar"><div class="in">
+ <span class="st" id="st"></span>
+ <button class="go" id="go">Okay, make the final mail from my ticks</button>
+ <span class="done" id="done" hidden>Copied: paste it to Claude</span>
+</div></div>
+
+<div class="top">
+ <span class="tag">Mock-up</span>
+ <h1>Ten update mails for the testers</h1>
+ <p class="sub">Every mail is built from the real OVnow Admin template (the "Own server (route line)" mailing): same card, header, yellow line, kicker, headline, facts row, route line, box and button. Each one carries the OV-fiets now hero, a nOVa screenshot and a route line, arranged differently. Subject: "Nieuw in OVnow. Update!" / "New in OVnow. Update!". All numbers, times and trains are examples, and "Sanne" stands in for {name}.</p>
+</div>
+
+<div class="check">
+ <div class="grid">
+  <fieldset><legend>FEATURES</legend><div id="feat"></div></fieldset>
+  <fieldset><legend>OTHER FEATURES (IN THE BOX)</legend><div id="other"></div></fieldset>
+ </div>
+</div>
+
+<div id="mocks"></div>
+<div style="height:60px"></div>
+
+<script>
+const F="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif";
+const ICON="../img/icon-180.png";
+// nOVa "Two stops" face, from nova-final-mockup
+const N="#141a2e",B="#1e6bff",Y="#ffc917";
+const face=(m="idle")=>{const y=46,s=10;
+  const arc=(x,c)=>`<path d="M${x-s} ${y+2} q${s} -${s*1.5} ${2*s} 0" stroke="${c}" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+  const ring=`<circle cx="34" cy="${y}" r="7.8" fill="none" stroke="${B}" stroke-width="4.5"/>`, dot=`<circle cx="66" cy="${y}" r="${s}" fill="${Y}"/>`;
+  const e=m==="ok"?arc(34,B)+arc(66,Y):m==="wink"?ring+arc(66,Y):ring+dot;
+  return `<svg viewBox="0 0 100 100"><rect x="6" y="6" width="88" height="88" rx="24" fill="${N}"/>${e}<path d="M38 68q12 8 24 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`};
+const bike=c=>`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="${c}" stroke-width="1.8" style="display:block"><circle cx="6" cy="16" r="4"/><circle cx="18" cy="16" r="4"/><path d="M6 16l4-8h5l3 8M10 8l3 8M14 5h3"/></svg>`;
+const X=`<svg width="14" height="14" viewBox="0 0 14 14" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 2l10 10M12 2L2 12"/></svg>`;
+const MENU=`<svg width="16" height="12" viewBox="0 0 16 12" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M1 2h14M1 6h14M1 10h14"/></svg>`;
+const MIC=`<svg width="13" height="16" viewBox="0 0 14 16" fill="none" stroke="#0a84ff" stroke-width="1.6" stroke-linecap="round"><rect x="4.2" y="1" width="5.6" height="9" rx="2.8"/><path d="M1.5 7.5a5.5 5.5 0 0 0 11 0M7 13v2"/></svg>`;
+
+let L="nl"; const s=v=>Array.isArray(v)?v[L==="nl"?0:1]:v;
+
+/* ---------- the nOVa screenshot ---------- */
+const nv=(t,m="wink")=>`<div class="m">${face(m)}<div class="b">${t}</div></div>`;
+const me=t=>`<div class="me">${t}</div>`;
+const chips=(...a)=>`<div class="chips">${a.map(x=>`<span class="chip">${s(x)}</span>`).join("")}</div>`;
+const tm=(a,b)=>L==="nl"?`${a} → ${b}`:`${en12(a)} → ${en12(b)}`;
+const en12=t=>{let[h,m]=t.split(":").map(Number);return `${(h%12)||12}:${String(m).padStart(2,"0")} ${h<12?"AM":"PM"}`};
+const rc=(a,b,d,legs,x="")=>`<div class="rc"><div class="r1"><span class="tm">${tm(a,b)}</span><span class="dur">${d} min</span></div><div>${legs}</div>${x}</div>`;
+const ICD=`<span class="tg">ICD</span>`, IC=`<span class="tg">IC</span>`;
+const SUP=()=>`<span class="sup">${s(["Toeslag","Supplement"])}</span>`;
+const trk=n=>`<span class="g">direct · ${s(["spoor","track"])} ${n}</span>`;
+const phone=(clock,inner)=>`<div class="ph"><div class="sb"><span>${clock}</span><span class="isl"></span><span class="bat"></span></div><div class="sheet"><div class="hdr"><span class="circ">${X}</span><span class="tt">${face()}nOVa</span><span class="circ">${MENU}</span></div><div class="body">${inner}</div><div class="comp"><div class="field">${s(["Bericht aan nOVa","Message nOVa"])}${MIC}</div></div></div></div>`;
+const ofCard=()=>`<div class="rc bk">${bike("#ffc917")}<div><b>OV-fiets: 17 ${s(["beschikbaar","available"])}</b><div class="g">Ede-Wageningen · ${s(["open tot 01:00","open until 01:00"])}</div></div></div>`;
+
+/* real app screenshots in an iPhone frame (img/mail-nova-<screen>-<nl|en>.png); mocks without their own capture use the closest one */
+const SHOT={plan:"plan",ofiets:"ofiets",greeting:"greeting",route:"route",walk:"walk",leave:"leave",joke:"joke",ede:"ofiets",report:"report",disrupt:"leave",calendar:"route"};
+const shot=k=>`<img src="../img/mail-nova-${SHOT[k]}-${L}.png?v=4" width="324" alt="nOVa" style="width:324px;max-width:100%;height:auto;border:0;display:block;margin:0 auto">`;
+
+/* ---------- other features (box bullets) ---------- */
+const OTHER=[
+ ["sup","Supplement label on the Intercity direct, normal Intercity next to it",["De Intercity direct heeft een label Toeslag, met de gewone Intercity ernaast.","The Intercity direct shows a Supplement label, with the normal Intercity next to it."]],
+ ["walk","Walking route instead of \"No routes found\"",["Geen route? Dan krijg je een looproute in plaats van \"Geen routes gevonden\".","No route? You get a walking route instead of \"No routes found\"."]],
+ ["bike","Bike routes (Settings, Show bike routes)",["Fietsroutes: Instellingen → Toon fietsroutes.","Bike routes: Settings → Show bike routes."]],
+ ["cal","Add to Calendar",["Zet een reis in je agenda.","Add a trip to your calendar."]],
+ ["plat","Tap a platform number for the platform's sign",["Tik op een spoornummer voor het bord van dat spoor.","Tap a platform number to see that platform's sign."]],
+ ["glass","Liquid Glass (Settings, Solid card style)",["Liquid Glass. Liever het oude? Instellingen → Effen kaartstijl.","Liquid Glass. Prefer the old look? Settings → Solid card style."]],
+ ["lang","Disruptions in your language",["Storingen in jouw taal.","Disruptions in your language."]],
+ ["alt","Find another connection when a change won't work",["Haal je een overstap niet? Zoek meteen een andere verbinding.","A change won't work? Find another connection right away."]],
+ ["duo","iPhone Duo closed-screen layout",["iPhone Duo: een eigen indeling op het dichte scherm.","iPhone Duo: its own layout on the closed screen."]],
+ ["count","Fixed: countdowns always agree",["Opgelost: de aftellers zijn het altijd met elkaar eens.","Fixed: countdowns always agree."]],
+ ["search","Fixed: search field always visible",["Opgelost: het zoekveld blijft altijd in beeld.","Fixed: the search field always stays visible."]],
+ ["pop","A pop-up when something's broken on our side",["Gaat er bij ons iets mis, dan zie je een melding.","A pop-up tells you when something's broken on our side."]],
+ ["widget","OV-fiets widget on the Home Screen",["Een OV-fiets-widget voor je beginscherm.","An OV-fiets widget for your Home Screen."]]
+];
+
+/* ---------- the mail, same markup as Mailings.swift `var html` ---------- */
+const P=t=>`<p style="margin:0 0 14px;font:400 16px/1.55 ${F};color:#dfe5f7">${t}</p>`;
+const OFLINE=["Je ziet nu live hoeveel OV-fietsen er op elk station klaarstaan, nog voordat je er bent.","You can now check live how many OV-fiets are waiting at every station, before you get there."];
+const appRow=()=>`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#16224f;border:1px solid #2c3a78;border-radius:12px"><tr><td width="44" style="padding:10px 0 10px 14px">${bike("#ffc52e")}</td><td style="padding:10px 14px 10px 0;font:400 15px/1.4 ${F};color:#dfe5f7"><b style="color:#f4f6ff">OV-fiets: 17 ${s(["beschikbaar","available"])}</b> · ${s(["open tot 01:00","open until 01:00"])}</td></tr></table>`;
+const factsRow=fs=>`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:6px 0 24px;border-top:1px solid #2c3a78;border-bottom:1px solid #2c3a78"><tr>${fs.map((x,i)=>`<td width="${Math.floor(100/fs.length)}%" align="center" valign="top" style="padding:16px 6px;${i?"border-left:1px solid #2c3a78;":""}"><div style="font:800 26px/1.1 ${F};color:#ffc52e;letter-spacing:-.02em">${s(x[0])}</div><div style="margin-top:5px;font:400 12.5px/1.35 ${F};color:#9fb0e0">${s(x[1])}</div></td>`).join("")}</tr></table>`;
+const stop=(dot,label,name,color)=>`<tr><td width="30" valign="top">${dot}</td><td valign="top" style="padding-bottom:4px"><div style="font:700 11.5px/1 ${F};color:#9fb0e0;letter-spacing:.1em">${s(label)}</div><div style="margin-top:5px;font:700 18px/1.3 ${F};color:${color}">${s(name)}</div></td></tr>`;
+/* the box list as a stop line (email-safe: tables, inline styles, divs with borders). Per item a fixed-height stop row (a short line stub, then the stop),
+   then a 4px cell whose background is the line; the text spans both rows, so the line row takes the extra height of wrapped text (no gaps).
+   A theme sets the box, the stops and the line colour per item; mock 1 uses "base", 1a-1e the others. */
+const ring=(c,fill="transparent")=>`<div style="box-sizing:border-box;width:12px;height:12px;margin-left:2px;border:3px solid ${c};background:${fill};border-radius:50%"></div>`;
+const dot=(c,size=16)=>`<div style="width:${size}px;height:${size}px;margin-top:1px;background:${c};border-radius:50%"></div>`;
+const badge=(t,bg,fg)=>`<div style="width:30px;height:14px;background:${bg};color:${fg};border-radius:4px;text-align:center;font:800 9.5px/14px ${F}">${t}</div>`;
+const LINES=[["#ffc917","#0a1130"],["#6c7bff","#0a1130"],["#e8618c","#0a1130"],["#8fa5b8","#0a1130"],["#2ec4b6","#0a1130"]];   // train, tram, metro, bus, ferry
+const BADGES=[["IC","#ffc917","#003082"],["8","#6c7bff","#0a1130"],["52","#e8618c","#0a1130"],["N85","#4a6274","#ffffff"],["F4","#2ec4b6","#0a1130"],["SPR","#ffc917","#003082"],["26","#6c7bff","#0a1130"]];
+const FIXED=["count","search"];
+const THEME={
+ base:{bg:"#0d1534",title:"#9fb0e0",text:"#c9d2ee",lastText:"#f4f6ff",w:18,x:6,s:3,stop:()=>ring("#3d5fd9"),line:()=>"#3d5fd9",last:dot("#ffc52e")},
+ a:{bg:"#0d1534",title:"#9fb0e0",text:"#c9d2ee",lastText:"#f4f6ff",w:18,x:6,s:3,stop:i=>ring(LINES[i%5][0],"#0d1534"),line:()=>"#4f5f96",last:dot("#ffc52e")},
+ b:{bg:"#0d1534",title:"#9fb0e0",text:"#c9d2ee",lastText:"#f4f6ff",w:18,x:6,s:3,fixedLast:true,
+    stop:(i,o)=>ring(FIXED.includes(o[0])?"#ffc52e":"#3d5fd9"),line:(i,o)=>FIXED.includes(o[0])?"#ffc52e":"#3d5fd9",last:dot("#ffc52e")},
+ c:{bg:"#16224f",title:"#ffc52e",text:"#dfe5fa",lastText:"#ffc52e",w:20,x:8,s:3,stop:()=>`<div style="margin-left:2px">${ring("#ffc52e","#16224f")}</div>`,line:()=>"#ffc52e",last:dot("#ffc52e",20)},
+ d:{bg:"#ffc52e",title:"#10193d",text:"#10193d",lastText:"#10193d",w:18,x:6,s:3,stop:()=>ring("#10193d"),line:()=>"#10193d",
+    last:`<div style="box-sizing:border-box;width:16px;height:16px;margin-top:1px;border:5px solid #10193d;background:#ffc52e;border-radius:50%"></div>`},
+ e:{bg:"#0d1534",title:"#9fb0e0",text:"#c9d2ee",lastText:"#f4f6ff",w:30,x:13,s:2,stop:i=>badge(...BADGES[i%7]),line:()=>"#4f5f96",
+    last:`<div style="margin-left:7px">${dot("#ffc52e")}</div>`}
+};
+const stopLine=(list,last,th)=>{const h=th.s+(th.stop===THEME.e.stop?14:12), col=c=>`width:${c}px;font-size:0;line-height:0`;
+ return `<table role="presentation" cellpadding="0" cellspacing="0" width="100%">`
+  +list.map((o,i)=>{const above=i?th.line(i-1,list[i-1]):"transparent", below=i+1<list.length?th.line(i,list[i+1]):th.line(i,o);
+   return `<tr style="height:${h}px"><td colspan="3" width="${th.w}" height="${h}" valign="top" style="${col(th.w)};height:${h}px"><div style="width:4px;height:${th.s}px;margin-left:${th.x}px;background:${above};font-size:0;line-height:0"></div>${th.stop(i,o)}</td><td rowspan="2" valign="top" style="padding:0 0 10px 12px;font:400 15px/18px ${F};color:${o[3]?"#9fb0e0":th.text}">${s(o[2])}</td></tr>`
+   +`<tr><td width="${th.x}" style="${col(th.x)}">&nbsp;</td><td width="4" bgcolor="${below}" style="${col(4)};background:${below}"><div style="height:10px;font-size:0;line-height:0">&nbsp;</div></td><td width="${th.w-th.x-4}" style="${col(th.w-th.x-4)}">&nbsp;</td></tr>`}).join("")
+  +`<tr><td colspan="3" width="${th.w}" valign="top" style="${col(th.w)}">${th.last}</td><td valign="top" style="padding:0 0 0 12px;font:700 15px/18px ${F};color:${th.lastText}">${last}</td></tr></table>`};
+const ofBigNum=(n=17,size=64)=>`<span style="font:900 ${size}px/.9 ${F};color:#ffc52e;letter-spacing:-.04em">${n}</span>`;
+
+const PART={
+ title:m=>`<p style="margin:0${m.order[m.order.indexOf('title')+1]==='text'?' 0 20px':''};text-align:center;font:800 30px/1.1 ${F};color:#f4f6ff;letter-spacing:-.01em">${s(m.title)}<br><span style="color:#ffc52e">${s(m.accent)}</span></p>`,
+ big:m=>`<p style="margin:18px 0 0;text-align:center;font:900 120px/.9 ${F};color:#ffc52e;letter-spacing:-.05em">17</p><p style="margin:10px auto 26px;text-align:center;font:700 18px/1.35 ${F};color:#f4f6ff;max-width:380px">${s(["nu nog op Ede-Wageningen.","left right now at Ede-Wageningen."])} <span style="color:#9fb0e0;font-weight:600">${s(m.soft||["Live, voor je er bent.","Live, before you get there."])}</span></p>`,
+ ofline:()=>P(s(OFLINE))+appRow(),
+ ofbox:()=>`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0d1534" style="margin:4px 0 16px;background:#0d1534;border-radius:14px"><tr><td style="padding:14px 18px">
+   <div style="font:700 12px/1 ${F};color:#9fb0e0;letter-spacing:.05em;padding-bottom:10px">OV-FIETS NOW</div>
+   <table role="presentation" cellpadding="0" cellspacing="0"><tr><td valign="bottom" style="padding-right:12px">${ofBigNum(17,64)}</td><td valign="bottom" style="font:800 20px/1.2 ${F};color:#f4f6ff;padding-bottom:4px">${s(["nu nog op<br>Ede-Wageningen","left right now at<br>Ede-Wageningen"])}</td></tr></table>
+   <div style="margin-top:12px;font:400 15px/1.55 ${F};color:#c9d2ee">${s(OFLINE)}</div>
+   <div style="margin-top:12px;padding-top:12px;border-top:1px solid #2c3a78;font:700 15px/1.4 ${F};color:#f4f6ff"><span style="display:inline-block;vertical-align:middle;margin-right:8px">${bike("#ffc52e")}</span>OV-fiets: 17 ${s(["beschikbaar","available"])} <span style="color:#9fb0e0;font-weight:400">· ${s(["open tot 01:00","open until 01:00"])}</span></div>
+   </td></tr></table>`,
+ ofnavy:()=>`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#16224f" style="margin:4px 0 20px;background:#16224f;border:1px solid #2c3a78;border-radius:16px"><tr><td style="padding:20px 22px">
+   <div style="font:700 12px/1 ${F};color:#ffc52e;letter-spacing:.1em">OV-FIETS NOW</div>
+   <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:8px"><tr><td valign="bottom" style="padding-right:12px">${ofBigNum(17,72)}</td><td valign="bottom" style="font:800 22px/1.2 ${F};color:#f4f6ff;padding-bottom:6px">${s(["nu nog op<br>Ede-Wageningen","left right now at<br>Ede-Wageningen"])}</td></tr></table>
+   <div style="margin-top:12px;font:400 15.5px/1.55 ${F};color:#dfe5f7">${s(OFLINE)}</div>
+   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px;background:#10193d;border-radius:12px"><tr><td width="44" style="padding:10px 0 10px 14px">${bike("#ffc52e")}</td><td style="padding:10px 14px 10px 0;font:400 14.5px/1.4 ${F};color:#dfe5f7"><b style="color:#f4f6ff">OV-fiets: 17 ${s(["beschikbaar","available"])}</b> · ${s(["open tot 01:00","open until 01:00"])}</td></tr></table>
+   </td></tr></table>`,
+ facts:m=>factsRow(m.facts),
+ route:m=>`<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 22px">`
+   +stop(`<div style="width:12px;height:12px;border:3px solid #3d5fd9;border-radius:50%"></div><div style="width:4px;height:30px;background:#3d5fd9;margin:2px 0 2px 7px"></div>`,m.route[0],m.route[1],"#f4f6ff")
+   +stop(`<div style="width:18px;height:18px;background:#ffc52e;border-radius:50%"></div>`,m.route[2],m.route[3],"#ffc52e")+`</table>`,
+ text:m=>P(s(["Hoi Sanne,","Hi Sanne,"]))+P(s(m.intro||["Er staat een nieuwe OVnow voor je klaar in TestFlight. De twee grote dingen: OV-fiets now en nOVa, je assistent in de app. De rest staat in het lijstje hieronder.","A new OVnow is waiting for you in TestFlight. The two big things: OV-fiets now and nOVa, your assistant in the app. The rest is in the list below."])),
+ phone:m=>P(s(m.novaLine||["nOVa plant je reis, telt af tot je vertrek en kijkt problemen na. Typ of zeg het gewoon in je eigen woorden.","nOVa plans your trip, counts down to your departure and checks problems. Just type or say it in your own words."]))
+   +`<p style="margin:6px 0 10px;text-align:center;font:700 12px/1 ${F};color:#9fb0e0;letter-spacing:.1em">${s(["VOORBEELD","EXAMPLE"])}</p><div style="margin:0 0 20px;text-align:center">${shot(m.phone)}</div>`,
+ box:m=>{const items=OTHER.filter(o=>!(m.skip||[]).includes(o[0])).map(o=>"• "+s(o[2])).join("<br>");
+   if(m.line){const th=THEME[m.line===true?"base":m.line];
+    let list=m.items||OTHER.filter(o=>!(m.skip||[]).includes(o[0]));
+    if(th.fixedLast) list=[...list.filter(o=>!FIXED.includes(o[0])),...list.filter(o=>FIXED.includes(o[0]))];   // the line turns yellow for the fixes
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="${th.bg}" style="margin:4px 0 16px;background:${th.bg};border-radius:14px"><tr><td style="padding:16px 18px">
+   <div style="font:700 12px/1 ${F};color:${th.title};letter-spacing:.05em;padding-bottom:12px">${s(m.boxTitle||["OOK NIEUW","ALSO NEW"])}</div>${stopLine(list,s(["Ga naar TestFlight om de app bij te werken.","Go to TestFlight to update the app."]),th)}</td></tr></table>`}
+   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0d1534" style="margin:4px 0 16px;background:#0d1534;border-radius:14px"><tr><td style="padding:14px 18px">
+   <div style="font:700 12px/1 ${F};color:#9fb0e0;letter-spacing:.05em;padding-bottom:8px">${s(m.boxTitle||["OOK NIEUW","ALSO NEW"])}</div>
+   <div style="font:400 15px/1.7 ${F};color:#c9d2ee">${items}</div><div style="margin-top:12px;padding-top:12px;border-top:1px solid #2c3a78;font:700 15px/1.4 ${F};color:#f4f6ff"><span style="display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:7px;background:#3d5fd9;color:#ffffff;margin-right:8px">&darr;</span>${s(["Ga naar TestFlight om de app bij te werken.","Go to TestFlight to update the app."])}</div></td></tr></table>`}
+};
+
+function mail(m,lang){L=lang;const nl=lang==="nl";
+ return `<div class="subj">OVnow &lt;mail@ovnow.app&gt; · <b>${nl?"Nieuw in OVnow. Update!":"New in OVnow. Update!"}</b></div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0a1130" style="background:#0a1130"><tr><td align="center" style="padding:24px 12px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#10193d" style="max-width:560px;background:#10193d;border-radius:22px;overflow:hidden;text-align:left">
+<tr><td bgcolor="#16224f" style="padding:22px 26px;background:#16224f"><table role="presentation" cellpadding="0" cellspacing="0"><tr>
+<td><img src="${ICON}" width="44" height="44" alt="OVnow" style="display:block;border-radius:11px"></td>
+<td style="padding-left:12px"><div style="font:800 20px/1 ${F};color:#f4f6ff">OVnow</div><div style="padding-top:4px;font:500 12.5px/1.2 ${F};color:#9fb0e0">${nl?"Live OV in Nederland, op de kaart":"Live public transport in the Netherlands, on the map"}</div></td></tr></table></td></tr>
+<tr><td height="5" bgcolor="#ffc52e" style="background:#ffc52e;font-size:0;line-height:0">&nbsp;</td></tr>
+<tr><td style="padding:28px 26px 8px">
+<p style="margin:0 0 10px;text-align:center;font:700 12px/1 ${F};color:#ffc52e;letter-spacing:.1em">${s(m.kicker||["NIEUW IN OVNOW","NEW IN OVNOW"])}</p>
+${m.order.map(k=>PART[k](m)).join("")}
+<a href="https://testflight.apple.com" style="display:inline-block;background:#ffc52e;color:#0a1130;text-decoration:none;font:800 16px/1 ${F};padding:14px 22px;border-radius:99px;margin:4px 0 16px">Update in TestFlight</a>
+<p style="margin:0 0 14px;font:400 13.5px/1.5 ${F};color:#9fb0e0">${nl?"Niet verwijderen en opnieuw installeren: je favorieten blijven.":"No need to delete and reinstall: your favourites stay."}</p>
+${P((nl?"Groet,":"Best,")+"<br>OVnow")}
+</td></tr>
+<tr><td style="padding:22px 26px 26px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #2c3a78"><tr>
+<td width="38" style="padding-top:18px" valign="middle"><img src="${ICON}" width="28" height="28" alt="" style="display:block;border-radius:7px"></td>
+<td style="padding:18px 0 0 10px;font:400 12.5px/1.5 ${F};color:#9aa7d2" valign="middle">${nl?"Je krijgt deze mail omdat je OVnow test via TestFlight. Feedback over de app geef je in TestFlight.":"You&rsquo;re getting this because you test OVnow through TestFlight. App feedback goes through TestFlight."}<br><a href="https://ovnow.app" style="color:#ffc52e;font-weight:700;text-decoration:none">ovnow.app</a> &middot; <a href="#" style="color:#9fb0e0;text-decoration:underline">${nl?"Geen mails meer":"No more mails"}</a></td></tr></table></td></tr>
+</table></td></tr></table>`}
+
+/* ---------- the ten ---------- */
+const MOCKS=[
+ {name:"The big 17",note:"The template's big-number hero carries the 17; the route line tells the train-to-bike story.",phone:"plan",line:true,
+  title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  order:["title","big","ofline","route","text","phone","box"]},
+ {id:"1a",items:[["sup","",["Label Toeslag bij de Intercity direct","Supplement label on the Intercity direct"]],["walk","",["Een looproute als het dichtbij is","A walking route when it's close"]],["bike","",["Fietsroutes, als je wilt","Bike routes, if you want them"]],["cal","",["Je reis in je agenda","Your trip in your calendar"]],["plat","",["Tik op een spoor voor het bord","Tap a platform for its sign"]],["widget","",["Een OV-fiets-widget","An OV-fiets widget"]],["more","",["+ Liquid Glass, jouw taal en kleinere fixes","+ Liquid Glass, your language, and smaller fixes"],true]],
+  name:"Every line its colour",note:"Mock 1 as is, only the ALSO NEW box differs: six short stops and a summary instead of 13 items. Stop line like a metro map: each ring in an app line colour (train, tram, metro, bus, ferry) on one neutral line.",phone:"plan",line:"a",
+  title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  order:["title","big","ofline","route","text","phone","box"]},
+ {id:"1b",name:"New and fixed",note:"Mock 1 as is, only the ALSO NEW box differs. One line in two parts: blue rings for what's new, then it turns yellow for the two fixes and ends in the yellow dot.",phone:"plan",line:"b",
+  title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  order:["title","big","ofline","route","text","phone","box"]},
+ {id:"1c",name:"Yellow line",note:"Mock 1 as is, only the ALSO NEW box differs. Line and rings in OVnow yellow on the header navy (#16224f), navy-filled rings, a bigger yellow end dot.",phone:"plan",line:"c",
+  title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  order:["title","big","ofline","route","text","phone","box"]},
+ {id:"1d",name:"Inverted",note:"Mock 1 as is, only the ALSO NEW box differs. The box in OVnow yellow with a navy line, rings and text; the end stop is navy with a yellow centre.",phone:"plan",line:"d",
+  title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  order:["title","big","ofline","route","text","phone","box"]},
+ {id:"1e",name:"Line badges",note:"Mock 1 as is, only the ALSO NEW box differs. Line badges like the app's (IC, 8, 52, N85, F4) as the stops on a neutral line; the yellow dot ends it.",phone:"plan",line:"e",
+  title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  order:["title","big","ofline","route","text","phone","box"]},
+ {name:"nOVa first",note:"Opens on nOVa with the greeting screen and its tiles; OV-fiets now follows in its own box.",phone:"greeting",
+  kicker:["NIEUW: NOVA","NEW: NOVA"],title:["Maak kennis met nOVa.","Meet nOVa."],accent:["En OV-fiets now.","And OV-fiets now."],
+  route:[["TOT NU","UNTIL NOW"],["Zoeken, tikken, scrollen","Search, tap, scroll"],["VANAF NU","FROM NOW ON"],["Gewoon vragen aan nOVa","Just ask nOVa"]],
+  order:["title","route","text","phone","ofbox","box"]},
+ {name:"Supplement, spelled out",note:"Route line shows the Supplement change; the screenshot proves it with ICD and IC side by side.",phone:"route",
+  title:["Nieuw in OVnow.","New in OVnow."],accent:["Update!","Update!"],skip:["sup"],
+  route:[["TOT NU","UNTIL NOW"],["Intercity direct zonder label","Intercity direct without a label"],["VANAF NU","FROM NOW ON"],["Toeslag erbij, gewone IC ernaast","Supplement shown, normal IC next to it"]],
+  order:["title","big","ofline","text","route","phone","box"]},
+ {name:"No more dead ends",note:"Leads with the walking-route fix; OV-fiets now in the navy block Frey liked.",phone:"walk",
+  title:["Nooit meer","Never again"],accent:["\"Geen routes gevonden\".","\"No routes found\"."],skip:["walk"],
+  route:[["TOT NU","UNTIL NOW"],["Geen routes gevonden","No routes found"],["VANAF NU","FROM NOW ON"],["Loop 11 min","Walk 11 min"]],
+  order:["title","route","text","ofnavy","phone","box"]},
+ {name:"Facts row",note:"Uses the template's facts row for three numbers (17 bikes, 6 minutes, 01:00), then a countdown chat.",phone:"leave",
+  title:["Weet het","Know it"],accent:["voor je er bent.","before you get there."],
+  facts:[["17",["OV-fietsen op Ede-Wageningen","OV-fiets at Ede-Wageningen"]],["6 min",["tot je moet vertrekken","until you should leave"]],["01:00",["stalling open tot","bike park open until"]]],
+  route:[["NU","NOW"],["\"Wanneer moet ik weg?\"","\"When should I leave?\""],["OVER 6 MIN","IN 6 MIN"],["Loop naar spoor 4","Walk to track 4"]],
+  order:["title","facts","ofline","route","text","phone","box"]},
+ {name:"Light and friendly",note:"A joke in the screenshot that lands on the 17; route line about asking instead of searching.",phone:"joke",
+  kicker:["NIEUW IN OVNOW","NEW IN OVNOW"],title:["Nieuw in OVnow.","New in OVnow."],accent:["nOVa heeft er zin in.","nOVa is ready."],
+  route:[["TOT NU","UNTIL NOW"],["Een app die alleen antwoordt","An app that only answers"],["VANAF NU","FROM NOW ON"],["Een assistent die meedenkt","An assistant that thinks along"]],
+  intro:["Er staat een nieuwe OVnow klaar in TestFlight, met een nieuwe collega: nOVa. Ze plant, telt af, kijkt problemen na en vertelt af en toe een grap.","A new OVnow is waiting in TestFlight, with a new colleague: nOVa. She plans, counts down, checks problems and tells the odd joke."],
+  novaLine:["Probeer het zelf. Begin met een grap, eindig met je reis.","Try it yourself. Start with a joke, end with your trip."],
+  order:["title","text","phone","route","ofbox","box"]},
+ {name:"Train, then bike",note:"The route line is the journey itself: IC to Ede-Wageningen, then an OV-fiets; big 17 under it.",phone:"ede",
+  title:["Uit de trein.","Off the train."],accent:["Op de fiets.","Onto the bike."],soft:["Live, voor je er bent.","Live, before you arrive."],
+  route:[["AMSTERDAM ZUID · 07:38","AMSTERDAM ZUID · 07:38"],["Intercity naar Ede-Wageningen","Intercity to Ede-Wageningen"],["EDE-WAGENINGEN · 08:16","EDE-WAGENINGEN · 08:16"],["OV-fiets: 17 klaar","OV-fiets: 17 waiting"]],
+  order:["title","route","big","ofline","text","phone","box"]},
+ {name:"OV-fiets on top",note:"The navy OV-fiets block before the headline; nOVa then gets the report story.",phone:"report",
+  title:["Iets mis?","Something wrong?"],accent:["Zeg het tegen nOVa.","Tell nOVa."],
+  route:[["TOT NU","UNTIL NOW"],["Meldformulier","Report form"],["VANAF NU","FROM NOW ON"],["nOVa, je assistent","nOVa, your assistant"]],
+  order:["ofnavy","title","route","text","phone","box"]},
+ {name:"Your language",note:"Leads with disruptions in your language and finding another connection; OV-fiets in a box near the end.",phone:"disrupt",
+  title:["Storingen.","Disruptions."],accent:["In jouw taal.","In your language."],skip:["lang","alt"],
+  route:[["TOT NU","UNTIL NOW"],["Storingen alleen in het Nederlands","Disruptions in Dutch only"],["VANAF NU","FROM NOW ON"],["In de taal van je iPhone","In your iPhone's language"]],
+  novaLine:["Vraag nOVa waarom je trein te laat is. Ze legt het uit en zoekt meteen een andere verbinding.","Ask nOVa why your train is late. She explains and finds another connection right away."],
+  order:["title","route","text","phone","ofbox","box"]},
+ {name:"Plan it, keep it",note:"Route line from plan to calendar; the screenshot adds the trip to the calendar, big 17 after it.",phone:"calendar",
+  title:["Plan het.","Plan it."],accent:["Zet het in je agenda.","Put it in your calendar."],skip:["cal"],
+  route:[["PLAN","PLAN"],["Zuid → Rotterdam, 07:42","Zuid → Rotterdam, 7:42 AM"],["IN JE AGENDA","IN YOUR CALENDAR"],["Di 24 nov · spoor 4","Tue 24 Nov · track 4"]],
+  order:["title","route","text","phone","big","ofline","box"]}
+];
+
+/* ---------- checklist ---------- */
+const FEAT=[["hero","OV-fiets now hero"],["nova","nOVa with screenshot"],["route","Route line"]];
+const cb=(id,label,on=true)=>`<label class="c"><input type="checkbox" id="${id}"${on?" checked":""}><span>${label}</span></label>`;
+document.getElementById("feat").innerHTML=FEAT.map(f=>cb("f-"+f[0],f[1])).join("");
+document.getElementById("other").innerHTML=OTHER.map(o=>cb("o-"+o[0],o[1])).join("");
+let k=0; MOCKS.forEach(m=>m.id=m.id||String(++k)); const byId=id=>MOCKS.find(m=>m.id===id);
+document.getElementById("mocks").innerHTML=MOCKS.map(m=>{const n=m.id;return `<section class="mock" id="m${n}">
+ <div class="mhead"><span class="num">${n}</span><h2>${m.name}</h2><p class="note">${m.note}</p>
+ <div class="pick"><label class="use"><input type="radio" name="use" value="${n}">Use this one</label><span>Borrow:</span>
+ ${["hero","route line","screenshot","box"].map(b=>`<label><input type="checkbox" data-m="${n}" data-b="${b}">${b}</label>`).join("")}</div></div>
+ <div class="cols"><div><div class="lab">NEDERLANDS</div>${mail(m,"nl")}</div><div><div class="lab">ENGLISH</div>${mail(m,"en")}</div></div></section>`}).join("");
+
+const $=q=>[...document.querySelectorAll(q)];
+function picks(){const u=document.querySelector('input[name=use]:checked');
+ return {use:u?u.value:"",borrow:$("[data-b]:checked").map(x=>({m:x.dataset.m,b:x.dataset.b})),
+  feat:FEAT.filter(f=>document.getElementById("f-"+f[0]).checked).map(f=>f[1]),
+  other:OTHER.filter(o=>document.getElementById("o-"+o[0]).checked).map(o=>o[1]),
+  off:[...FEAT.filter(f=>!document.getElementById("f-"+f[0]).checked).map(f=>f[1]),...OTHER.filter(o=>!document.getElementById("o-"+o[0]).checked).map(o=>o[1])]}}
+function status(){const p=picks();
+ document.getElementById("st").innerHTML=(p.use?`Base: <b>${p.use}. ${byId(p.use).name}</b>`:"Base: <b>none picked yet</b>")+` · ${p.borrow.length} borrowed · ${p.feat.length+p.other.length} of ${FEAT.length+OTHER.length} features ticked`;
+ document.getElementById("done").hidden=true}
+document.addEventListener("change",status);status();
+document.getElementById("go").onclick=()=>{const p=picks();
+ const t=["Final OVnow update mail, from my ticks on newsletter-ten:",
+  "Base mock: "+(p.use?`${p.use}. ${byId(p.use).name}`:"none picked (choose the best one)"),
+  "Borrow: "+(p.borrow.length?p.borrow.map(x=>`${x.b} from ${x.m} (${byId(x.m).name})`).join("; "):"nothing"),
+  "Features: "+(p.feat.join("; ")||"none"),
+  "In the box: "+(p.other.join("; ")||"none"),
+  "Leave out: "+(p.off.join("; ")||"nothing"),
+  "Subject: Nieuw in OVnow. Update! / New in OVnow. Update!  Button: Update in TestFlight. Build it in the OVnow Admin mailing template, NL and EN."].join("\n");
+ const ok=()=>{document.getElementById("done").hidden=false};
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(ok,()=>{prompt("Copy this and paste it to Claude:",t);ok()})};
+</script>
+</body></html>

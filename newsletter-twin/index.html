@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mock-up: nOVa and OV-fiets now mail</title>
+<style>
+  @font-face{font-family:"Bricolage";src:url(../fonts/bricolage.woff2) format("woff2");font-weight:700 800;font-display:swap}
+  @font-face{font-family:"Onest";src:url(../fonts/onest.woff2) format("woff2");font-weight:400 800;font-display:swap}
+  :root{--night:#10193d;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--night);color:var(--text);font:400 16px/1.5 Onest,system-ui,sans-serif}
+  .wrap{max-width:1360px;margin:0 auto;padding:28px 16px 60px}
+  .mock-tag{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--line);color:var(--night);font-size:.8rem;font-weight:700}
+  h1{margin:14px 0 6px;font:800 clamp(2rem,6vw,3.2rem)/1.05 Bricolage,sans-serif}
+  .lede{color:var(--soft);max-width:48em}
+  .lang{display:inline-flex;background:#000;border-radius:999px;padding:3px;margin:8px 0 26px}
+  .lang button{font:600 14px Onest,sans-serif;border:0;border-radius:999px;padding:7px 14px;background:none;color:var(--soft);cursor:pointer}
+  .lang button.on{background:var(--line);color:var(--night)}
+  .row{display:flex;flex-wrap:wrap;gap:36px 28px;justify-content:center}
+  figure{margin:0;width:min(600px,100%)}
+  figcaption{margin-top:10px;color:var(--soft);font-size:14px}
+  figcaption b{display:block;color:var(--text);font:700 1.1rem Bricolage,sans-serif}
+  .client{background:#f2f2f7;border-radius:14px;overflow:hidden;color:#1c1c1e}
+  .head{background:#fff;padding:12px 18px;border-bottom:1px solid #e3e3e8;font:13px/1.4 -apple-system,system-ui,sans-serif}
+  .head .s{font-weight:700;font-size:15px}
+  .head .f{color:#6b6b70}
+  .mail{max-width:600px;margin:0 auto;font:15px/1.55 -apple-system,system-ui,sans-serif}
+  .pad{padding:22px 26px}
+  .mark{display:flex;align-items:center;gap:8px;font:800 16px Bricolage,sans-serif}
+  .mark svg{width:26px;height:26px}
+  .btn{display:inline-block;background:#1e6bff;color:#fff;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:12px}
+  .small{font-size:12.5px;color:#5f6470}
+  .en,.nl{display:none}
+  body.L-en .en{display:revert} body.L-nl .nl{display:revert}
+  /* OV-fiets */
+  .of{border-radius:18px;padding:22px 24px}
+  .of .big{font:800 64px/1 Bricolage,sans-serif;letter-spacing:-2px}
+  .of .card{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;margin-top:12px;font-size:14px}
+  .bike{width:22px;height:22px;flex:none}
+  /* nOVa infographic */
+  .ig{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .ig div{border-radius:14px;padding:12px;font-size:13px;line-height:1.4}
+  .ig b{display:block;font-size:14px;margin:6px 0 2px}
+  .ig i{font-style:normal;display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;font-weight:800}
+  .say{display:inline-block;background:#1e6bff;color:#fff;border-radius:14px 14px 4px 14px;padding:5px 10px;font-size:12.5px;margin-top:6px}
+  .chatwin{background:#1c1c1e;border-radius:28px;padding:14px 14px 12px;color:#fff;font-size:13px;border:6px solid #2a2a2e}
+  .chatwin .top{display:flex;justify-content:center;align-items:center;gap:7px;font-weight:700;font-size:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .chatwin .top span{width:22px;height:22px}
+  .cw-body{display:flex;flex-direction:column;gap:7px;padding:12px 0 8px}
+  .u{align-self:flex-end;background:#1e6bff;border-radius:16px 16px 4px 16px;padding:7px 11px;max-width:78%}
+  .a{display:flex;gap:6px;align-items:flex-end;max-width:88%}
+  .a span.f{width:22px;height:22px;flex:none}
+  .a div{background:#2c2c2e;border-radius:16px 16px 16px 4px;padding:7px 11px}
+  .rc{background:#3a3a3c;border-radius:10px;padding:6px 8px;margin-top:6px;font-size:12px}
+  .tg{display:inline-block;padding:1px 6px;border-radius:5px;font-weight:800;font-size:10.5px;background:#ffc917;color:#003082}
+  .sup{display:inline-block;padding:1px 7px;border-radius:999px;font-size:10.5px;border:1px solid rgba(94,176,255,.6);color:#9ccbff;margin-left:4px}
+  .cw-comp{display:flex;align-items:center;gap:8px;background:#2c2c2e;border-radius:999px;padding:7px 12px;color:#98989f;font-size:12.5px}
+  .chips2{display:flex;flex-wrap:wrap;gap:5px;padding-left:28px}
+  .chips2 span{border:1px solid rgba(10,132,255,.6);color:#5eb0ff;border-radius:999px;padding:3px 9px;font-size:11.5px}
+  .news h3{font:800 18px Bricolage,sans-serif;margin:0 0 8px;color:#141a2e}
+  .news ul{margin:0;padding-left:18px}.news li{margin-bottom:6px}
+  .news .tagf{display:inline-block;font-size:11px;font-weight:700;color:#0a7a35;background:#e2f6e9;border-radius:999px;padding:1px 8px;margin-right:6px}
+  @media (max-width:560px){.ig{grid-template-columns:1fr 1fr}.pad{padding:18px}}
+</style>
+</head>
+<body class="L-en">
+<div class="wrap">
+  <span class="mock-tag">Mock-up</span>
+  <h1>One mail, two headliners: nOVa and OV-fiets now</h1>
+  <p class="lede">Five templates that give both features the stage. nOVa gets a small infographic of what it does; OV-fiets now opens with "Now 17 left at Ede-Wageningen". Subject line: "New in OVnow. Update!" / "Nieuw in OVnow. Update!". Numbers and times are examples.</p>
+  <div class="lang"><button data-l="en" class="on">English</button><button data-l="nl">Nederlands</button></div>
+  <div class="row" id="row"></div>
+</div>
+<script>
+const N="#141a2e",B="#1e6bff",Y="#ffc917";
+const face=(m)=>`<svg viewBox="0 0 100 100"><rect x="6" y="6" width="88" height="88" rx="24" fill="${N}"/>${m==="ok"?`<path d="M24 48q10-15 20 0" stroke="${B}" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M56 48q10-15 20 0" stroke="${Y}" stroke-width="6" fill="none" stroke-linecap="round"/>`:`<circle cx="34" cy="46" r="7.8" fill="none" stroke="${B}" stroke-width="4.5"/><circle cx="66" cy="46" r="10" fill="${Y}"/>`}<path d="M38 68q12 8 24 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`;
+const logo=`<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#12172a"/><path d="M12 0v9M12 15v2l7 6v6" stroke="#1e6bff" stroke-width="3.2" fill="none"/><circle cx="12" cy="12" r="2.6" fill="#12172a" stroke="#1e6bff" stroke-width="2"/><circle cx="19" cy="30" r="3.6" fill="#ffc917"/></svg>`;
+const bike=(c)=>`<svg class="bike" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.8"><circle cx="6" cy="16" r="4"/><circle cx="18" cy="16" r="4"/><path d="M6 16l4-8h5l3 8M10 8l3 8M14 5h3"/></svg>`;
+const t=(en,nl)=>`<span class="en">${en}</span><span class="nl">${nl}</span>`;
+const head=`<div class="head"><div class="f">OVnow &lt;mail@ovnow.app&gt;</div><div class="s">${t("New in OVnow. Update!","Nieuw in OVnow. Update!")}</div></div>`;
+const foot=(dark)=>`<div class="pad" style="text-align:center${dark?";background:#0b1126;color:#c9d2ee":""}"><a class="btn" href="#">${t("Update in TestFlight","Update in TestFlight")}</a><p class="small" style="margin:10px 0 0${dark?";color:#9aa6cc":""}">${t("Just update in the TestFlight app. No need to delete and reinstall: your favourites stay.","Gewoon updaten in de TestFlight-app. Niet verwijderen en opnieuw installeren: je favorieten blijven.")}</p></div>`;
+const ofHero=(bg,fg,acc)=>`<div class="of" style="background:${bg};color:${fg}"><div style="font-weight:700;font-size:13px;letter-spacing:.04em;color:${acc}">OV-FIETS NOW</div><div style="display:flex;align-items:baseline;gap:12px;margin-top:6px"><span class="big" style="color:${acc}">17</span><span style="font:800 22px/1.2 Bricolage,sans-serif">${t("left right now at<br>Ede-Wageningen","nu nog op<br>Ede-Wageningen")}</span></div><p style="margin:12px 0 0">${t("You can now check live how many OV-fietsen are waiting at every station, before you get there.","Je ziet nu live hoeveel OV-fietsen er op elk station klaarstaan, nog voordat je er bent.")}</p><div class="card">${bike(acc)}<span><b>OV-fiets: 17 ${t("available","beschikbaar")}</b> · ${t("open until 01:00","open tot 01:00")}</span></div></div>`;
+const ig=(bg,fg,sub)=>{const it=[["1","Plan a trip","Plan een reis","Zuid to Rotterdam, at 7","Zuid naar Rotterdam, om 7","#1e6bff"],["2","When to leave","Wanneer vertrekken","When should I leave?","Wanneer moet ik weg?","#1e6bff"],["3","Why it's late","Waarom vertraging","Why is my tram late?","Waarom is mijn tram te laat?","#ffc917"],["4","Where's my bus","Waar is mijn bus","Where is my bus?","Waar is mijn bus?","#1e6bff"],["5","Report a problem","Meld een probleem","This stop is wrong","Deze halte klopt niet","#ffc917"],["6","Facts and jokes","Weetjes en grappen","Tell me a joke","Vertel een grap","#1e6bff"]];
+ return `<div class="ig">${it.map(([n,te,tn,se,sn,c])=>`<div style="background:${bg};color:${fg}"><i style="background:${c};color:${c==="#ffc917"?"#141a2e":"#fff"}">${n}</i><b>${t(te,tn)}</b><span class="say">${t(se,sn)}</span></div>`).join("")}</div>`};
+const novaIntro=(fg,sub)=>`<div style="display:flex;gap:14px;align-items:center"><span style="width:58px;height:58px;flex:none">${face("ok")}</span><div><div style="font:800 22px/1.2 Bricolage,sans-serif;color:${fg}">${t("Meet nOVa","Maak kennis met nOVa")}</div><div style="color:${sub}">${t("Your OVnow assistant. Type or say it in your own words, nOVa does the rest.","Je OVnow-assistent. Typ of zeg het in je eigen woorden, nOVa doet de rest.")}</div></div></div>`;
+const chatWin=`<div class="chatwin"><div class="top"><span>${face()}</span>nOVa</div><div class="cw-body">
+ <div class="u">${t("Amsterdam Zuid to Rotterdam Centraal","Amsterdam Zuid naar Rotterdam Centraal")}</div>
+ <div class="a"><span class="f">${face("ok")}</span><div>${t("Here you go, leaving now:","Alsjeblieft, nu vertrekken:")}<div class="rc"><b>21:13 → 21:51</b> · 38 min<br><span class="tg">ICD</span><span class="sup">${t("Supplement","Toeslag")}</span> ${t("track 4","spoor 4")}</div><div class="rc"><b>21:36 → 22:43</b> · 67 min<br><span class="tg">IC</span> <span style="color:#7fe39a">${t("No supplement","Geen toeslag")}</span></div></div></div>
+ <div class="u">${t("When should I leave?","Wanneer moet ik weg?")}</div>
+ <div class="a"><span class="f">${face("ok")}</span><div>${t("Leave in 6 min for the 21:13, track 4. It's on time.","Vertrek over 6 min voor de trein van 21:13, spoor 4. Hij rijdt op tijd.")}</div></div>
+ <div class="u">${t("Are there OV-fiets at Ede-Wageningen?","Zijn er OV-fietsen op Ede-Wageningen?")}</div>
+ <div class="a"><span class="f">${face("ok")}</span><div>${t("Yes, 17 right now, open until 01:00.","Ja, nu 17, open tot 01:00.")}</div></div>
+ <div class="chips2"><span>${t("Where is my train?","Waar is mijn trein?")}</span><span>${t("Tell me a joke","Vertel een grap")}</span></div>
+ </div><div class="cw-comp">${t("Message nOVa","Bericht aan nOVa")}<span style="margin-left:auto">&#9679;</span></div></div>`;
+const news=`<div class="pad news" style="border-top:1px solid #e3e3e8"><h3>${t("Also new","Ook nieuw")}</h3><ul>${[
+ ["The Intercity direct shows a \"Supplement\" label, and the normal Intercity shows \"No supplement\" and how much longer it takes.","De Intercity direct heeft een label \"Toeslag\", en de gewone Intercity laat \"Geen toeslag\" zien en hoeveel langer hij erover doet."],
+ ["Bike routes, if you want them: Settings, Show bike routes.","Fietsroutes, als je dat wilt: Instellingen, Fietsroutes tonen."],
+ ["Add a planned trip to your calendar.","Zet een geplande reis in je agenda."],
+ ["Tap a platform number to see what that platform's sign shows.","Tik op een spoornummer en zie wat het bord op dat perron laat zien."],
+ ["Liquid Glass: your trip and the Lock Screen card are glass. Prefer black? Settings, Solid card style.","Liquid Glass: je reis en de kaart op het toegangsscherm zijn van glas. Liever zwart? Instellingen, Effen kaartstijl."],
+ ["Disruptions in your language: Dutch notices are translated on your iPhone.","Storingen in jouw taal: Nederlandse meldingen worden op je iPhone vertaald."],
+ ["\"Change not possible\"? Find another connection plans from that station.","\"Overstap niet haalbaar\"? Andere verbinding zoeken plant vanaf dat station."],
+ ["iPhone Duo: the closed screen gets the side layout too.","iPhone Duo: ook het dichte scherm krijgt de zijweergave."]].map(([e,n])=>`<li>${t(e,n)}</li>`).join("")}</ul>
+ <h3 style="margin-top:16px">${t("Fixed, thanks to your feedback","Opgelost, dankzij jullie feedback")}</h3><ul style="list-style:none;padding:0">${[
+ ["The normal Intercity now shows next to the Intercity direct, so you can choose.","De gewone Intercity staat nu naast de Intercity direct, zodat je kunt kiezen."],
+ ["Close by? No more \"No routes found\": OVnow shows the walk.","Dichtbij? Geen \"Geen routes gevonden\" meer: OVnow laat de wandeling zien."],
+ ["The countdowns on your trip, the card and the list always agree.","De aftellers in je reis, de kaart en de lijst lopen altijd gelijk."],
+ ["The search field is always there, no need to touch the screen first.","Het zoekveld staat er altijd, je hoeft niet eerst op het scherm te tikken."],
+ ["When something is broken on our side, the app tells you once in a pop-up.","Is er bij ons iets stuk, dan meldt de app dat één keer in een pop-up."]].map(([e,n])=>`<li><span class="tagf">${t("Fixed","Opgelost")}</span>${t(e,n)}</li>`).join("")}</ul></div>`;
+const V=[
+ ["5b. Phone moments, with a real chat","Like 5, but nOVa gets a full chat window: a trip with the Supplement label, 'When should I leave?', and an OV-fiets question that ties the two headliners together. Then everything else that's new and fixed.",
+  `<div class="mail" style="background:#fff"><div class="pad"><div class="mark">${logo}OVnow</div><div style="font:800 26px/1.15 Bricolage,sans-serif;margin-top:12px">${t("New in OVnow. Update!","Nieuw in OVnow. Update!")}</div></div><div style="padding:0 16px">${ofHero("#10193d","#f4f6ff","#ffc917")}</div><div class="pad">${novaIntro("#141a2e","#5f6470")}<div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin-top:14px;align-items:start">${chatWin}<div><p style="margin:0 0 8px;font-weight:700">${t("Ask nOVa to:","Vraag nOVa om:")}</p><ul style="margin:0;padding-left:18px;font-size:14px">${[["Plan a trip in plain words","Een reis te plannen in gewone taal"],["Tell you when to leave","Te zeggen wanneer je moet vertrekken"],["Explain why it's late","Uit te leggen waarom het vertraging heeft"],["Show where your bus is","Te laten zien waar je bus is"],["Check OV-fiets at a station","OV-fietsen op een station te checken"],["Report a problem","Een probleem te melden"],["Tell a fact or a joke","Een weetje of grap te vertellen"]].map(([e,n])=>`<li>${t(e,n)}</li>`).join("")}</ul><p class="small" style="margin-top:10px">${t("Tap the microphone and just say it.","Tik op de microfoon en zeg het gewoon.")}</p></div></div></div>${news}${foot()}</div>`],
+ ["1. Split hero","OV-fiets now on top in navy with the big 17, nOVa below on white with a six-step infographic. Equal weight, clear order.",
+  `<div class="mail" style="background:#fff"><div class="pad"><div class="mark">${logo}OVnow</div></div><div style="padding:0 16px">${ofHero("#10193d","#f4f6ff","#ffc917")}</div><div class="pad">${novaIntro("#141a2e","#5f6470")}<div style="margin-top:14px">${ig("#f2f4fa","#141a2e")}</div></div>${foot()}</div>`],
+ ["2. Dark all the way","The whole mail in OVnow navy, like your earlier mailings. Both features as glowing-free cards on night blue.",
+  `<div class="mail" style="background:#10193d;color:#f4f6ff"><div class="pad"><div class="mark" style="color:#fff">${logo}OVnow</div><div style="font:800 28px/1.15 Bricolage,sans-serif;margin-top:14px">${t("Two new things, one update.","Twee nieuwe dingen, één update.")}</div></div><div style="padding:0 16px">${ofHero("#141a2e","#f4f6ff","#ffc917")}</div><div class="pad">${novaIntro("#fff","#c9d2ee")}<div style="margin-top:14px">${ig("#141a2e","#f4f6ff")}</div></div>${foot(true)}</div>`],
+ ["3. nOVa tells you","nOVa introduces itself and then hands over to OV-fiets now: 'and here's my favourite new trick'. Friendly, one voice.",
+  `<div class="mail" style="background:#fff"><div class="pad">${novaIntro("#141a2e","#5f6470")}<p>${t("Hi! I'm nOVa, the new assistant in OVnow. Here's what you can ask me:","Hoi! Ik ben nOVa, de nieuwe assistent in OVnow. Dit kun je me vragen:")}</p>${ig("#f2f4fa","#141a2e")}<p style="margin-top:18px"><b>${t("And my favourite new trick:","En mijn favoriete nieuwe trucje:")}</b></p>${ofHero("#10193d","#f4f6ff","#ffc917")}<p class="small" style="margin-top:12px">${t("Ask me: \"Are there OV-fiets at Ede-Wageningen?\"","Vraag me: \"Zijn er OV-fietsen op Ede-Wageningen?\"")}</p></div>${foot()}</div>`],
+ ["4. Side by side","Two equal columns: OV-fiets now left, nOVa right, then the infographic across the full width. Most 'newsletter', stacks on phones.",
+  `<div class="mail" style="background:#fff"><div class="pad"><div class="mark">${logo}OVnow</div><div style="font:800 26px/1.15 Bricolage,sans-serif;margin-top:12px">${t("New in OVnow. Update!","Nieuw in OVnow. Update!")}</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px"><div class="of" style="background:#10193d;color:#f4f6ff;padding:16px"><div style="font-weight:700;font-size:12px;color:#ffc917">OV-FIETS NOW</div><div class="big" style="font-size:48px;color:#ffc917;margin-top:4px">17</div><div style="font-weight:700">${t("left at Ede-Wageningen","nog op Ede-Wageningen")}</div><div style="font-size:13px;color:#c9d2ee;margin-top:6px">${t("Live, at every station.","Live, op elk station.")}</div></div><div class="of" style="background:#eaf1ff;color:#141a2e;padding:16px"><span style="width:44px;height:44px;display:block">${face("ok")}</span><div style="font-weight:800;margin-top:8px">${t("Meet nOVa","Maak kennis met nOVa")}</div><div style="font-size:13px;color:#4a5068;margin-top:4px">${t("Plan, ask and report in your own words.","Plan, vraag en meld in je eigen woorden.")}</div></div></div><div class="pad">${ig("#f2f4fa","#141a2e")}</div>${foot()}</div>`],
+ ["5. Phone moments","Each feature as one moment on the phone: the OV-fiets line on a station card, and a nOVa chat with its six skills listed next to it.",
+  `<div class="mail" style="background:#fff"><div class="pad"><div class="mark">${logo}OVnow</div></div><div style="padding:0 16px">${ofHero("#10193d","#f4f6ff","#ffc917")}</div><div class="pad"><div style="display:grid;grid-template-columns:170px 1fr;gap:16px;align-items:start"><div style="background:#1c1c1e;border-radius:22px;padding:12px;color:#fff;font-size:11.5px"><div style="display:flex;gap:6px;align-items:center;font-weight:700"><span style="width:18px;height:18px">${face()}</span>nOVa</div><div style="background:#1e6bff;border-radius:12px 12px 3px 12px;padding:6px 8px;margin:10px 0 6px auto;width:fit-content">${t("When should I leave?","Wanneer moet ik weg?")}</div><div style="background:#2c2c2e;border-radius:12px 12px 12px 3px;padding:6px 8px">${t("Leave in 6 min for the 21:12 IC, track 3.","Vertrek over 6 min voor de IC van 21:12, spoor 3.")}</div></div><div>${novaIntro("#141a2e","#5f6470")}<ul style="margin:10px 0 0;padding-left:18px;font-size:14px">${[["Plan a trip in plain words","Plan een reis in gewone taal"],["When to leave, why it's late","Wanneer vertrekken, waarom vertraging"],["Where your bus is right now","Waar je bus nu is"],["Report a problem","Meld een probleem"],["Facts and jokes","Weetjes en grappen"]].map(([e,n])=>`<li>${t(e,n)}</li>`).join("")}</ul></div></div></div>${foot()}</div>`],
+];
+document.getElementById("row").innerHTML=V.map(([ti,c,m])=>`<figure><div class="client">${head}${m}</div><figcaption><b>${ti}</b>${c}</figcaption></figure>`).join("");
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{document.body.className="L-"+b.dataset.l;document.querySelectorAll(".lang button").forEach(x=>x.classList.toggle("on",x===b))});
+</script>
+</body>
+</html>

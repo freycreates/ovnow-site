@@ -1,0 +1,56 @@
+ENGLISH
+
+Thanks for testing OVnow! This update is full of your feedback.
+
+The big one: OV-fiets now at every station.
+See how many OV-fiets are waiting before you get there: "OV-fiets: 17 available · open until 01:00". Tap it for each location, see the bikes on the map, and your route tells you "Continue by OV-fiets" when you arrive. Even the Home Screen widget can show the count for your home station.
+
+Meet nOVa, the OVnow assistant.
+nOVa helps you plan trips and report problems. Type in plain words: "Amsterdam Zuid to Rotterdam Centraal" or "tomorrow at 7 to Utrecht", then say "later", "earlier" or "arrive by 9" to change it. Or tap the microphone and just say it.
+
+Also new:
+- The Intercity direct shows a "Supplement" label, and the normal Intercity says "No supplement · 23 min longer". Tap it for an explanation.
+- Bike routes, if you want them: Settings, Show bike routes.
+- Add to Calendar on a planned route.
+- Tap a platform number to see what that platform's sign shows.
+- Liquid Glass: your trip and the Lock Screen card are glass. Prefer black? Settings, Solid card style.
+- Disruptions in your language: Dutch notices are translated on your iPhone. Tap one to see the original.
+- "Change not possible"? Find another connection plans from that station and shows how much later you arrive.
+- When something is broken on our side, the app tells you once in a pop-up.
+- iPhone Duo: the closed screen gets the side layout too, with the buttons and tabs in one column on the right.
+
+Please try:
+1. Open a station you know and check the OV-fiets count.
+2. Ask nOVa to plan a trip, then say "later".
+3. Plan Amsterdam Zuid to Rotterdam: do you see the Supplement label?
+
+Send feedback via TestFlight: take a screenshot and share it, or shake your iPhone.
+
+
+NEDERLANDS
+
+Bedankt voor het testen van OVnow! Deze update zit vol met jullie feedback.
+
+Het grote nieuws: OV-fiets now op elk station.
+Zie hoeveel OV-fietsen er klaarstaan voordat je er bent: "OV-fiets: 17 beschikbaar · open tot 01:00". Tik erop voor elke locatie, zie de fietsen op de kaart, en je route zegt "Verder met de OV-fiets" als je aankomt. Zelfs de widget op je beginscherm kan het aantal voor je thuisstation laten zien.
+
+Maak kennis met nOVa, de assistent van OVnow.
+nOVa helpt je reizen plannen en problemen melden. Typ het gewoon: "Amsterdam Zuid naar Rotterdam Centraal" of "morgen om 7 naar Utrecht", en zeg daarna "later", "eerder" of "aankomst om 9" om het aan te passen. Of tik op de microfoon en zeg het.
+
+Ook nieuw:
+- De Intercity direct heeft een label "Toeslag", en de gewone Intercity zegt "Geen toeslag · 23 min langer". Tik erop voor uitleg.
+- Fietsroutes, als je dat wilt: Instellingen, Fietsroutes tonen.
+- Zet een geplande reis in je agenda.
+- Tik op een spoornummer en zie wat het bord op dat perron laat zien.
+- Liquid Glass: je reis en de kaart op het toegangsscherm zijn van glas. Liever zwart? Instellingen, Effen kaartstijl.
+- Storingen in jouw taal: Nederlandse storingsmeldingen worden op je iPhone vertaald. Tik erop voor het origineel.
+- "Overstap niet haalbaar"? Andere verbinding zoeken plant vanaf dat station en laat zien hoeveel later je aankomt.
+- Is er bij ons iets stuk, dan meldt de app dat één keer in een pop-up.
+- iPhone Duo: ook het dichte scherm krijgt de zijweergave, met de knoppen en tabs in één kolom rechts.
+
+Probeer vooral:
+1. Open een station dat je kent en bekijk het aantal OV-fietsen.
+2. Laat nOVa een reis plannen en zeg daarna "later".
+3. Plan Amsterdam Zuid naar Rotterdam: zie je het label Toeslag?
+
+Stuur feedback via TestFlight: maak een screenshot en deel die, of schud je iPhone.

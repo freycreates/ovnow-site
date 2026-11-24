@@ -79,6 +79,24 @@
         ],
         "createdAt": "2026-11-23T18:50:37.434Z",
         "reason": "user confirmed: Frey asked for animated typing dots while nOVa is thinking; they are tied to a real wait"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "admin-export-mockup/index.html"
+        ],
+        "createdAt": "2026-11-23T19:39:34.759Z",
+        "reason": "user confirmed: Frey picked option 10, the dark export with glowing numbers, and asked for more in that style"
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "newsletter-ten/index.html"
+        ],
+        "createdAt": "2026-11-23T23:32:06.606Z",
+        "reason": "false positive: the wide tracking is on the short all-caps kicker and labels copied 1:1 from OVnow's real mail template (Mailings.swift, letter-spacing .1em)"
       }
     ]
   }
