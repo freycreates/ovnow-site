@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OVnow - facility locations</title>
+<style>
+:root{--sheet:#1d2130;--glass:#2a2f40;--chip:#2c3142;--line:#3a3f52;--txt:#f2f2f7;--dim:#a8adbd;--yellow:#ffc917;--green:#30d158;--orange:#ffb020;--red:#ff6b6b;--food:#ff9ec4;--shop:#d7c2ff;--cof:#ffb07a;--sky:#7cc4ff;--mint:#7ee0d6}
+*{box-sizing:border-box}
+body{margin:0;background:#0b0d14;color:var(--txt);font:15px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;padding:28px}
+h1{font-size:24px;margin:0 0 6px}.lead{color:var(--dim);max-width:820px;line-height:1.5;margin:0 0 24px}
+.flow{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+.step{width:330px}.step h2{font-size:15px;margin:0 0 3px}.step p{color:var(--dim);font-size:13px;line-height:1.45;margin:0 0 10px;min-height:56px}
+.phone{background:var(--sheet);border:1px solid #23263a;border-radius:36px;overflow:hidden;height:600px;padding:14px}
+.grab{width:40px;height:5px;border-radius:3px;background:#4a4f60;margin:0 auto 10px}
+.hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}.hd b{font-size:20px}.hd small{color:var(--dim);font-size:12px}
+.row{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
+.ic svg{width:20px;height:20px}
+.f{background:var(--food)}.s{background:var(--shop)}.c{background:var(--cof)}
+.d{flex:1;min-width:0}.n{font-weight:600;font-size:15px}
+.l{color:var(--dim);font-size:12px;margin-top:2px;display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.st{font-size:12px;margin-top:2px}.g{color:var(--green)}.o{color:var(--orange)}.r{color:var(--red)}
+.trk{display:inline-flex;align-items:center;gap:3px;border:1.5px solid var(--yellow);color:var(--yellow);border-radius:6px;padding:0 5px;font-size:11px;font-weight:700;line-height:16px;white-space:nowrap}
+.loc{display:inline-flex;align-items:center;gap:3px;background:var(--chip);color:#d6d9e3;border-radius:6px;padding:0 6px;font-size:11px;line-height:18px;white-space:nowrap}
+.loc svg,.trk svg{width:11px;height:11px}
+.sec{font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.04em;margin:12px 0 2px;display:flex;align-items:center;gap:6px}
+.sec svg{width:13px;height:13px}
+.seg{display:flex;background:var(--chip);border-radius:10px;padding:3px;margin-bottom:8px}.seg span{flex:1;text-align:center;font-size:12px;padding:5px 2px;border-radius:8px;color:var(--dim);font-weight:600}.seg .on{background:#4a4f62;color:#fff}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.right{text-align:right;flex-shrink:0}
+.hl{background:rgba(255,201,23,.08);border:1px solid rgba(255,201,23,.35);border-radius:12px;padding:8px;margin:4px 0}
+.banner{background:var(--glass);border-radius:12px;padding:8px 10px;font-size:12px;color:var(--dim);margin-bottom:6px}.banner b{color:var(--txt)}
+svg.strip{width:100%;height:auto;display:block;margin-bottom:6px}
+.rec{max-width:820px;margin-top:30px;background:var(--glass);border-radius:16px;padding:16px 20px;line-height:1.5}.rec h2{margin:0 0 6px;font-size:17px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="food" viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 3-3 6s1 4 3 4v8"/></symbol>
+  <symbol id="shop" viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="cof" viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round"><path d="M5 9h11v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5z"/><path d="M16 11h2a2 2 0 0 1 0 4h-2M9 3v3M12 3v3"/></symbol>
+  <symbol id="rail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 3 6 21M16 3l2 18M7 8h10M6.5 14h11"/></symbol>
+  <symbol id="tun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 20V12a9 9 0 0 1 18 0v8M3 20h18M9 20v-5a3 3 0 0 1 6 0v5"/></symbol>
+  <symbol id="hall" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 10 12 4l9 6v10H3z"/><path d="M8 20v-6h8v6"/></symbol>
+  <symbol id="out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/></symbol>
+  <symbol id="city" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 21V9l5-3v15M8 21V4h8v17M16 21v-9h5v9M2 21h20"/></symbol>
+  <symbol id="water" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 9c3-2 5 2 8 0s5-2 8 0 3 0 4-1M2 15c3-2 5 2 8 0s5-2 8 0 3 0 4-1"/></symbol>
+  <symbol id="pass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></symbol>
+ </defs>
+</svg>
+
+<h1>Shops &amp; food: where is it?</h1>
+<p class="lead">Ten ways to replace the long location line with something you can read at a glance. Same data in each: Amsterdam Zuid (Brittenpassage, platforms 1-2 and 3-4) or Amsterdam Centraal (West tunnel, Middle tunnel, IJ hall, East tunnel, track 2). Labels follow the phone language: English "Track 1 / West tunnel / IJ hall", Dutch "Spoor 1 / Westtunnel / IJhal".</p>
+
+<div class="flow">
+
+<!-- A -->
+<div class="step"><h2>A. Multi-location, collapsed chips</h2><p>One Kiosk row lists its three spots as track chips, each with a status dot (green open, orange closing soon). Trade-off: status per spot is only a dot; tap to see times.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Shops &amp; food</b><small>Amsterdam Zuid · 22:08 · Open now</small></div><div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Julia's</div><div class="l"><span class="trk">Track 4</span></div><div class="st o">Closes in 23 min</div></div></div><div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Kiosk <span style="color:var(--dim);font-weight:400">· 3 places</span></div><div class="l"><span class="trk"><span class="dot" style="background:var(--green)"></span>Track 2</span><span class="trk"><span class="dot" style="background:var(--green)"></span>Platform 1-2</span><span class="trk"><span class="dot" style="background:var(--green)"></span>Platform 3-4</span></div><div class="st g">All open until 23:00</div></div></div><div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Smullers</div><div class="l"><span class="trk">Track 1</span></div><div class="st g">Open until 00:00</div></div></div></div></div>
+
+<!-- B -->
+<div class="step"><h2>B. Grouped by area (Dutch)</h2><p>Section headers with an icon carry the area; rows only show name and status. Trade-off: list no longer sorted by "open now" across the whole station.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Winkels &amp; eten</b><small>Amsterdam Centraal</small></div>
+<div class="sec"><svg><use href="#tun"/></svg>Westtunnel</div>
+<div class="row"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Koffiebar</div><div class="st g">Open tot 23:00</div></div></div>
+<div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Supermarkt</div><div class="st o">Sluit over 23 min</div></div></div>
+<div class="sec"><svg><use href="#tun"/></svg>Middentunnel</div>
+<div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Broodjeszaak</div><div class="st g">Open tot 21:00</div></div></div>
+<div class="sec"><svg><use href="#hall"/></svg>IJhal</div>
+<div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Noodlebar</div><div class="st r">Gesloten, open 06:30</div></div></div>
+<div class="sec"><svg><use href="#rail"/></svg>Perron <span class="trk">Spoor 2</span></div>
+<div class="row"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Koffiekiosk</div><div class="st g">Open tot 22:00</div></div></div>
+</div></div>
+
+<!-- C -->
+<div class="step"><h2>C. Schematic strip with dots</h2><p>Tiny map of Zuid on top: tracks 1-4 and the passage, numbered dots per place. Trade-off: needs a hand-drawn schema per station; only worth it for big stations.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Shops &amp; food</b><small>Amsterdam Zuid</small></div>
+<svg class="strip" viewBox="0 0 300 110">
+ <rect x="0" y="0" width="300" height="110" rx="12" fill="#2a2f40"/>
+ <g stroke="#4a4f62" stroke-width="3"><line x1="20" y1="22" x2="280" y2="22"/><line x1="20" y1="42" x2="280" y2="42"/><line x1="20" y1="72" x2="280" y2="72"/><line x1="20" y1="92" x2="280" y2="92"/></g>
+ <rect x="20" y="28" width="260" height="8" rx="3" fill="#353a4d"/><rect x="20" y="78" width="260" height="8" rx="3" fill="#353a4d"/>
+ <rect x="40" y="10" width="34" height="92" rx="5" fill="#3d4358"/>
+ <g font-size="9" fill="#ffc917" font-weight="700"><text x="284" y="25">1</text><text x="284" y="45">2</text><text x="284" y="75">3</text><text x="284" y="95">4</text></g>
+ <text x="78" y="60" font-size="9" fill="#a8adbd">Brittenpassage</text>
+ <g font-size="9" font-weight="800" text-anchor="middle" fill="#0b0d14">
+  <circle cx="57" cy="18" r="7" fill="#ffb07a"/><text x="57" y="21">1</text>
+  <circle cx="57" cy="94" r="7" fill="#ff9ec4"/><text x="57" y="97">2</text>
+  <circle cx="190" cy="32" r="7" fill="#d7c2ff"/><text x="190" y="35">3</text>
+  <circle cx="160" cy="82" r="7" fill="#ffb07a"/><text x="160" y="85">4</text></g>
+</svg>
+<div class="row"><span class="dot" style="background:var(--cof);width:18px;height:18px"></span><div class="d"><div class="n">1 Coffee bar</div><div class="st g">Open until 23:00</div></div></div>
+<div class="row"><span class="dot" style="background:var(--food);width:18px;height:18px"></span><div class="d"><div class="n">2 Sandwich bar</div><div class="st o">Closes in 23 min</div></div></div>
+<div class="row"><span class="dot" style="background:var(--shop);width:18px;height:18px"></span><div class="d"><div class="n">3 Kiosk</div><div class="st g">Open until 22:00</div></div></div>
+<div class="row"><span class="dot" style="background:var(--cof);width:18px;height:18px"></span><div class="d"><div class="n">4 Espresso kiosk</div><div class="st r">Closed, opens 06:30</div></div></div>
+</div></div>
+
+<!-- D -->
+<div class="step"><h2>D. Badge on the right</h2><p>Location moves to a right-aligned badge (track chip or area chip), like the departures list. Trade-off: long area names must be shortened to fit.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Shops &amp; food</b><small>Amsterdam Centraal</small></div>
+<div class="row"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Coffee bar</div><div class="st g">Open until 23:00</div></div><div class="right"><span class="loc"><svg><use href="#tun"/></svg>West</span></div></div>
+<div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Supermarket</div><div class="st o">Closes in 23 min</div></div><div class="right"><span class="loc"><svg><use href="#tun"/></svg>West</span></div></div>
+<div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Sandwich bar</div><div class="st g">Open until 21:00</div></div><div class="right"><span class="loc"><svg><use href="#tun"/></svg>Middle</span></div></div>
+<div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Noodle bar</div><div class="st r">Closed, opens 06:30</div></div><div class="right"><span class="loc"><svg><use href="#hall"/></svg>IJ hall</span></div></div>
+<div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Bookshop</div><div class="st g">Open until 20:00</div></div><div class="right"><span class="loc"><svg><use href="#tun"/></svg>East</span></div></div>
+<div class="row"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Coffee kiosk</div><div class="st g">Open until 22:00</div></div><div class="right"><span class="trk"><svg><use href="#rail"/></svg>2</span></div></div>
+</div></div>
+
+<!-- E -->
+<div class="step"><h2>E. Colour-coded zones</h2><p>Each area gets a colour; a coloured bar on the row and a legend on top. Trade-off: colours compete with the category icon colours and mean nothing to colour-blind users without the label.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Shops &amp; food</b><small>Amsterdam Centraal</small></div>
+<div class="l" style="margin-bottom:6px"><span class="dot" style="background:var(--sky)"></span>West tunnel <span class="dot" style="background:var(--mint)"></span>Middle tunnel <span class="dot" style="background:#c9a0ff"></span>IJ hall</div>
+<div class="row" style="border-left:3px solid var(--sky);padding-left:8px"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Coffee bar</div><div class="st g">Open until 23:00</div></div></div>
+<div class="row" style="border-left:3px solid var(--sky);padding-left:8px"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Supermarket</div><div class="st o">Closes in 23 min</div></div></div>
+<div class="row" style="border-left:3px solid var(--mint);padding-left:8px"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Sandwich bar</div><div class="st g">Open until 21:00</div></div></div>
+<div class="row" style="border-left:3px solid #c9a0ff;padding-left:8px"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Noodle bar</div><div class="st r">Closed, opens 06:30</div></div></div>
+</div></div>
+
+<!-- F -->
+<div class="step"><h2>F. Multi-location, expanded + quiet closed line</h2><p>Tapping "Kiosk · 3 places" opens indented sub-rows, one per spot, each with chip and its own status. Closed places fold into one dimmed row. Trade-off: expanded rows push the list down.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Shops &amp; food</b><small>Amsterdam Zuid · 22:08 · Open now</small></div><div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Julia's</div><div class="st o">Closes in 23 min</div></div><div class="right"><span class="trk">Track 4</span></div></div><div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Kiosk <span style="color:var(--dim);font-weight:400">· 3 places</span></div></div><span style="color:var(--dim)">&#8964;</span></div><div style="margin-left:44px"><div class="row"><div class="d"><span class="loc"><svg><use href="#pass"/></svg>Brittenpassage</span> <span class="trk">Track 2</span><div class="st g">Open until 23:00</div></div></div><div class="row"><div class="d"><span class="loc"><svg><use href="#rail"/></svg>Platform</span> <span class="trk">1-2</span><div class="st g">Open until 23:00</div></div></div><div class="row"><div class="d"><span class="loc"><svg><use href="#rail"/></svg>Platform</span> <span class="trk">3-4</span><div class="st g">Open until 23:00</div></div></div></div><div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Smullers</div><div class="st g">Open until 00:00</div></div><div class="right"><span class="trk">Track 1</span></div></div><div class="row" style="opacity:.55"><div class="ic" style="background:var(--chip);color:var(--dim)"><svg><use href="#shop"/></svg></div><div class="d"><div class="n" style="font-size:13px;color:var(--dim)">4 closed: AH to go, Bakery +2</div></div><span style="color:var(--dim)">&#8250;</span></div></div></div>
+
+<!-- G -->
+<div class="step"><h2>G. Filter by area (Dutch)</h2><p>Segmented control above the list; pick an area and only its places show. Trade-off: hides the rest, so you must know where you are first.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Winkels &amp; eten</b><small>Amsterdam Centraal</small></div>
+<div class="seg"><span>Alles</span><span class="on">Westtunnel</span><span>Midden</span><span>IJhal</span></div>
+<div class="row"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Koffiebar</div><div class="st g">Open tot 23:00</div></div></div>
+<div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Supermarkt</div><div class="st o">Sluit over 23 min</div></div></div>
+<div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Bakkerij</div><div class="st g">Open tot 20:00</div></div></div>
+</div></div>
+
+<!-- H -->
+<div class="step"><h2>H. On your platform</h2><p>During a trip, places on or near your departure track float to the top in a yellow card. Trade-off: only helps when a trip is active; needs track data for each place.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Shops &amp; food</b><small>Amsterdam Zuid</small></div>
+<div class="banner">Your train leaves from <span class="trk">Track 4</span> in <b>14 min</b></div>
+<div class="hl"><div class="sec" style="margin-top:0;color:var(--yellow)">On your platform</div>
+<div class="row" style="border:0"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Sandwich bar</div><div class="st o">Closes in 23 min</div></div><div class="right"><span class="trk">4</span></div></div>
+<div class="row"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Espresso kiosk</div><div class="st r">Closed, opens 06:30</div></div><div class="right"><span class="trk">3-4</span></div></div></div>
+<div class="sec">Elsewhere</div>
+<div class="row"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Coffee bar</div><div class="st g">Open until 23:00</div></div><div class="right"><span class="trk">1</span></div></div>
+<div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Kiosk</div><div class="st g">Open until 22:00</div></div><div class="right"><span class="trk">1-2</span></div></div>
+</div></div>
+
+<!-- I -->
+<div class="step"><h2>I. Side icons (city side / IJ side)</h2><p>A small side marker tells you which exit you are near; useful at Centraal. Trade-off: "side" means little at stations with one entrance.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Shops &amp; food</b><small>Amsterdam Centraal</small></div>
+<div class="row"><div class="ic c"><svg><use href="#cof"/></svg></div><div class="d"><div class="n">Coffee bar</div><div class="l"><span class="loc"><svg><use href="#tun"/></svg>West tunnel</span><span class="loc"><svg><use href="#city"/></svg>City side</span></div><div class="st g">Open until 23:00</div></div></div>
+<div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Noodle bar</div><div class="l"><span class="loc"><svg><use href="#hall"/></svg>IJ hall</span><span class="loc"><svg><use href="#water"/></svg>IJ side</span></div><div class="st r">Closed, opens 06:30</div></div></div>
+<div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Bookshop</div><div class="l"><span class="loc"><svg><use href="#tun"/></svg>East tunnel</span><span class="loc"><svg><use href="#city"/></svg>City side</span></div><div class="st g">Open until 20:00</div></div></div>
+<div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Flowers</div><div class="l"><span class="loc"><svg><use href="#out"/></svg>Outside</span><span class="loc"><svg><use href="#city"/></svg>Station square</span></div><div class="st g">Open until 19:00</div></div></div>
+</div></div>
+
+<!-- J -->
+<div class="step"><h2>J. Strip with per-location dots</h2><p>Mini station strip: every open place is a dot by its track; the three Kiosk dots are joined, so one shop with many spots reads at once. Closed places as a quiet line. Trade-off: schema per station.</p>
+<div class="phone"><div class="grab"></div><div class="hd"><b>Shops &amp; food</b><small>Amsterdam Zuid · 22:08 · Open now</small></div><svg class="strip" viewBox="0 0 300 96"><rect width="300" height="96" rx="12" fill="#2a2f40"/><g stroke="#4a4f62" stroke-width="3"><line x1="20" y1="20" x2="280" y2="20"/><line x1="20" y1="38" x2="280" y2="38"/><line x1="20" y1="62" x2="280" y2="62"/><line x1="20" y1="80" x2="280" y2="80"/></g><rect x="40" y="8" width="34" height="82" rx="5" fill="#3d4358"/><text x="78" y="53" font-size="9" fill="#a8adbd">Brittenpassage</text><g font-size="9" fill="#ffc917" font-weight="700"><text x="284" y="23">1</text><text x="284" y="41">2</text><text x="284" y="65">3</text><text x="284" y="83">4</text></g><path d="M57 38 L170 29 L170 71" stroke="#d7c2ff" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/><circle cx="57" cy="38" r="6" fill="#d7c2ff"/><circle cx="170" cy="29" r="6" fill="#d7c2ff"/><circle cx="170" cy="71" r="6" fill="#d7c2ff"/><circle cx="57" cy="80" r="6" fill="#ff9ec4"/><circle cx="57" cy="20" r="6" fill="#ff9ec4"/></svg><div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Julia's</div><div class="st o">Closes in 23 min</div></div><div class="right"><span class="trk">4</span></div></div><div class="row"><div class="ic s"><svg><use href="#shop"/></svg></div><div class="d"><div class="n">Kiosk <span style="color:var(--dim);font-weight:400">· 3 places</span></div><div class="st g">Open until 23:00</div></div><div class="right"><span class="trk">2</span> <span class="trk">1-2</span> <span class="trk">3-4</span></div></div><div class="row"><div class="ic f"><svg><use href="#food"/></svg></div><div class="d"><div class="n">Smullers</div><div class="st g">Open until 00:00</div></div><div class="right"><span class="trk">1</span></div></div><div class="row" style="opacity:.55"><div class="ic" style="background:var(--chip);color:var(--dim)"><svg><use href="#shop"/></svg></div><div class="d"><div class="n" style="font-size:13px;color:var(--dim)">4 closed: AH to go, Bakery +2</div></div><span style="color:var(--dim)">&#8250;</span></div></div></div>
+
+</div>
+
+<div class="rec"><h2>Recommendation</h2>
+Go with <b>D</b> (badge on the right) as the default, plus <b>F</b> for shops with several spots (collapsed row, expands to one line per spot) and its quiet closed line: no extra line, reuses the yellow track chip, and the location reads like the departures list. Add <b>H</b> (on your platform) when a trip is active. For data, map each raw location text to a short key (track number, west/middle/east tunnel, IJ hall, passage, outside) and translate that key, so English and Dutch come for free. Skip C and E: too much per-station work or colour noise.</div>
+
+<section id="dvar" style="margin-top:48px">
+<h2 style="font-size:22px;margin:0 0 6px">More ideas for D: the location badge</h2>
+<p style="color:var(--dim);max-width:860px;line-height:1.5;margin:0 0 18px">Option D keeps the location on the right, like the departures board. Ten ways to draw that badge without the track chip. Same Amsterdam Centraal and Zuid data in each.</p>
+<style>
+  #dvar .vgrid{display:flex;flex-wrap:wrap;gap:22px}
+  #dvar .v{width:360px}
+  #dvar .v h3{font-size:15px;margin:0 0 3px}
+  #dvar .v p{color:var(--dim);font-size:13px;line-height:1.45;margin:0 0 10px;min-height:38px}
+  #dvar .sh{background:var(--sheet);border-radius:24px;padding:8px 14px}
+  #dvar .r{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid var(--line)}
+  #dvar .r:first-child{border-top:0}
+  #dvar .ci{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+  #dvar .ci svg{width:19px;height:19px}
+  #dvar .tx{flex:1;min-width:0}
+  #dvar .r{color:var(--txt)}
+  #dvar .tx b{display:block;font-size:15px;font-weight:600;color:var(--txt)}
+  #dvar .tx small{font-size:13px}
+  #dvar .g{color:var(--green)}#dvar .o{color:var(--orange)}
+  #dvar .b{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;white-space:nowrap}
+  #dvar .b svg{width:14px;height:14px;flex-shrink:0}
+</style>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.4" fill="currentColor"/></symbol>
+  <symbol id="i-tunnel" viewBox="0 0 24 24"><path d="M3 20V11a9 9 0 0 1 18 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 20v-6a4 4 0 0 1 8 0v6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-hall" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v10h14V10M9 20v-5h6v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plat" viewBox="0 0 24 24"><path d="M4 16h16M7 16V9h10v7M6 20l2-4M18 20l-2-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-pass" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16M8 4L4 8l4 4M16 12l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cof" viewBox="0 0 24 24"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z M16 11h1.5a2.5 2.5 0 0 1 0 5H16" fill="none" stroke="#0b0d14" stroke-width="2"/></symbol>
+  <symbol id="i-food" viewBox="0 0 24 24"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 21V3c-2 1-3 4-3 8h3" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2l2.5 11h10L20 7H7" fill="none" stroke="#0b0d14" stroke-width="2"/><circle cx="9" cy="19" r="1.5" fill="#0b0d14"/><circle cx="17" cy="19" r="1.5" fill="#0b0d14"/></symbol>
+</svg>
+<div class="vgrid" id="dgrid"></div>
+<script>
+(function(){
+ const R = [
+  ["cof","var(--cof)","Kiosk","g","Open until 23:00",["Westtunnel","tunnel","#7cc4ff","West tunnel"]],
+  ["food","var(--food)","Julia's","o","Closes in 23 min",["IJhal","hall","#7ee0d6","IJ hall"]],
+  ["cart","var(--shop)","AH to go","g","Open until 23:00",["Oosttunnel","tunnel","#ffb07a","East tunnel"]],
+  ["food","var(--food)","Smullers","g","Open until 00:00",["Spoor 2","plat","#ffc917","Track 2"]],
+  ["cof","var(--cof)","Kiosk","g","Open until 23:00",["Brittenpassage","pass","#d7c2ff","Britten passage"]]];
+ const ic = k => `<svg><use href="#i-${k}"/></svg>`;
+ const VARS = [
+  ["1 · Pin and text", "A small pin before the name of the spot. Neutral, works for every kind of place.", l => `<span class="b" style="color:var(--dim)">${ic("pin")}${l[0]}</span>`],
+  ["2 · Icon per kind of spot", "Tunnel, hall, platform or passage icon, in grey. You read the kind of place before the name.", l => `<span class="b" style="color:var(--dim)">${ic(l[1])}${l[0]}</span>`],
+  ["3 · Coloured dot", "Each spot gets its own colour, shown as a dot. The same spot has the same colour in every row.", l => `<span class="b" style="color:var(--txt)"><span style="width:9px;height:9px;border-radius:50%;background:${l[2]}"></span>${l[0]}</span>`],
+  ["4 · Tinted pill", "A soft pill in the spot's colour, with its icon. Groups catch your eye without shouting.", l => `<span class="b" style="background:${l[2]}26;color:${l[2]};padding:4px 9px;border-radius:999px">${ic(l[1])}${l[0]}</span>`],
+  ["5 · Outline pill", "A thin outlined pill in the spot's colour. Light, close to the track chip but calmer.", l => `<span class="b" style="border:1.5px solid ${l[2]};color:${l[2]};padding:3px 9px;border-radius:999px">${l[0]}</span>`],
+  ["6 · NS-style sign", "Dark blue sign with white text, like the signs in the station. Feels familiar to train travellers.", l => `<span class="b" style="background:#003082;color:#fff;padding:4px 8px;border-radius:6px">${ic(l[1])}${l[0]}</span>`],
+  ["7 · Icon on top, word below", "A small icon with the spot underneath, in a column on the right. Compact and scannable.", l => `<span style="display:grid;justify-items:center;gap:2px;color:${l[2]};min-width:74px"><svg style="width:18px;height:18px"><use href="#i-${l[1]}"/></svg><span style="font-size:11px;font-weight:600;color:var(--dim)">${l[0]}</span></span>`],
+  ["8 · Coloured icon tile", "Only a small tile in the spot's colour with its icon; the word appears on tap. The calmest list.", l => `<span style="width:30px;height:30px;border-radius:9px;background:${l[2]};display:grid;place-items:center;color:#0b0d14"><svg style="width:17px;height:17px"><use href="#i-${l[1]}"/></svg></span>`],
+  ["9 · Two lines, right aligned", "Status stays left; on the right the kind of spot small on top and its name below. Like a departure board column.", l => `<span style="text-align:right;line-height:1.2"><span style="display:block;font-size:11px;color:var(--dim);text-transform:capitalize">${({tunnel:"tunnel",hall:"hal",plat:"perron",pass:"passage"})[l[1]]}</span><span style="font-size:14px;font-weight:600;color:${l[2]}">${l[0].replace(/^Spoor /,"")}</span></span>`],
+  ["10 · English, tinted pill", "Option 4 with the phone in English: short words, translated from a small list.", l => `<span class="b" style="background:${l[2]}26;color:${l[2]};padding:4px 9px;border-radius:999px">${ic(l[1])}${l[3]}</span>`],
+ ];
+ document.getElementById("dgrid").innerHTML = VARS.map(([h,p,f]) => `<div class="v"><h3>${h}</h3><p>${p}</p><div class="sh">${R.map(([k,c,n,s,st,l]) =>
+   `<div class="r"><span class="ci" style="background:${c}"><svg><use href="#i-${k}"/></svg></span><div class="tx"><b>${n}</b><small class="${s}">${st}</small></div>${f(l)}</div>`).join("")}</div></div>`).join("");
+ console.assert(VARS.length === 10);
+})();
+</script>
+</section>
+
+
+<section id="d4" style="margin-top:48px">
+<h2 style="font-size:22px;margin:0 0 6px">Chosen: 4, calm version</h2>
+<p style="color:var(--dim);max-width:860px;line-height:1.5;margin:0 0 18px">A shop with several places shows no location until you open it (›); opened (⌄), each place gets its own pill and status, as in the light Zuid example. Shop names in plain white (dark mode) or black (light mode). The location pill is neutral grey with white or black text; only its small icon keeps a colour. Colour is left for what matters: the category icon and open or closed. Shown at three stations, in dark and light, Dutch and English.</p>
+<style>
+  #d4 .vgrid{display:flex;flex-wrap:wrap;gap:22px}
+  #d4 .v{width:360px}
+  #d4 .v h3{font-size:15px;margin:0 0 8px}
+  #d4 .sh{border-radius:24px;padding:12px 14px}
+  #d4 .dark{background:var(--sheet);color:#f2f2f7}
+  #d4 .light{background:#f2f2f7;color:#111}
+  #d4 .ttl{font-size:20px;font-weight:800;margin:2px 0 2px}
+  #d4 .sub{font-size:13px;opacity:.6;margin-bottom:6px}
+  #d4 .r{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid rgba(128,128,140,.25)}
+  #d4 .r:first-of-type{border-top:0}
+  #d4 .ci{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+  #d4 .ci svg{width:19px;height:19px}
+  #d4 .tx{flex:1;min-width:0}
+  #d4 .r{color:inherit}
+  #d4 .tx b{display:block;font-size:15px;font-weight:600;color:inherit}
+  #d4 .tx small{font-size:13px}
+  #d4 .g{color:#24a148}#d4 .dark .g{color:var(--green)}
+  #d4 .o{color:#c77700}#d4 .dark .o{color:var(--orange)}
+  #d4 .rd{color:#d93030}#d4 .dark .rd{color:var(--red)}
+  #d4 .pill{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;white-space:nowrap;padding:4px 9px;border-radius:999px}
+  #d4 .pill svg{width:14px;height:14px;flex-shrink:0}
+  #d4 .grp{font-size:12px;opacity:.6;margin:2px 0 0 45px}
+</style>
+<div class="vgrid" id="d4grid"></div>
+<script>
+(function(){
+ // spot -> [icon, colour (dark), colour (light, a bit deeper so the tint still shows)]
+ const SPOT = {tunnel:["tunnel","#7cc4ff","#2f7fd0"], hall:["hall","#7ee0d6","#169c8e"], plat:["plat","#ffc917","#b98a00"],
+               pass:["pass","#d7c2ff","#8a5fe0"], out:["pin","#ffb07a","#d06a1e"]};
+ const ic = k => `<svg><use href="#i-${k}"/></svg>`;
+ const pill = (kind, text, light) => { const [i, cd, cl] = SPOT[kind], c = light ? cl : cd;
+   return `<span class="pill" style="background:${light ? "#e3e4ea" : "#2c3142"};color:${light ? "#111" : "#f2f2f7"}"><span style="color:${c};display:inline-flex">${ic(i)}</span>${text}</span>`; };
+ const row = (k, c, n, s, st, kind, where, light) => {
+   if (kind === "sub")   // one location of an opened group: its own spot and status, indented under the shop
+     return `<div class="r" style="padding:7px 0 7px 45px;border-top:0"><div class="tx"><small class="${s}">${st}</small></div>${pill(where[0], where[1], light)}</div>`;
+   const right = kind === "group" ? `<span style="font-size:18px;opacity:.5;padding:0 4px">${where}</span>` : pill(kind, where, light);
+   return `<div class="r"><span class="ci" style="background:${c}"><svg><use href="#i-${k}"/></svg></span><div class="tx"><b>${n}</b><small class="${s}">${st}</small></div>${right}</div>`;
+ };
+ const C = {cof:"var(--cof)", food:"var(--food)", cart:"var(--shop)"};
+ const sheets = [
+  ["Amsterdam Centraal · dark · Dutch", false, "Amsterdam Centraal", "Winkels & eten", [
+    ["cof", C.cof, "Kiosk", "g", "Open tot 00:45", "tunnel", "Westtunnel"],
+    ["food", C.food, "Julia's", "o", "Sluit over 23 min", "hall", "IJhal"],
+    ["cart", C.cart, "AH to go", "g", "Open tot 23:00", "tunnel", "Oosttunnel"],
+    ["food", C.food, "Burger King", "g", "Open tot 00:00", "plat", "Spoor 2"],
+    ["food", C.food, "Smullers", "g", "Open tot 01:00", "tunnel", "Middentunnel"]]],
+  ["Amsterdam Zuid · dark · English", false, "Amsterdam Zuid", "Shops & food", [
+    ["food", C.food, "Julia's", "o", "Closes in 23 min", "pass", "Britten passage · 4"],
+    ["cof", C.cof, "Kiosk · 3 places", "g", "3 open now", "group", "›"],
+    ["food", C.food, "Smullers", "g", "Open until 00:00", "pass", "Britten passage · 1"],
+    ["cart", C.cart, "AH to go", "rd", "Closed, opens 06:00", "pass", "Britten passage · 1"]]],
+  ["Amsterdam Zuid · light · Dutch", true, "Amsterdam Zuid", "Winkels & eten", [
+    ["food", C.food, "Julia's", "o", "Sluit over 23 min", "pass", "Brittenpassage · 4"],
+    ["cof", C.cof, "Kiosk · 3 plekken", "g", "3 nu open", "group", "⌄"],
+    ["", "", "", "g", "Open tot 23:00", "sub", ["pass", "Brittenpassage · 2"]],
+    ["", "", "", "g", "Open tot 23:00", "sub", ["plat", "Perron 1-2"]],
+    ["", "", "", "g", "Open tot 23:00", "sub", ["plat", "Perron 3-4"]],
+    ["food", C.food, "Smullers", "g", "Open tot 00:00", "pass", "Brittenpassage · 1"],
+    ["food", C.food, "Bakkerij Bart to Go", "rd", "Gesloten, opent 06:30", "pass", "Brittenpassage · 3"]]],
+  ["Rotterdam Centraal · light · English", true, "Rotterdam Centraal", "Shops & food", [
+    ["cof", C.cof, "Starbucks · 2 places", "g", "1 open now", "group", "›"],
+    ["food", C.food, "YO! Sushi", "g", "Open until 23:00", "hall", "Station hall"],
+    ["food", C.food, "Smullers", "g", "Open until 00:00", "out", "Outside"],
+    ["cart", C.cart, "Etos", "o", "Closes in 5 min", "tunnel", "Tunnel"]]],
+ ];
+ document.getElementById("d4grid").innerHTML = sheets.map(([h, light, st, ttl, rows]) =>
+   `<div class="v"><h3>${h}</h3><div class="sh ${light ? "light" : "dark"}"><div class="ttl">${ttl}</div><div class="sub">${st}</div>${rows.map(r => row(...r, light)).join("")}</div></div>`).join("");
+})();
+</script>
+</section>
+
+
+<section id="spoticons" style="margin-top:48px">
+<h2 style="font-size:22px;margin:0 0 6px">Station icons for the location pill</h2>
+<p style="color:var(--dim);max-width:860px;line-height:1.5;margin:0 0 18px">The road-lanes icon looks like a highway. Six sets of station-style icons for the four kinds of spot (station hall, pedestrian tunnel, platform, passage), each shown in the calm grey pill with clean texts.</p>
+<style>
+  #spoticons .sets{display:flex;flex-wrap:wrap;gap:22px}
+  #spoticons .set{width:360px;background:var(--sheet);border-radius:22px;padding:14px}
+  #spoticons .set h3{font-size:15px;margin:0 0 2px}
+  #spoticons .set p{color:var(--dim);font-size:13px;margin:0 0 12px;line-height:1.4;min-height:36px}
+  #spoticons .pills{display:flex;flex-wrap:wrap;gap:8px}
+  #spoticons .pl{display:inline-flex;align-items:center;gap:6px;background:#2c3142;color:#f2f2f7;border-radius:999px;padding:5px 11px;font-size:13px;font-weight:600}
+  #spoticons .pl svg{width:16px;height:16px;flex-shrink:0}
+  #spoticons .row{display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid var(--line);margin-top:10px}
+  #spoticons .ti{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+  #spoticons .ti svg{width:19px;height:19px}
+  #spoticons .row b{display:block;font-size:15px;color:#f2f2f7;font-weight:600}
+  #spoticons .row small{color:var(--green);font-size:13px}
+</style>
+<div class="sets" id="spotsets"></div>
+<script>
+(function(){
+ const sv = (d, c) => `<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+ // four kinds per set: hall, tunnel, platform, passage
+ const SETS = [
+  ["A · Classic station hall", "Hall: the arched roof of a big station hall. Tunnel: a walking person in an arch. Platform: a canopy over the edge. Passage: a covered walkway.",
+   {hall:'<path d="M3 20V11a9 7 0 0 1 18 0v9"/><path d="M3 20h18M8 20v-6M12 20v-8M16 20v-6"/>',
+    tunnel:'<path d="M3 20v-8a9 9 0 0 1 18 0v8"/><circle cx="12" cy="10" r="1.3"/><path d="M12 12v3l-2 3M12 15l2 3M10 13.5h4"/>',
+    plat:'<path d="M3 8h18M5 8v4M19 8v4"/><path d="M3 15h18M3 19h18"/><path d="M7 15v4M12 15v4M17 15v4"/>',
+    pass:'<path d="M3 9l9-5 9 5"/><path d="M5 9v10M19 9v10"/><path d="M8 15h8M14 13l2 2-2 2"/>'}],
+  ["B · Glass roof", "Hall: a curved glass roof with ribs, like Rotterdam or Utrecht. Tunnel: a low arch with a light at the end.",
+   {hall:'<path d="M2 18c2-8 18-8 20 0"/><path d="M6 13.5L7 18M12 11.5V18M18 13.5L17 18M2 18h20"/>',
+    tunnel:'<path d="M4 20v-7a8 8 0 0 1 16 0v7"/><path d="M9 20v-5a3 3 0 0 1 6 0v5"/><path d="M12 13v.5"/>',
+    plat:'<path d="M4 6h16l-2 3H6z"/><path d="M8 9v5M16 9v5"/><path d="M3 18h18"/>',
+    pass:'<path d="M4 7h16v10H4z"/><path d="M9 12h6M13 10l2 2-2 2"/>'}],
+  ["C · Signage style", "Like the pictograms on Dutch station signs: simple, square, very readable at small size.",
+   {hall:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 16v-5l5-3 5 3v5"/>',
+    tunnel:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 16v-3a5 5 0 0 1 10 0v3"/>',
+    plat:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 13h10M7 16h10"/>',
+    pass:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 12h10M14 9l3 3-3 3"/>'}],
+  ["D · Train-first", "Every icon has a small train in it, so it's clearly about the station. Hall: train under a roof. Platform: train next to a platform edge.",
+   {hall:'<path d="M3 10l9-6 9 6"/><rect x="8" y="11" width="8" height="7" rx="2"/><path d="M10 20l-1 1M14 20l1 1"/>',
+    tunnel:'<path d="M3 20v-8a9 9 0 0 1 18 0v8"/><rect x="8.5" y="11" width="7" height="6" rx="1.8"/>',
+    plat:'<rect x="5" y="4" width="8" height="11" rx="2"/><path d="M7 18l-1 2M11 18l1 2"/><path d="M17 4v16M20 4v16"/>',
+    pass:'<rect x="4" y="7" width="7" height="9" rx="2"/><path d="M14 12h7M18 9l3 3-3 3"/>'}],
+  ["E · Minimal dots", "No pictures: a small coloured shape per kind (circle hall, half-circle tunnel, line platform, arrow passage). The calmest.",
+   {hall:'<circle cx="12" cy="12" r="5" fill="currentColor"/>',
+    tunnel:'<path d="M6 16a6 6 0 0 1 12 0z" fill="currentColor"/>',
+    plat:'<path d="M5 12h14" stroke-width="3.5"/>',
+    pass:'<path d="M6 12h10M13 8l4 4-4 4" stroke-width="2.6"/>'}],
+  ["F · Letters", "One letter in a small rounded square: H hall, T tunnel, P platform, D passage (doorgang). Works without knowing the icon.",
+   {hall:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M9 8v8M15 8v8M9 12h6"/>',
+    tunnel:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 8h8M12 8v8"/>',
+    plat:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M9 16V8h3.5a2.5 2.5 0 0 1 0 5H9"/>',
+    pass:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M9 8v8h2.5a4 4 0 0 0 0-8z"/>'}],
+ ];
+ const COL = {hall:"#7ee0d6", tunnel:"#7cc4ff", plat:"#ffc917", pass:"#d7c2ff"};
+ const LABEL = {hall:"IJhal", tunnel:"Westtunnel", plat:"Spoor 2", pass:"Brittenpassage · 4"};
+ const cart = '<svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2"><path d="M3 4h2l2.5 11h10L20 7H7"/><circle cx="9" cy="19" r="1.5" fill="#0b0d14"/><circle cx="17" cy="19" r="1.5" fill="#0b0d14"/></svg>';
+ document.getElementById("spotsets").innerHTML = SETS.map(([h, p, I]) => `<div class="set"><h3>${h}</h3><p>${p}</p>
+   <div class="pills">${["hall","tunnel","plat","pass"].map(k => `<span class="pl" style="color:#f2f2f7"><span style="color:${COL[k]};display:inline-flex">${sv(I[k], "currentColor")}</span>${LABEL[k]}</span>`).join("")}</div>
+   <div class="row"><span class="ti" style="background:var(--shop)">${cart}</span><div style="flex:1"><b>AH to go</b><small>Open until 00:00</small></div>
+   <span class="pl"><span style="color:${COL.hall};display:inline-flex">${sv(I.hall, "currentColor")}</span>IJhal</span></div></div>`).join("");
+})();
+</script>
+</section>
+
+</body>
+</html>

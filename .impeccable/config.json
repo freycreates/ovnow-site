@@ -151,6 +151,15 @@
         ],
         "createdAt": "2026-11-26T17:57:07.310Z",
         "reason": "Glow is avatar option C, shown only for comparison; user chose B (no glow)"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "mockups/facility-locations.html"
+        ],
+        "createdAt": "2026-11-26T21:12:21.542Z",
+        "reason": "Option E's colour-coded area stripe is the idea being compared, not a chosen design"
       }
     ]
   }
