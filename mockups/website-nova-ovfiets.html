@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Homepage options: nOVa and OV-fiets now</title>
+<style>
+@font-face{font-family:"Bricolage";src:url(../fonts/bricolage.woff2) format("woff2");font-weight:700 800}
+@font-face{font-family:"Onest";src:url(../fonts/onest.woff2) format("woff2");font-weight:400 800}
+:root{--night:#10193d;--deep:#0a1130;--line:#ffc52e;--text:#f4f6ff;--soft:#c9d2ee;--live:#5ee08f;--navy:#141a2e;--blue:#1e6bff;--yel:#ffc917;--edge:#4a65b0}
+*{box-sizing:border-box;margin:0}
+body{font:400 18px/1.5 Onest,system-ui,sans-serif;color:var(--text);background:#05091c;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Bricolage,system-ui,sans-serif;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+img{display:block;max-width:100%;height:auto}
+.nl{display:block;font:400 .9rem/1.4 Onest,sans-serif;color:#9aa6cf;letter-spacing:0;margin-top:6px}
+/* option labels, outside the site frame */
+.opt{max-width:1360px;margin:70px auto 14px;padding:0 24px}
+.opt h4{font:800 1.3rem Bricolage,sans-serif;color:var(--line)}
+.opt p{color:var(--soft);font-size:1rem}
+.frame{max-width:1360px;margin:0 auto;background:var(--night);border:1px solid #2c3a78;border-radius:14px;overflow:hidden}
+.ghost{padding:34px 64px;color:#9aa6cf;font-size:.95rem;border-bottom:1px dashed #2c3a78}
+.ghost:last-child{border-bottom:0;border-top:1px dashed #2c3a78}
+.inner{padding:80px 64px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+h2{font-size:clamp(2.4rem,4.4vw,4rem);line-height:1}
+.txt p{margin-top:18px;font-size:1.2rem;max-width:28em}
+.small{color:var(--soft);font-size:.98rem!important}
+/* phone */
+.phone{width:290px;margin:auto;border-radius:44px;border:9px solid #1c2550;background:var(--deep);padding:18px 14px;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.phone.shot{padding:0;overflow:hidden}
+/* station card */
+.card{background:#16224f;border:1px solid #2c3a78;border-radius:16px;padding:16px 18px}
+.row{display:flex;align-items:center;gap:12px}
+.row+.row{margin-top:12px;padding-top:12px;border-top:1px solid #2c3a78}
+.big{font:800 3.4rem/1 Bricolage,sans-serif;color:var(--yel)}
+.g{color:var(--soft);font-size:.92rem}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--live);display:inline-block;margin-right:6px}
+.tg{display:inline-block;padding:1px 7px;border-radius:5px;font-weight:800;font-size:.75rem;background:var(--yel);color:#003082}
+/* nova chat */
+.chat{display:grid;gap:10px;font-size:.92rem}
+.me{justify-self:end;background:var(--blue);padding:8px 12px;border-radius:14px 14px 4px 14px;max-width:85%}
+.her{justify-self:start;background:#1c2550;padding:8px 12px;border-radius:14px 14px 14px 4px;max-width:85%}
+.chip{display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border-radius:999px;background:rgba(34,47,104,.86);font-size:.9rem;color:var(--soft);border:0;font-family:inherit;cursor:pointer}
+.chip:hover{color:var(--text)}
+.band{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tile{background:#16224f;border:1px solid #2c3a78;border-radius:20px;padding:30px;display:grid;gap:14px;align-content:start}
+.tile h3{font-size:1.9rem;line-height:1.05}
+.kick{font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--line)}
+.strip{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 64px;background:var(--deep);border-bottom:1px solid #2c3a78;font-size:1rem}
+.strip a{color:var(--line);text-decoration:none;font-weight:600;margin-left:auto}
+.hero{padding:40px 64px 70px}
+.hero h1{font-size:5.4rem;line-height:.95}
+.list{list-style:none;padding:0;margin-top:18px;display:grid;gap:8px;color:var(--soft);font-size:1.05rem}
+.list li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--line);margin-right:10px;vertical-align:2px}
+/* mobile frame */
+.mob{width:390px;margin:0 auto;background:var(--night);border:1px solid #2c3a78;border-radius:24px;overflow:hidden}
+.mob .inner{padding:56px 22px}
+.mob .split,.mob .band{grid-template-columns:1fr;gap:28px}
+.mob h2{font-size:2.5rem}
+.mob .ghost{padding:22px}
+.mob .phone{width:250px}
+</style></head><body>
+
+<div class="opt"><h1 style="font-size:2.4rem">Homepage options: OV-fiets now and nOVa</h1>
+<p>Five ways to add both features to ovnow.app. Each sits between real neighbouring sections. English copy, Dutch in grey below each headline. Recommended: C.</p></div>
+
+<!-- A -->
+<div class="opt"><h4>A. Two feature sections with phone mock</h4><p>One section per feature in the existing split style ("Where is it?", "How long?"). Fits the page rhythm best, but makes the page longer.</p></div>
+<div class="frame">
+ <div class="ghost">Previous section: "How long?" with the map phone</div>
+ <section class="inner split">
+  <div class="txt"><h2>Is there a bike?<span class="nl">Staat er een fiets?</span></h2>
+  <p>OV-fiets now shows how many OV-fiets are free at the station. Live, with the opening hours.</p>
+  <p class="small">On station boards, the map, your favorites, your route and a widget.</p></div>
+  <div class="phone shot"><img src="../img/mail-bike.png" alt="OV-fiets now in OVnow"></div>
+ </section>
+ <section class="inner split">
+  <div class="phone shot"><img src="../img/mail-nova-plan-en.png" alt="nOVa plans a trip"></div>
+  <div class="txt"><h2>Just say where.<span class="nl">Zeg gewoon waarheen.</span></h2>
+  <p>nOVa is an assistant inside OVnow. Type a trip in plain words and she plans it. She counts down to your departure and checks reported problems.</p>
+  <p class="small">She is off until you turn her on.</p></div>
+ </section>
+ <div class="ghost">Next section: "Live on the map" with the tram video</div>
+</div>
+
+<!-- B -->
+<div class="opt"><h4>B. Two-up "New in OVnow" band</h4><p>Both features in one compact band of two tiles. Short and scannable; less room for the visuals.</p></div>
+<div class="frame">
+ <div class="ghost">Previous section: the live board</div>
+ <section class="inner">
+  <h2 style="font-size:2.6rem">New in OVnow<span class="nl">Nieuw in OVnow</span></h2>
+  <div class="band" style="margin-top:32px">
+   <div class="tile"><span class="kick">OV-fiets now</span>
+    <h3>See the bikes before you get there.<span class="nl">Zie de fietsen voordat je er bent.</span></h3>
+    <div class="card row"><div class="big">17</div><div><b>available</b><div class="g">Ede-Wageningen · open until 01:00</div></div></div>
+    <p class="g">On boards, the map, favorites, routes and a widget.</p></div>
+   <div class="tile"><span class="kick">nOVa</span>
+    <h3>An assistant, if you want one.<span class="nl">Een assistent, als je dat wilt.</span></h3>
+    <div class="chat"><div class="me">To Utrecht at 9</div><div class="her">Intercity at 08:46 from platform 3. I'll count down for you.</div></div>
+    <p class="g">Plans trips from plain words. Off until you turn her on.</p></div>
+  </div>
+ </section>
+ <div class="ghost">Next section: "Where is it?"</div>
+</div>
+
+<!-- C -->
+<div class="opt"><h4>C. Live station card + quiet nOVa section (recommended)</h4><p>OV-fiets now as a live-looking card in the site's own board style, then nOVa with her face and a small static chat. Shows the feature rather than tells it, and keeps nOVa calm.</p></div>
+<div class="frame" id="c">
+ <div class="ghost">Previous section: "How long?" with the map phone</div>
+ <section class="inner split">
+  <div class="txt"><h2>Is there a bike?<span class="nl">Staat er een fiets?</span></h2>
+  <p>OV-fiets now shows how many OV-fiets are free, live. Check before you leave.</p>
+  <p class="small">On station boards, the map, favorites, routes and a widget.</p></div>
+  <div class="card" style="max-width:420px;padding:22px">
+   <div class="row"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ffc917" stroke-width="1.8"><circle cx="6" cy="16" r="4"/><circle cx="18" cy="16" r="4"/><path d="M6 16l4-8h5l3 8M10 8l3 8M14 5h3"/></svg><b>Ede-Wageningen</b><span class="g" style="margin-left:auto"><span class="dot"></span>live</span></div>
+   <div class="row" style="align-items:flex-end"><div class="big">17</div><div><b>available</b><div class="g">open until 01:00</div></div></div>
+   <div class="row g"><span class="tg">IC</span> Utrecht Centraal · 08:46 · platform 3</div>
+  </div>
+ </section>
+ <section class="inner split">
+  <div class="phone">
+   <div class="row" style="margin-bottom:14px"><svg viewBox="0 0 48 48" width="40" height="40"><rect x="2" y="2" width="44" height="44" rx="13" fill="#141a2e" stroke="#4a65b0" stroke-width="2"/><circle cx="17" cy="22" r="5.5" fill="none" stroke="#1e6bff" stroke-width="3"/><circle cx="31" cy="22" r="4.5" fill="#ffc917"/></svg><b>nOVa</b></div>
+   <div class="chat"><div class="me">Ede to Utrecht, around 9</div><div class="her">Intercity at 08:46 from platform 3. Leave in 12 minutes.</div><div class="me">Any problems?</div><div class="her">Nothing reported on this route.</div></div>
+  </div>
+  <div class="txt"><h2>Meet nOVa.<span class="nl">Dit is nOVa.</span></h2>
+  <p>An assistant inside OVnow. Tell her a trip in plain words. She plans it, counts down to departure and checks reported problems.</p>
+  <p class="small">She also does small talk and fun facts. She never pops up by herself. Use her when you want, or switch her off in Settings.</p></div>
+ </section>
+ <div class="ghost">Next section: "Live on the map"</div>
+</div>
+
+<!-- D -->
+<div class="opt"><h4>D. Hero update strip</h4><p>A thin strip above the hero that links to a short section. Lowest effort and visible at once; easy to overlook.</p></div>
+<div class="frame">
+ <div class="strip"><span class="tg">NEW</span> OV-fiets now and nOVa are in the beta. <span class="g">Nieuw in de bèta: OV-fiets now en nOVa.</span><a href="#c">See what's new</a></div>
+ <section class="hero"><h1>What leaves now.<span class="nl" style="font-size:1rem">Wat vertrekt er nu.</span></h1><p class="g" style="margin-top:20px;font-size:1.2rem">Hero as today: lede, beta button, phone video.</p></section>
+</div>
+
+<!-- E -->
+<div class="opt"><h4>E. Clickable mini chat demo for nOVa</h4><p>Tap a suggestion and nOVa answers, with OV-fiets now inside one reply. Playful and shows both at once; needs a bit of JS and the answers must stay true.</p></div>
+<div class="frame">
+ <div class="ghost">Previous section: "Where is it?"</div>
+ <section class="inner split">
+  <div class="txt"><h2>Ask in plain words.<span class="nl">Vraag het in gewone woorden.</span></h2>
+  <p>Try a question. This is a demo with example answers.</p>
+  <ul class="list"><li>Plans a trip from plain words</li><li>Counts down to departure</li><li>Checks reported problems</li><li>Small talk and fun facts</li></ul>
+  <p class="small" style="margin-top:16px">nOVa is opt-in. She stays quiet until you turn her on.</p></div>
+  <div class="phone">
+   <div class="chat" id="demo"><div class="her">Hi. Where do you want to go?</div></div>
+   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px">
+    <button class="chip" data-q="Utrecht at 9" data-a="Intercity at 08:46 from platform 3. I'll count down for you.">Utrecht at 9</button>
+    <button class="chip" data-q="Bikes at Ede?" data-a="17 OV-fiets available at Ede-Wageningen. Open until 01:00.">Bikes at Ede?</button>
+    <button class="chip" data-q="Any problems?" data-a="Nothing reported on your route.">Any problems?</button>
+   </div>
+  </div>
+ </section>
+ <div class="ghost">Next section: questions</div>
+</div>
+
+<!-- C mobile -->
+<div class="opt"><h4>C at mobile width (390px)</h4><p>Card stacks under the text; nOVa phone comes before her text so the face leads.</p></div>
+<div class="mob">
+ <div class="ghost">"How long?"</div>
+ <section class="inner split">
+  <div class="txt"><h2>Is there a bike?<span class="nl">Staat er een fiets?</span></h2><p>OV-fiets now shows how many OV-fiets are free, live. Check before you leave.</p></div>
+  <div class="card" style="padding:20px">
+   <div class="row"><b>Ede-Wageningen</b><span class="g" style="margin-left:auto"><span class="dot"></span>live</span></div>
+   <div class="row" style="align-items:flex-end"><div class="big">17</div><div><b>available</b><div class="g">open until 01:00</div></div></div>
+  </div>
+ </section>
+ <section class="inner split" style="padding-top:0">
+  <div class="txt"><h2>Meet nOVa.<span class="nl">Dit is nOVa.</span></h2><p>An assistant inside OVnow. Tell her a trip in plain words. She plans it and counts down to departure.</p><p class="small">Only there when you ask. One switch in Settings turns her off.</p></div>
+  <div class="phone"><div class="chat"><div class="me">Ede to Utrecht, around 9</div><div class="her">Intercity at 08:46 from platform 3.</div></div></div>
+ </section>
+</div>
+<div style="height:80px"></div>
+
+<script>
+document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const d=document.getElementById('demo');
+for(const[c,t]of[['me',b.dataset.q],['her',b.dataset.a]]){const e=document.createElement('div');e.className=c;e.textContent=t;d.append(e)}});
+</script>
+</body></html>
