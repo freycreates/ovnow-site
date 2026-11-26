@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Dynamic Island countdown: 8 options</title>
+<style>
+:root{--bg:#1d0f6b;--red:#ff4d4d;--amber:#ffb020;--green:#34d27a}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.45 -apple-system,system-ui,sans-serif;background:#0d0d12;color:#e9e9f0;padding:32px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:#c4c4d6;margin:0 0 28px;max-width:760px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:20px}
+.card{background:#17171f;border-radius:18px;padding:20px}
+.card h2{font-size:16px;margin:0 0 12px}
+.card h2 span{color:#c4c4d6;font-weight:500}
+.screen{background:linear-gradient(#24107a,#1a1360);border-radius:14px;padding:18px 16px;display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.clock{color:#fff;font-weight:600;font-size:17px;width:54px}
+.island{background:#000;border-radius:22px;height:37px;flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 10px}
+.mini{background:#000;border-radius:50%;width:37px;height:37px;display:flex;align-items:center;justify-content:center;flex:none}
+.label{font-size:12px;color:#c4c4d6;margin:10px 0 4px}
+ul{margin:8px 0 0;padding-left:18px;color:#c9c9d6}
+li{margin:3px 0}
+.num{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+.pill{border-radius:10px;padding:2px 8px;font-weight:700;font-size:15px;color:#000}
+.badge{background:#ffc917;color:#003082;border-radius:6px;font-weight:800;font-size:12px;padding:3px 6px}
+svg{display:block}
+.rec{border:1px solid #34d27a}
+.card h2 .tag{color:#000;display:inline-block;font-size:11px;background:#34d27a;color:#000;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.why{background:#17171f;border-radius:18px;padding:20px;margin-bottom:20px;max-width:900px}
+</style></head><body>
+<h1>Dynamic Island countdown</h1>
+<p class="sub">The current one: a white number with red "min" on top of a dark red ring, at about 14 pt inside a 37 pt circle.</p>
+
+<div class="why">
+<b>Why it is hard to read now</b>
+<ul>
+<li>Red "min" on a dark red ring on black has very little contrast, and at about 7 pt it is below what the eye reads at a glance.</li>
+<li>The number sits on top of the ring, so the stroke cuts through the digits ("15" touches the ring on both sides).</li>
+<li>Three things compete in one 37 pt spot: number, unit and progress. In a glance of half a second you only read one.</li>
+<li>The red ring means "urgent" at 15 minutes too, so the colour says nothing.</li>
+<li>In the wide island (screenshot 2) the right side is empty, while it could carry the text.</li>
+</ul>
+</div>
+
+<div class="grid">
+
+<div class="card rec"><h2>1. Split: icon left, minutes right <span>(compact)</span><span class="tag">recommended</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><rect x="5" y="3" width="14" height="14" rx="4"/><rect x="7.5" y="6" width="9" height="4" rx="1" fill="#000"/><circle cx="9" cy="13.5" r="1.3" fill="#000"/><circle cx="15" cy="13.5" r="1.3" fill="#000"/><path d="M8 18l-2 3M16 18l2 3" stroke="#fff" stroke-width="2"/></svg>
+<span class="num" style="font-size:17px">8 min</span></div></div>
+<ul><li>Uses the island the way Apple does (Timer, Maps): what it is on the left, the value on the right.</li>
+<li>"8 min" in white at 17 pt bold is readable at arm's length.</li><li>No ring: the number alone carries the meaning.</li></ul></div>
+
+<div class="card"><h2>2. Split with line badge <span>(compact)</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island">
+<span class="badge">IC</span><span class="num" style="font-size:17px">8 min</span></div></div>
+<ul><li>Same as 1, but the left side says which ride: IC, Sprinter, bus 22, tram 5.</li><li>Helps when you follow a journey with several legs.</li><li>Needs a short label for every mode; long line names don't fit.</li></ul></div>
+
+<div class="card"><h2>3. Colour only when it matters <span>(compact)</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island">
+<svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M12 7v5l3 2" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+<span style="display:flex;gap:14px"><span class="num" style="font-size:17px">12 min</span><span class="num" style="font-size:17px;color:var(--amber)">4 min</span><span class="num" style="font-size:17px;color:var(--red)">1 min</span></span></div></div>
+<p class="label">Shown side by side: 12, 4 and 1 minute left</p>
+<ul><li>White when there is time, amber under 5 minutes, red under 2.</li><li>Red then means "go now", instead of always being there.</li><li>Bright amber and red on black stay well above contrast limits.</li></ul></div>
+
+<div class="card"><h2>4. Departure time instead of countdown <span>(compact)</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island">
+<span style="color:#c4c4d6;font-weight:600;font-size:14px">leaves</span><span class="num" style="font-size:17px">15:33</span></div></div>
+<ul><li>A fixed time never changes, so you don't have to re-read it.</li><li>Matches the departure boards at the station.</li><li>Downside: you do the sum yourself; weaker when you are in a hurry.</li></ul></div>
+
+<div class="card"><h2>5. Number only, big <span>(minimal)</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island" style="flex:0 0 150px"></div><div class="mini"><span class="num" style="font-size:20px">8</span></div></div>
+<ul><li>For the small circle when another app shares the island (your music in screenshot 2).</li><li>Drop "min" and the ring; 20 pt bold fills the circle.</li><li>The unit is known from the expanded view and the Lock Screen.</li></ul></div>
+
+<div class="card rec"><h2>6. Thin ring outside, number inside <span>(minimal)</span><span class="tag">recommended</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island" style="flex:0 0 150px"></div><div class="mini">
+<svg width="37" height="37" viewBox="0 0 37 37"><circle cx="18.5" cy="18.5" r="16" fill="none" stroke="#333" stroke-width="2.5"/><circle cx="18.5" cy="18.5" r="16" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-dasharray="100.5" stroke-dashoffset="65" transform="rotate(-90 18.5 18.5)" stroke-linecap="round"/><text x="18.5" y="24.5" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="-apple-system,system-ui">8</text></svg></div></div>
+<ul><li>Keeps the progress ring you have, but at the very edge and thin, so it never touches the digits.</li><li>Number larger (17 pt), no "min".</li><li>Ring colour follows option 3: white, amber, red.</li></ul></div>
+
+<div class="card"><h2>7. Filled disc <span>(minimal)</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island" style="flex:0 0 150px"></div><div class="mini" style="background:var(--amber)"><span class="num" style="font-size:19px;color:#000">8</span></div></div>
+<ul><li>Black number on a solid amber disc: the highest contrast possible.</li><li>Easy to spot in the corner of your eye.</li><li>Loud; a coloured island all the time may feel like a warning.</li></ul></div>
+
+<div class="card"><h2>8. "8m" pill <span>(compact)</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island">
+<span style="color:#fff;font-weight:600;font-size:14px">Utrecht</span><span class="pill" style="background:var(--green)">8m</span></div></div>
+<ul><li>Destination left, time in a coloured pill right.</li><li>Pill colour shows urgency (green, amber, red).</li><li>Short "m" is less clear in Dutch ("min" reads better); long station names need cutting.</li></ul></div>
+
+</div>
+
+<h1 style="margin-top:40px">The last two minutes: seconds</h1>
+<p class="sub">"1:29" is four characters. That fits on the wide right side of the compact island, but not in the 37 pt circle. Ideas per state:</p>
+<div class="grid">
+
+<div class="card rec"><h2>A. Compact: "1:29" with fixed-width digits<span class="tag">recommended</span></h2>
+<div class="screen"><div class="clock">15:31</div><div class="island">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><rect x="5" y="3" width="14" height="14" rx="4"/><rect x="7.5" y="6" width="9" height="4" rx="1" fill="#000"/><circle cx="9" cy="13.5" r="1.3" fill="#000"/><circle cx="15" cy="13.5" r="1.3" fill="#000"/><path d="M8 18l-2 3M16 18l2 3" stroke="#fff" stroke-width="2"/></svg>
+<span class="num" style="font-size:17px;color:var(--red)">1:29</span></div></div>
+<ul><li>Same spot and size as "8 min": only the text changes, and "min" falls away.</li><li>Fixed-width digits, so the text doesn't jump every second (the system timer text does this for you).</li><li>Same as Apple's Timer in the island; people already know it.</li></ul></div>
+
+<div class="card"><h2>B. Compact: minutes until the last minute, then "45 s"</h2>
+<div class="screen"><div class="clock">15:31</div><div class="island">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><rect x="5" y="3" width="14" height="14" rx="4"/><rect x="7.5" y="6" width="9" height="4" rx="1" fill="#000"/><circle cx="9" cy="13.5" r="1.3" fill="#000"/><circle cx="15" cy="13.5" r="1.3" fill="#000"/><path d="M8 18l-2 3M16 18l2 3" stroke="#fff" stroke-width="2"/></svg>
+<span style="display:flex;gap:14px"><span class="num" style="font-size:17px;color:var(--red)">2 min</span><span class="num" style="font-size:17px;color:var(--red)">45 s</span></span></div></div>
+<p class="label">Side by side: 1:29 shows as "2 min" (rounded up), under 60 s it shows "45 s"</p>
+<ul><li>Never a colon: one number and one unit, always.</li><li>Rounding up is safer: "1 min" at 1:29 makes people relax too early.</li><li>Downside: the jump from "2 min" straight to "59 s" feels sudden.</li></ul></div>
+
+<div class="card rec"><h2>C. Minimal: number stays minutes, ring ticks seconds<span class="tag">recommended</span></h2>
+<div class="screen"><div class="clock">15:31</div><div class="island" style="flex:0 0 150px"></div>
+<div class="mini"><svg width="37" height="37" viewBox="0 0 37 37"><circle cx="18.5" cy="18.5" r="16" fill="none" stroke="#333" stroke-width="2.5"/><circle cx="18.5" cy="18.5" r="16" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-dasharray="100.5" stroke-dashoffset="52" transform="rotate(-90 18.5 18.5)" stroke-linecap="round"/><text x="18.5" y="24.5" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="-apple-system,system-ui">2</text></svg></div>
+<div class="mini"><svg width="37" height="37" viewBox="0 0 37 37"><circle cx="18.5" cy="18.5" r="16" fill="none" stroke="#333" stroke-width="2.5"/><circle cx="18.5" cy="18.5" r="16" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-dasharray="100.5" stroke-dashoffset="25" transform="rotate(-90 18.5 18.5)" stroke-linecap="round"/><text x="18.5" y="24.5" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="-apple-system,system-ui">45</text></svg></div></div>
+<p class="label">Left: 1:29 ("2", ring for the minute). Right: 45 s ("45", ring for the last minute)</p>
+<ul><li>The circle only ever holds 1 or 2 digits, so it never gets crowded.</li><li>The ring shows the seconds moving, so you still see it counting down.</li><li>Under a minute the number becomes seconds; the red colour tells you that's the case.</li></ul></div>
+
+<div class="card"><h2>D. Last 30 seconds: "Now"</h2>
+<div class="screen"><div class="clock">15:32</div><div class="island">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><rect x="5" y="3" width="14" height="14" rx="4"/><rect x="7.5" y="6" width="9" height="4" rx="1" fill="#000"/><circle cx="9" cy="13.5" r="1.3" fill="#000"/><circle cx="15" cy="13.5" r="1.3" fill="#000"/><path d="M8 18l-2 3M16 18l2 3" stroke="#fff" stroke-width="2"/></svg>
+<span class="num" style="font-size:17px;color:var(--red)">Nu</span></div><div class="mini" style="background:var(--red)"><span class="num" style="font-size:14px;color:#000">Nu</span></div></div>
+<ul><li>Counting seconds at the door helps nobody: the doors close or they don't.</li><li>"Nu" (Now) fits both shapes and needs no reading.</li><li>Could be added on top of A or C.</li></ul></div>
+
+</div>
+
+<h1 style="margin-top:40px">With Music open</h1>
+<p class="sub">Two activities: iOS puts one inside the island and the other in a separate circle, and picks which. Options 6 and C in both spots, with the current one for comparison.</p>
+<div class="grid">
+<div class="card"><h2>Now <span>(for comparison)</span></h2>
+<div class="screen"><div class="clock">15:25</div><div class="island" style="justify-content:flex-start">
+<svg width="30" height="30" viewBox="0 0 37 37"><circle cx="18.5" cy="18.5" r="14" fill="none" stroke="#4a1010" stroke-width="3"/><circle cx="18.5" cy="18.5" r="14" fill="none" stroke="#c22" stroke-width="3" stroke-dasharray="88" stroke-dashoffset="70" transform="rotate(-90 18.5 18.5)"/><text x="18.5" y="20" text-anchor="middle" fill="#fff" font-size="13" font-weight="800" font-family="-apple-system,system-ui">8</text><text x="18.5" y="29" text-anchor="middle" fill="#c22" font-size="7" font-weight="700" font-family="-apple-system,system-ui">min</text></svg></div>
+<div class="mini"><div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#c9b9a0,#6a7d8c)"></div></div></div></div>
+</div>
+<div class="grid" style="margin-top:20px">
+<script>
+const ring=(n,c,f)=>`<svg width="37" height="37" viewBox="0 0 37 37"><circle cx="18.5" cy="18.5" r="16" fill="none" stroke="#333" stroke-width="2.5"/><circle cx="18.5" cy="18.5" r="16" fill="none" stroke="${c}" stroke-width="2.5" stroke-dasharray="100.5" stroke-dashoffset="${100.5*(1-f)}" transform="rotate(-90 18.5 18.5)" stroke-linecap="round"/><text x="18.5" y="24.5" text-anchor="middle" fill="#fff" font-size="17" font-weight="700" font-family="-apple-system,system-ui">${n}</text></svg>`;
+const art='<div style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#c9b9a0,#6a7d8c)"></div>';
+const states=[["12","#fff",.8,"12 min"],["4","var(--amber)",.35,"4 min"],["2","var(--red)",.5,"1:29"],["45","var(--red)",.75,"45 s"]];
+for(const [where,label] of [["in","OVnow inside the island"],["out","OVnow in the separate circle"]]){
+ let rows=states.map(([n,c,f,t])=>{const ov=ring(n,c,f);
+  const island=where=="in"?`<div class="island" style="justify-content:flex-start;padding:0 0 0 0;flex:0 0 150px">${ov}</div><div class="mini">${art}</div>`
+   :`<div class="island" style="justify-content:flex-start;padding:0 0 0 6px;flex:0 0 150px">${art}</div><div class="mini">${ov}</div>`;
+  return `<p class="label">${t}</p><div class="screen" style="padding:10px 16px"><div class="clock">15:25</div>${island}</div>`}).join("");
+ document.write(`<div class="card rec"><h2>${label}</h2>${rows}</div>`);
+}
+</script>
+</div>
+<div class="why" style="margin-top:20px">
+<ul><li>The circle is the same size in both spots, so one design covers both.</li><li>Never more than 2 digits, no "min", and the ring sits at the edge, so it stays readable next to album art.</li><li>The colour (white, amber, red) is what you notice first when you glance at it.</li></ul>
+</div>
+
+<div class="why" style="margin-top:20px">
+<b>Suggestion</b>
+<ul><li>Compact (island alone): option 1, with the colour rule from 3. In the last 2 minutes: A ("1:29").</li>
+<li>Minimal (island shared): option 6. In the last 2 minutes: C (seconds on the ring, number at most 2 digits).</li>
+<li>Both drop the red "min" on the ring, which is the main problem.</li></ul>
+</div>
+</body></html>

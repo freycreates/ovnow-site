@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>OVnow – station facilities</title>
+<style>
+  :root{--bg:#000;--card:#1c1c1e;--card2:#2c2c2e;--line:#38383a;--txt:#f2f2f7;--dim:#a1a1a8;--blue:#1e6bff;--yellow:#ffc917;--green:#30d158;--red:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:#0b0b0d;color:var(--txt);font:15px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;padding:28px}
+  h1{font-size:24px;margin:0 0 6px}
+  .lead{color:var(--dim);max-width:860px;line-height:1.5;margin:0 0 24px}
+  .row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+  .opt{width:340px}
+  .opt h2{font-size:16px;margin:0 0 4px}
+  .opt p{color:var(--dim);font-size:13px;line-height:1.45;margin:0 0 12px;min-height:56px}
+  .phone{background:var(--bg);border:1px solid #2a2a2e;border-radius:38px;padding:16px 14px 20px;height:690px;overflow:hidden;position:relative}
+  .nav{display:flex;justify-content:space-between;color:var(--blue);font-size:15px;margin:4px 4px 12px}
+  .title{font-size:26px;font-weight:800;margin:0 4px}
+  .sub{color:var(--dim);font-size:13px;margin:2px 4px 12px}
+  .btns{display:flex;gap:8px;margin:0 0 12px}
+  .btn{flex:1;background:var(--card);border-radius:12px;padding:9px 6px;text-align:center;font-size:12px;color:var(--txt)}
+  .btn .i{display:block;font-size:16px;margin-bottom:2px;color:var(--blue);font-weight:700}
+  .btn.on{outline:2px solid var(--blue)}
+  .board{background:var(--card);border-radius:14px;padding:4px 12px}
+  .dep{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .dep:last-child{border:0}
+  .dep b{width:44px}.dep span{flex:1}.dep i{font-style:normal;color:var(--dim);font-size:12px}
+  .pill{background:var(--card2);border-radius:6px;padding:2px 7px;font-size:12px}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:#1c1c1e;border-radius:22px 22px 38px 38px;padding:10px 16px 18px;box-shadow:0 -10px 30px #0009}
+  .grab{width:38px;height:5px;border-radius:3px;background:#555;margin:0 auto 10px}
+  .sheet h3{margin:0 0 2px;font-size:19px}
+  .sheet .src{color:var(--dim);font-size:12px;margin-bottom:10px}
+  .fac{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+  .fac:last-child{border:0}
+  .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:13px;flex-shrink:0;color:#000}
+  .fac div b{display:block;font-size:14px}.fac div small{color:var(--dim);font-size:12px;line-height:1.35}
+  .open{color:var(--green)}.closed{color:var(--red)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 4px 12px}
+  .chip{background:var(--card);border-radius:999px;padding:5px 10px;font-size:12px;display:flex;gap:6px;align-items:center}
+  .chip .d{width:16px;height:16px;border-radius:5px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#000}
+  .chip.more{color:var(--blue)}
+  .sec{background:var(--card);border-radius:14px;padding:10px 12px;margin-bottom:12px}
+  .sec .h{display:flex;justify-content:space-between;font-weight:600;font-size:14px}
+  .sec .h i{font-style:normal;color:var(--dim)}
+  .mini{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:8px;font-size:13px}
+  .mini div{display:flex;gap:7px;align-items:center}
+  .note{max-width:860px;color:var(--dim);font-size:13px;line-height:1.5;margin-top:24px}
+  .bubble{background:#13224a;border-radius:16px;border-bottom-left-radius:5px;padding:9px 12px;font-size:14px;line-height:1.4;max-width:84%}
+  .me{background:#1f56d6;border-radius:16px;border-bottom-right-radius:5px;padding:9px 12px;font-size:14px;margin:8px 0 8px auto;width:fit-content}
+</style>
+</head>
+<body>
+<h1>Station facilities</h1>
+<p class="lead">Tap a station and see what's there: toilet, lockers, a shop, lifts, a waiting room. No map, just a list. Example data for Utrecht Centraal, not checked against NS.</p>
+
+<div class="row">
+
+  <div class="opt">
+    <h2>A · Facilities button</h2>
+    <p>A fourth button next to the station's existing ones. Tapping it opens a sheet with the list. The board stays as it is.</p>
+    <div class="phone">
+      <div class="nav"><span>‹ Zoeken</span><span>☆</span></div>
+      <div class="title">Utrecht Centraal</div>
+      <div class="sub">Trein · bus · tram</div>
+      <div class="btns">
+        <div class="btn"><span class="i">⇄</span>Plan</div>
+        <div class="btn"><span class="i">◎</span>Kaart</div>
+        <div class="btn"><span class="i">17</span>OV-fiets</div>
+        <div class="btn on"><span class="i">WC</span>Voorzieningen</div>
+      </div>
+      <div class="board">
+        <div class="dep"><b>14:02</b><span>Amsterdam C.</span><i class="pill">5b</i></div>
+        <div class="dep"><b>14:04</b><span>Rotterdam C.</span><i class="pill">18</i></div>
+      </div>
+      <div class="sheet">
+        <div class="grab"></div>
+        <h3>Voorzieningen</h3>
+        <div class="src">Bron: NS · voorbeelddata</div>
+        <div class="fac"><span class="ic" style="background:var(--yellow)">WC</span><div><b>Toilet</b><small>Stationshal, bij spoor 11 · €0,70 · <span class="open">open tot 01:00</span></small></div></div>
+        <div class="fac"><span class="ic" style="background:#8ab4ff">▣</span><div><b>Kluisjes</b><small>Stationshal · 24 uur</small></div></div>
+        <div class="fac"><span class="ic" style="background:#ffb07a">☕</span><div><b>Kiosk en winkels</b><small>Stationshal en Hoog Catharijne · <span class="open">open</span></small></div></div>
+        <div class="fac"><span class="ic" style="background:#9be3a6">↕</span><div><b>Liften</b><small>Naar alle sporen · <span class="closed">lift spoor 7 buiten gebruik</span></small></div></div>
+        <div class="fac"><span class="ic" style="background:#d7c2ff">▭</span><div><b>Wachtruimte</b><small>Spoor 5 en 18</small></div></div>
+        <div class="fac"><span class="ic" style="background:#fff">i</span><div><b>Servicebalie</b><small>Stationshal · <span class="open">open tot 21:00</span></small></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="opt">
+    <h2>B · Icon chips under the name</h2>
+    <p>Small chips right under the station name: you see what's there without tapping. "More" opens the same sheet as A.</p>
+    <div class="phone">
+      <div class="nav"><span>‹ Zoeken</span><span>☆</span></div>
+      <div class="title">Utrecht Centraal</div>
+      <div class="sub">Trein · bus · tram</div>
+      <div class="chips">
+        <span class="chip"><span class="d" style="background:var(--yellow)">WC</span>Toilet</span>
+        <span class="chip"><span class="d" style="background:#8ab4ff">▣</span>Kluisjes</span>
+        <span class="chip"><span class="d" style="background:#ffb07a">☕</span>Kiosk</span>
+        <span class="chip"><span class="d" style="background:#9be3a6">↕</span>Liften</span>
+        <span class="chip more">+2 meer</span>
+      </div>
+      <div class="btns">
+        <div class="btn"><span class="i">⇄</span>Plan</div>
+        <div class="btn"><span class="i">◎</span>Kaart</div>
+        <div class="btn"><span class="i">17</span>OV-fiets</div>
+      </div>
+      <div class="board">
+        <div class="dep"><b>14:02</b><span>Amsterdam C.</span><i class="pill">5b</i></div>
+        <div class="dep"><b>14:04</b><span>Rotterdam C.</span><i class="pill">18</i></div>
+        <div class="dep"><b>14:06</b><span>Den Haag C.</span><i class="pill">19</i></div>
+        <div class="dep"><b>14:08</b><span>Arnhem C.</span><i class="pill">7</i></div>
+        <div class="dep"><b>14:11</b><span>Zwolle</span><i class="pill">12</i></div>
+        <div class="dep"><b>14:13</b><span>Breda</span><i class="pill">20</i></div>
+        <div class="dep"><b>14:15</b><span>Leiden C.</span><i class="pill">14</i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="opt">
+    <h2>C · Folding section</h2>
+    <p>A small section above the board that starts folded ("6 voorzieningen ›"). Unfold it to see the details in place.</p>
+    <div class="phone">
+      <div class="nav"><span>‹ Zoeken</span><span>☆</span></div>
+      <div class="title">Utrecht Centraal</div>
+      <div class="sub">Trein · bus · tram</div>
+      <div class="btns">
+        <div class="btn"><span class="i">⇄</span>Plan</div>
+        <div class="btn"><span class="i">◎</span>Kaart</div>
+        <div class="btn"><span class="i">17</span>OV-fiets</div>
+      </div>
+      <div class="sec">
+        <div class="h"><span>Voorzieningen</span><i>⌄</i></div>
+        <div class="mini">
+          <div><span class="d chip" style="padding:0;background:none"><span class="d" style="background:var(--yellow)">WC</span></span>Toilet · €0,70</div>
+          <div><span class="d" style="background:#8ab4ff;width:16px;height:16px;border-radius:5px;display:grid;place-items:center;font-size:11px;color:#000;font-weight:800">▣</span>Kluisjes</div>
+          <div><span class="d" style="background:#ffb07a;width:16px;height:16px;border-radius:5px;display:grid;place-items:center;font-size:11px;color:#000;font-weight:800">☕</span>Kiosk · open</div>
+          <div><span class="d" style="background:#9be3a6;width:16px;height:16px;border-radius:5px;display:grid;place-items:center;font-size:11px;color:#000;font-weight:800">↕</span><span class="closed">1 lift stuk</span></div>
+          <div><span class="d" style="background:#d7c2ff;width:16px;height:16px;border-radius:5px;display:grid;place-items:center;font-size:11px;color:#000;font-weight:800">▭</span>Wachtruimte</div>
+          <div><span class="d" style="background:#fff;width:16px;height:16px;border-radius:5px;display:grid;place-items:center;font-size:11px;color:#000;font-weight:800">i</span>Servicebalie</div>
+        </div>
+      </div>
+      <div class="board">
+        <div class="dep"><b>14:02</b><span>Amsterdam C.</span><i class="pill">5b</i></div>
+        <div class="dep"><b>14:04</b><span>Rotterdam C.</span><i class="pill">18</i></div>
+        <div class="dep"><b>14:06</b><span>Den Haag C.</span><i class="pill">19</i></div>
+        <div class="dep"><b>14:08</b><span>Arnhem C.</span><i class="pill">7</i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="opt">
+    <h2>D · And in nOVa</h2>
+    <p>The same data answers nOVa questions ("Toilet op Zwolle?"), with a button to the station's facilities.</p>
+    <div class="phone" style="background:#0b1630">
+      <div class="nav" style="color:#9dbbff"><span>‹</span><span>nOVa</span><span>≡</span></div>
+      <div class="me">Is er een toilet op Zwolle?</div>
+      <div class="bubble">Ja, in de stationshal. Het kost €0,70 en is open tot 22:00.</div>
+      <div style="display:flex;gap:6px;margin:8px 0">
+        <span class="chip" style="background:none;border:1px solid #3a4d86;color:#cfe0ff">Alle voorzieningen</span>
+        <span class="chip" style="background:none;border:1px solid #3a4d86;color:#cfe0ff">Plan naar Zwolle</span>
+      </div>
+      <div class="me">kluisjes op utrecht?</div>
+      <div class="bubble">Ja, in de stationshal, 24 uur per dag.</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="note">Lifts that are out of order would be the most useful live part. Opening hours and prices change rarely, so the server would fetch them once a day. Which fields NS actually provides (prices, opening hours, lift status) still needs one test call with your key.</p>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Your stop bar</title>
+<style>
+:root{--acc:#2f8cff;--fav:#ffcc00;--sub:#b9bdd0}
+*{box-sizing:border-box}
+body{margin:0;background:#0d0d12;color:#e9e9f0;font:15px/1.45 -apple-system,system-ui,sans-serif;padding:32px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:var(--sub);margin:0 0 28px;max-width:760px}
+.row{display:flex;flex-wrap:wrap;gap:28px}
+.card{width:300px}
+.card h2{font-size:15px;margin:0 0 4px}.card p{color:var(--sub);margin:0 0 12px;font-size:13px}
+.phone{width:300px;height:560px;border-radius:38px;overflow:hidden;position:relative;background:
+ linear-gradient(115deg,transparent 47%,#2a3350 47% 49%,transparent 49%),linear-gradient(25deg,transparent 60%,#2a3350 60% 61.5%,transparent 61.5%),
+ radial-gradient(circle at 70% 70%,#1b2a6b 0 30%,transparent 30%),#1d2236;border:6px solid #000}
+.me{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--acc);border:3px solid #fff;box-shadow:0 0 0 8px #2f8cff33}
+.stop{position:absolute;width:18px;height:18px;border-radius:5px;background:var(--fav);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000}
+.stop.f{background:#2ec4c4}
+.stop.sel{outline:3px solid #fff}
+.sheet{position:absolute;left:8px;right:8px;bottom:8px;background:#232838ee;border-radius:26px;padding:14px 14px 8px}
+.bar{display:flex;align-items:center;gap:9px;padding:4px 6px 12px}
+.bar b{font-size:15px}.bar .meta{color:var(--sub);font-size:13px}
+.bar .chev{margin-left:auto;color:var(--sub)}
+.tabs{display:flex;justify-content:space-around;border-top:1px solid #ffffff14;padding-top:8px;font-size:11px;color:var(--sub)}
+.tabs span:first-child{color:var(--acc)}
+.panel h3{margin:2px 0 0;font-size:17px;display:flex;align-items:center;gap:6px}
+.panel .x{margin-left:auto;width:26px;height:26px;border-radius:50%;background:#ffffff1a;display:flex;align-items:center;justify-content:center;font-size:13px}
+.panel .city{color:var(--sub);font-size:12px;margin-bottom:10px}
+.dep{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid #ffffff10;font-size:14px}
+.dep .t{font-weight:700;width:44px}.ln{background:#2ec4c4;color:#000;font-weight:800;font-size:12px;border-radius:5px;padding:1px 6px}
+.ln.b{background:#e33;color:#fff}
+.why{max-width:900px;background:#17171f;border-radius:18px;padding:20px;margin-top:32px}
+ul{margin:8px 0 0;padding-left:18px;color:#d4d6e2}li{margin:3px 0}
+.tag{font-size:11px;background:#34d27a;color:#000;border-radius:6px;padding:1px 6px;margin-left:6px}
+</style></head><body>
+<h1>Your stop bar</h1>
+<p class="sub">One rule for opening the app and for the bar after the close button: a favorite within 400 m wins, otherwise the nearest stop. The icon says which one it is.</p>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="star" viewBox="0 0 24 24"><path fill="#ffcc00" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#2f8cff"/><circle cx="12" cy="10" r="3.2" fill="#fff"/><path d="M12 13.5v5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="2" fill="#b9bdd0"/><path d="M11 8l-3 4 2 1 2-2 1 4-3 6h2l3-5 2 5h2l-3-8 1-3 2 2h2l-4-5z" fill="#b9bdd0"/></symbol>
+</defs></svg>
+
+<div class="row">
+
+<div class="card"><h2>1. Opening the app near home</h2><p>Atatürk is closer, but NDSM-werf is a favorite within 400 m, so it opens right away.</p>
+<div class="phone"><div class="me" style="left:110px;top:200px"></div>
+<div class="stop" style="left:140px;top:190px">B</div><div class="stop f sel" style="left:190px;top:300px">F</div>
+<div class="sheet panel"><h3>NDSM-werf <svg width="16" height="16"><use href="#star"/></svg><span class="x">&#x2715;</span></h3>
+<div class="city">Amsterdam &middot; 3 min walk</div>
+<div class="dep"><span class="t">16:40</span><span class="ln">F7</span>Pontsteiger</div>
+<div class="dep"><span class="t">16:45</span><span class="ln">F4</span>Centraal Station</div>
+<div class="tabs" style="margin-top:8px"><span>Map</span><span>Plan</span><span>Favorites</span><span>Search</span></div></div></div></div>
+
+<div class="card"><h2>2. After the close button: favorite <span class="tag">main case</span></h2><p>The stop is gone from the map. The bar says why it offers this stop: a star and the walk.</p>
+<div class="phone"><div class="me" style="left:110px;top:200px"></div>
+<div class="stop" style="left:140px;top:190px">B</div><div class="stop f" style="left:190px;top:300px">F</div>
+<div class="sheet"><div class="bar"><svg width="20" height="20"><use href="#star"/></svg><b>NDSM-werf</b><span class="meta"><svg width="11" height="11"><use href="#walk"/></svg> 3 min</span><span class="chev">&#8963;</span></div>
+<div class="tabs"><span>Map</span><span>Plan</span><span>Favorites</span><span>Search</span></div></div></div></div>
+
+<div class="card"><h2>3. After the close button: no favorite nearby</h2><p>Somewhere new: the nearest stop, with a pin instead of a star.</p>
+<div class="phone"><div class="me" style="left:110px;top:200px"></div>
+<div class="stop" style="left:140px;top:190px">B</div>
+<div class="sheet"><div class="bar"><svg width="20" height="20"><use href="#pin"/></svg><b>Atat&uuml;rk</b><span class="meta"><svg width="11" height="11"><use href="#walk"/></svg> 1 min</span><span class="chev">&#8963;</span></div>
+<div class="tabs"><span>Map</span><span>Plan</span><span>Favorites</span><span>Search</span></div></div></div></div>
+
+<div class="card"><h2>4. Now (for comparison)</h2><p>Same pin as an open stop, no walk time: it reads as "still selected".</p>
+<div class="phone"><div class="me" style="left:110px;top:200px"></div>
+<div class="stop" style="left:140px;top:190px">B</div><div class="stop f" style="left:190px;top:300px">F</div>
+<div class="sheet"><div class="bar"><svg width="20" height="20"><use href="#pin"/></svg><b>Atat&uuml;rk</b><span class="chev">&#8963;</span></div>
+<div class="tabs"><span>Map</span><span>Plan</span><span>Favorites</span><span>Search</span></div></div></div></div>
+
+</div>
+
+<div class="why">
+<b>How it behaves</b>
+<ul>
+<li>Tap the bar: that stop opens, the map moves to it.</li>
+<li>Walk 300 m on: the bar picks again from where you are (this already happens now).</li>
+<li>Two favorites within 400 m: the closest one. Predictable beats clever.</li>
+<li>The bar updates while you walk, but never while you are looking at a vehicle or a stop.</li>
+<li>No location permission: the bar shows your first favorite, or "Search a stop".</li>
+</ul>
+</div>
+</body></html>

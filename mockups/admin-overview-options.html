@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OVnow Admin – Overview options</title>
+<style>
+  :root{--bg:#1c1c1e;--card:#2a2a2d;--line:#3a3a3e;--txt:#f2f2f7;--dim:#9a9aa0;
+    --blue:#0a84ff;--cyan:#40c8e0;--green:#30d158;--orange:#ff9f0a;--purple:#bf5af2;--red:#ff375f;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#111;color:var(--txt);font:14px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;padding:24px}
+  h1{font-size:20px;margin:0 0 4px}
+  .intro{color:var(--dim);margin:0 0 16px}
+  .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .tabs button{background:#2a2a2d;color:var(--txt);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font:inherit;cursor:pointer}
+  .tabs button.on{background:var(--blue);border-color:var(--blue)}
+  .opt{display:none}.opt.on{display:block}
+  .note{color:var(--dim);max-width:900px;margin:0 0 12px;line-height:1.5}
+  .win{display:flex;border-radius:14px;overflow:hidden;border:1px solid #333;max-width:1280px;box-shadow:0 20px 60px #0008}
+  .side{width:210px;background:#8e8e93;padding:14px 10px;color:#111;flex-shrink:0}
+  .side div{padding:6px 10px;border-radius:7px;margin:2px 0}
+  .side .sel{background:var(--blue);color:#fff;font-weight:600}
+  .main{flex:1;background:var(--bg);padding:18px 22px}
+  .bar{display:flex;align-items:center;margin-bottom:16px}
+  .bar h2{font-size:17px;margin:0;flex:1}
+  .pill{background:#3a3a3e;border-radius:999px;padding:6px 12px;margin-left:8px;font-size:13px;font-weight:600}
+  .pill.blue{background:var(--blue)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;position:relative}
+  .card h3{margin:0 0 4px;font-size:13px;font-weight:600}
+  .num{font-size:34px;font-weight:800;line-height:1.1}
+  .sub{color:var(--dim);font-size:12px;margin-top:4px}
+  .span2{grid-column:span 2}.span4{grid-column:span 4}
+  /* edit mode */
+  .edit .card{animation:wig .3s infinite alternate;cursor:grab}
+  .edit .card:nth-child(even){animation-delay:.15s}
+  @keyframes wig{from{transform:rotate(-.4deg)}to{transform:rotate(.4deg)}}
+  .x{position:absolute;top:-8px;left:-8px;width:22px;height:22px;border-radius:50%;background:#636366;color:#fff;display:grid;place-items:center;font-weight:700;font-size:15px;border:2px solid var(--bg)}
+  .size{position:absolute;top:8px;right:8px;font-size:11px;background:#3a3a3e;border-radius:6px;padding:2px 6px;color:var(--dim)}
+  .tray{margin-top:16px;border:1px dashed #555;border-radius:12px;padding:12px}
+  .tray h4{margin:0 0 8px;font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+  .chip{display:inline-flex;gap:6px;align-items:center;background:#2a2a2d;border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin:0 6px 6px 0;font-size:12px}
+  .chip b{color:var(--green)}
+  .menu{position:absolute;top:60px;left:120px;background:#3a3a3e;border-radius:8px;padding:5px;width:200px;box-shadow:0 10px 30px #000a;z-index:2;font-size:13px}
+  .menu div{padding:5px 10px;border-radius:5px}.menu div:first-child{background:var(--blue)}
+  .menu hr{border:0;border-top:1px solid #555;margin:4px 0}
+  /* compact */
+  .mini{display:flex;align-items:baseline;gap:10px;padding:10px 14px}
+  .mini .num{font-size:22px}.mini h3{margin:0;flex:1}
+  .funnel{display:flex;align-items:stretch;gap:0}
+  .step{flex:1;padding:4px 14px;border-left:1px solid var(--line)}
+  .step:first-child{border-left:0;padding-left:0}
+  .step .num{font-size:28px}
+  .arrow{align-self:center;color:var(--dim);font-size:18px}
+  .live{display:flex;gap:18px}.live .num{font-size:28px}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px}
+  .spark{height:28px;display:flex;align-items:flex-end;gap:3px;margin-top:8px}
+  .spark i{flex:1;background:var(--purple);border-radius:2px;opacity:.8}
+  .chart{height:150px;border-radius:8px;background:linear-gradient(180deg,#0000 60%,#0a84ff22);border:1px solid var(--line);display:flex;align-items:flex-end;gap:5px;padding:10px}
+  .chart i{flex:1;background:var(--green);border-radius:3px 3px 0 0}
+  .needs{display:flex;flex-direction:column;gap:6px}
+  .row{display:flex;align-items:center;gap:10px;background:#323236;border-radius:8px;padding:8px 10px}
+  .row .tag{font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .row span:nth-child(2){flex:1}
+  .row button{background:var(--blue);color:#fff;border:0;border-radius:6px;padding:4px 10px;font:inherit;font-size:12px}
+  .allgood{color:var(--dim);font-size:12px;margin-top:6px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  .foot{display:flex;gap:16px;color:var(--dim);font-size:12px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+  .tile2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+  .tile2 div{background:#323236;border-radius:8px;padding:8px}
+  .tile2 .num{font-size:22px}
+</style>
+</head>
+<body>
+<h1>OVnow Admin – Overview</h1>
+<p class="intro">Four directions. Click through the tabs. The numbers come from the current screenshot.</p>
+<div class="tabs">
+  <button class="on" data-o="a">A · Edit mode (move + remove)</button>
+  <button data-o="b">B · Right-click menu + sizes</button>
+  <button data-o="c">C · Compact funnel</button>
+  <button data-o="d">D · Action first</button>
+  <button data-o="e">E · Opt-outs + removed</button>
+  <button data-o="f">F · C + D + E combined</button>
+</div>
+
+<!-- A -->
+<section class="opt on" id="a">
+<p class="note">Edit cards makes the cards wiggle. Use (–) to hide a card, or drag to move it. Hidden cards go to the tray at the bottom, and you can drag or click them back. nOVa feedback and nOVa use are new cards here.</p>
+<div class="win"><nav class="side"><div class="sel">Overview</div><div>Sign-ups</div><div>Users</div><div>Server</div><div>Feedback</div><div>nOVa feedback</div><div>nOVa use</div></nav>
+<div class="main edit"><div class="bar"><h2>Overview</h2><span class="pill">Reset</span><span class="pill blue">Done</span></div>
+<div class="grid">
+  <div class="card"><span class="x">–</span><h3>Signed up</h3><div class="num" style="color:var(--blue)">655</div><div class="sub">197 this week</div></div>
+  <div class="card"><span class="x">–</span><h3>Invited now</h3><div class="num" style="color:var(--blue)">647</div><div class="sub">168 haven't installed yet</div></div>
+  <div class="card"><span class="x">–</span><h3>Testers with the app</h3><div class="num" style="color:var(--cyan)">479</div><div class="sub">74.0% of invited</div></div>
+  <div class="card"><span class="x">–</span><h3>Testers using it</h3><div class="num" style="color:var(--green)">135</div><div class="sub">1543 sessions in 7 days</div></div>
+  <div class="card"><span class="x">–</span><h3>nOVa use</h3><div class="num" style="color:var(--purple)">42</div><div class="sub">Questions today · 18 testers on</div></div>
+  <div class="card"><span class="x">–</span><h3>nOVa feedback</h3><div class="num" style="color:var(--orange)">3</div><div class="sub" style="color:var(--orange)">Waiting for you</div></div>
+  <div class="card"><span class="x">–</span><h3>New feedback</h3><div class="num" style="color:var(--orange)">1</div><div class="sub" style="color:var(--orange)">Waiting for you</div></div>
+  <div class="card"><span class="x">–</span><h3>Website visits today</h3><div class="num" style="color:var(--cyan)">9</div><div class="sub">GoatCounter</div></div>
+</div>
+<div class="tray"><h4>Hidden cards · drag or click + to restore</h4>
+  <span class="chip"><b>+</b> Sign-ups to invite</span><span class="chip"><b>+</b> Planner busy answers</span><span class="chip"><b>+</b> Newest build</span><span class="chip"><b>+</b> Connections now</span><span class="chip"><b>+</b> Journeys running now</span><span class="chip"><b>+</b> Crashes</span>
+</div></div></div>
+</section>
+
+<!-- B -->
+<section class="opt" id="b">
+<p class="note">No edit mode needed. Right-click a card to hide it, change its size, or move it. Small cards fit two in one slot, so less important numbers take half the space.</p>
+<div class="win"><nav class="side"><div class="sel">Overview</div><div>Sign-ups</div><div>Users</div><div>Server</div><div>Feedback</div><div>nOVa feedback</div><div>nOVa use</div></nav>
+<div class="main"><div class="bar"><h2>Overview</h2><span class="pill">Edit cards</span><span class="pill">Refresh</span></div>
+<div class="grid" style="position:relative">
+  <div class="card"><h3>Signed up</h3><div class="num" style="color:var(--blue)">655</div><div class="sub">197 this week</div></div>
+  <div class="card" style="outline:2px solid var(--blue)"><h3>Invited now</h3><div class="num" style="color:var(--blue)">647</div><div class="sub">168 haven't installed yet</div></div>
+  <div class="menu"><div>Hide card</div><hr><div>Size: Small</div><div>✓ Size: Normal</div><div>Size: Wide</div><hr><div>Move to top</div><div>Hide when zero</div></div>
+  <div class="card"><h3>Testers using it</h3><div class="num" style="color:var(--green)">135</div><div class="sub">1543 sessions in 7 days</div></div>
+  <div class="card"><h3>nOVa use</h3><div class="num" style="color:var(--purple)">42</div><div class="sub">Questions today</div><div class="spark"><i style="height:30%"></i><i style="height:50%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:100%"></i></div></div>
+  <div style="display:grid;gap:12px">
+    <div class="card mini"><h3>Crashes</h3><div class="num" style="color:var(--green)">0</div></div>
+    <div class="card mini"><h3>Website today</h3><div class="num" style="color:var(--cyan)">9</div></div>
+  </div>
+  <div style="display:grid;gap:12px">
+    <div class="card mini"><h3>Feedback</h3><div class="num" style="color:var(--orange)">1</div></div>
+    <div class="card mini"><h3>nOVa feedback</h3><div class="num" style="color:var(--orange)">3</div></div>
+  </div>
+  <div style="display:grid;gap:12px">
+    <div class="card mini"><h3>Connections</h3><div class="num" style="color:var(--green)">5</div></div>
+    <div class="card mini"><h3>Journeys</h3><div class="num" style="color:var(--purple)">1</div></div>
+  </div>
+  <div style="display:grid;gap:12px">
+    <div class="card mini"><h3>To invite</h3><div class="num" style="color:var(--purple)">0</div></div>
+    <div class="card mini"><h3>Planner busy</h3><div class="num" style="color:var(--orange)">0%</div></div>
+  </div>
+</div></div></div>
+</section>
+
+<!-- C -->
+<section class="opt" id="c">
+<p class="note">Merged cards. The four sign-up cards become one funnel. Connections and journeys become Live now. Both feedback cards become one Feedback card. Build and planner go to a footer line. That's 12 cards down to 5.</p>
+<div class="win"><nav class="side"><div class="sel">Overview</div><div>Sign-ups</div><div>Users</div><div>Server</div><div>Feedback</div><div>nOVa feedback</div><div>nOVa use</div></nav>
+<div class="main"><div class="bar"><h2>Overview</h2><span class="pill">Edit cards</span><span class="pill">Refresh</span></div>
+<div class="grid">
+  <div class="card span4"><h3>Testers</h3>
+    <div class="funnel">
+      <div class="step"><div class="num" style="color:var(--blue)">655</div><div class="sub">Signed up · +197 this week</div></div><span class="arrow">›</span>
+      <div class="step"><div class="num" style="color:var(--blue)">647</div><div class="sub">Invited · 0 waiting</div></div><span class="arrow">›</span>
+      <div class="step"><div class="num" style="color:var(--cyan)">479</div><div class="sub">Have the app · 74%</div></div><span class="arrow">›</span>
+      <div class="step"><div class="num" style="color:var(--green)">135</div><div class="sub">Used it in 7 days · 1543 sessions</div></div>
+    </div></div>
+  <div class="card"><h3><span class="dot"></span>Live now</h3><div class="live"><div><div class="num" style="color:var(--green)">5</div><div class="sub">connections</div></div><div><div class="num" style="color:var(--purple)">1</div><div class="sub">journey</div></div></div></div>
+  <div class="card"><h3>nOVa use</h3><div class="num" style="color:var(--purple)">42</div><div class="sub">Questions today · 18 opted in</div><div class="spark"><i style="height:30%"></i><i style="height:50%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:100%"></i></div></div>
+  <div class="card"><h3>Feedback</h3><div class="tile2"><div><div class="num" style="color:var(--orange)">1</div><div class="sub">App</div></div><div><div class="num" style="color:var(--orange)">3</div><div class="sub">nOVa</div></div></div></div>
+  <div class="card"><h3>Website today</h3><div class="num" style="color:var(--cyan)">9</div><div class="sub">GoatCounter</div></div>
+</div>
+<div class="split">
+  <div class="card"><h3>Requests to the server</h3><div class="sub">Per 10 minutes, last 24 hours</div><div class="chart" style="background:linear-gradient(180deg,#0000,#0a84ff33)"></div></div>
+  <div class="card"><h3>Route planning per hour</h3><div class="sub">628 in 24 h</div><div class="chart"><i style="height:10%"></i><i style="height:45%"></i><i style="height:48%"></i><i style="height:100%"></i><i style="height:20%;background:var(--orange)"></i><i style="height:37%"></i><i style="height:63%"></i><i style="height:49%;background:var(--orange)"></i><i style="height:50%"></i><i style="height:45%;background:var(--orange)"></i><i style="height:61%;background:var(--blue)"></i></div></div>
+</div>
+<div class="foot"><span>Build 2026112603 · 0 installs</span><span>0 crashes in 7 days</span><span>Planner 0.0% busy</span></div>
+</div></div>
+</section>
+
+<!-- D -->
+<section class="opt" id="d">
+<p class="note">Action first. "Needs you" goes to the top and lists only things above zero: feedback, nOVa feedback, crashes, sign-ups to invite, planner busy. When the list is empty it collapses to one line. Below that come four small health numbers and the charts.</p>
+<div class="win"><nav class="side"><div class="sel">Overview</div><div>Sign-ups</div><div>Users</div><div>Server</div><div>Feedback</div><div>nOVa feedback</div><div>nOVa use</div></nav>
+<div class="main"><div class="bar"><h2>Overview</h2><span class="pill">Edit cards</span><span class="pill">Refresh</span></div>
+<div class="card" style="margin-bottom:12px"><h3>Needs you</h3>
+  <div class="needs">
+    <div class="row"><span class="tag" style="background:#ff9f0a33;color:var(--orange)">nOVa</span><span>3 new nOVa feedback replies</span><button>Open</button></div>
+    <div class="row"><span class="tag" style="background:#ff9f0a33;color:var(--orange)">Feedback</span><span>1 app feedback waiting</span><button>Open</button></div>
+  </div>
+  <div class="allgood">Also fine: 0 crashes · 0 sign-ups to invite · planner 0.0% busy</div>
+</div>
+<div class="grid">
+  <div class="card mini"><h3>Signed up</h3><div class="num" style="color:var(--blue)">655</div></div>
+  <div class="card mini"><h3>Using it (7d)</h3><div class="num" style="color:var(--green)">135</div></div>
+  <div class="card mini"><h3>nOVa today</h3><div class="num" style="color:var(--purple)">42</div></div>
+  <div class="card mini"><h3><span class="dot"></span>Live</h3><div class="num" style="color:var(--green)">5</div></div>
+</div>
+<div class="split">
+  <div class="card"><h3>Route planning per hour</h3><div class="chart"><i style="height:10%"></i><i style="height:45%"></i><i style="height:48%"></i><i style="height:100%"></i><i style="height:20%;background:var(--orange)"></i><i style="height:37%"></i><i style="height:63%"></i><i style="height:49%;background:var(--orange)"></i><i style="height:50%"></i><i style="height:45%;background:var(--orange)"></i><i style="height:61%;background:var(--blue)"></i></div></div>
+  <div class="card"><h3>nOVa questions per day</h3><div class="chart"><i style="height:30%;background:var(--purple)"></i><i style="height:50%;background:var(--purple)"></i><i style="height:40%;background:var(--purple)"></i><i style="height:70%;background:var(--purple)"></i><i style="height:55%;background:var(--purple)"></i><i style="height:90%;background:var(--purple)"></i><i style="height:100%;background:var(--purple)"></i></div></div>
+</div>
+</div></div>
+</section>
+
+<!-- E -->
+<section class="opt" id="e">
+<p class="note">Three ways to show where people drop off. 1: a line under the existing cards. 2: the funnel shows drop-off between the steps. 3: a separate "Drop-off" card. Opt-outs only affect email, so they are shown next to the funnel, not taken off it.</p>
+<div class="win"><nav class="side"><div class="sel">Overview</div><div>Sign-ups</div><div>Users</div><div>Server</div><div>Feedback</div><div>nOVa feedback</div><div>nOVa use</div></nav>
+<div class="main"><div class="bar"><h2>Overview</h2><span class="pill">Edit cards</span><span class="pill">Refresh</span></div>
+<p class="sub" style="margin:0 0 8px">1 · Note under the cards you have now</p>
+<div class="grid">
+  <div class="card"><h3>Signed up</h3><div class="num" style="color:var(--blue)">655</div><div class="sub">197 this week · 15 no more emails</div></div>
+  <div class="card"><h3>Invited now</h3><div class="num" style="color:var(--blue)">647</div><div class="sub">168 haven't installed · 8 removed</div></div>
+  <div class="card"><h3>Testers with the app</h3><div class="num" style="color:var(--cyan)">479</div><div class="sub">74.0% of invited</div></div>
+  <div class="card"><h3>Testers using it</h3><div class="num" style="color:var(--green)">135</div><div class="sub">1543 sessions in 7 days</div></div>
+</div>
+<p class="sub" style="margin:18px 0 8px">2 · Funnel with drop-off between the steps</p>
+<div class="card"><h3>Testers</h3>
+  <div class="funnel">
+    <div class="step"><div class="num" style="color:var(--blue)">655</div><div class="sub">Signed up</div></div>
+    <span class="arrow" style="text-align:center;font-size:11px;color:var(--red);padding:0 6px">›<br>−8 removed</span>
+    <div class="step"><div class="num" style="color:var(--blue)">647</div><div class="sub">Invited now</div></div>
+    <span class="arrow" style="text-align:center;font-size:11px;padding:0 6px">›<br>168 not yet</span>
+    <div class="step"><div class="num" style="color:var(--cyan)">479</div><div class="sub">Have the app</div></div>
+    <span class="arrow" style="text-align:center;font-size:11px;padding:0 6px">›<br>344 quiet</span>
+    <div class="step"><div class="num" style="color:var(--green)">135</div><div class="sub">Used it in 7 days</div></div>
+  </div>
+  <div class="foot" style="margin-top:10px"><span>✉ 15 no more emails (still testers)</span></div>
+</div>
+<p class="sub" style="margin:18px 0 8px">3 · Separate card, small</p>
+<div class="grid">
+  <div class="card"><h3>Drop-off</h3><div class="tile2"><div><div class="num" style="color:var(--red)">8</div><div class="sub">Removed from TestFlight</div></div><div><div class="num" style="color:var(--orange)">15</div><div class="sub">No more emails</div></div></div></div>
+</div>
+</div></div>
+</section>
+
+<!-- F -->
+<section class="opt" id="f">
+<p class="note">Needs you at the top (from D). Then the funnel with drop-off and opt-outs (C + E). Then the compact numbers row and the charts (C). Feedback lives in Needs you, so it has no card of its own. Build, crashes and planner are in the footer, and move up into Needs you when they go above 0.</p>
+<div class="win"><nav class="side"><div class="sel">Overview</div><div>Sign-ups</div><div>Users</div><div>Server</div><div>Reports</div><div>Website</div><div>Feedback</div><div>nOVa feedback</div><div>nOVa use</div><div>Mailing List</div><div>Notes</div><div>Alerts</div></nav>
+<div class="main"><div class="bar"><h2>Overview</h2><span class="pill">Edit cards</span><span class="pill">Refresh</span></div>
+<div class="card" style="margin-bottom:12px"><h3>Needs you</h3>
+  <div class="needs">
+    <div class="row"><span class="tag" style="background:#ff9f0a33;color:var(--orange)">nOVa</span><span>3 new nOVa feedback replies</span><button>Open</button></div>
+    <div class="row"><span class="tag" style="background:#ff9f0a33;color:var(--orange)">Feedback</span><span>1 app feedback waiting</span><button>Open</button></div>
+  </div>
+  <div class="allgood">All fine: 0 crashes · 0 sign-ups to invite · planner 0.0% busy</div>
+</div>
+<div class="card" style="margin-bottom:12px"><h3>Testers</h3>
+  <div class="funnel">
+    <div class="step"><div class="num" style="color:var(--blue)">655</div><div class="sub">Signed up · +197 this week</div></div>
+    <span class="arrow" style="text-align:center;font-size:11px;color:var(--red);padding:0 6px">›<br>−8 removed</span>
+    <div class="step"><div class="num" style="color:var(--blue)">647</div><div class="sub">Invited now</div></div>
+    <span class="arrow" style="text-align:center;font-size:11px;padding:0 6px">›<br>168 not yet</span>
+    <div class="step"><div class="num" style="color:var(--cyan)">479</div><div class="sub">Have the app · 74%</div></div>
+    <span class="arrow" style="text-align:center;font-size:11px;padding:0 6px">›<br>344 quiet</span>
+    <div class="step"><div class="num" style="color:var(--green)">135</div><div class="sub">Used it in 7 days · 1543 sessions</div></div>
+  </div>
+  <div class="foot" style="margin-top:10px"><span>✉ 15 no more emails (still testers)</span></div>
+</div>
+<div class="grid">
+  <div class="card"><h3><span class="dot"></span>Live now</h3><div class="live"><div><div class="num" style="color:var(--green)">5</div><div class="sub">connections</div></div><div><div class="num" style="color:var(--purple)">1</div><div class="sub">journey</div></div></div></div>
+  <div class="card"><h3>nOVa use</h3><div class="num" style="color:var(--purple)">42</div><div class="sub">Questions today · 18 opted in</div><div class="spark"><i style="height:30%"></i><i style="height:50%"></i><i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:100%"></i></div></div>
+  <div class="card"><h3>Website today</h3><div class="num" style="color:var(--cyan)">9</div><div class="sub">GoatCounter</div></div>
+  <div class="card"><h3>Route searches</h3><div class="num" style="color:var(--green)">628</div><div class="sub">Last 24 hours</div></div>
+</div>
+<div class="split">
+  <div class="card"><h3>Requests to the server</h3><div class="sub">Per 10 minutes, last 24 hours</div><div class="chart" style="background:linear-gradient(180deg,#0000,#0a84ff33)"></div></div>
+  <div class="card"><h3>Route planning per hour</h3><div class="sub">628 in 24 h</div><div class="chart"><i style="height:10%"></i><i style="height:45%"></i><i style="height:48%"></i><i style="height:100%"></i><i style="height:20%;background:var(--orange)"></i><i style="height:37%"></i><i style="height:63%"></i><i style="height:49%;background:var(--orange)"></i><i style="height:50%"></i><i style="height:45%;background:var(--orange)"></i><i style="height:61%;background:var(--blue)"></i></div></div>
+</div>
+<div class="foot"><span>Build 2026112603 · 0 installs</span><span>0 crashes in 7 days</span><span>Planner 0.0% busy</span></div>
+</div></div>
+</section>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button,.opt').forEach(e=>e.classList.remove('on'));
+  b.classList.add('on');document.getElementById(b.dataset.o).classList.add('on');
+});
+</script>
+</body>
+</html>

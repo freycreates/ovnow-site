@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OVnow – where facilities and OV-fiets go on a station</title>
+<style>
+  :root{--sheet:#1d2130;--glass:#2a2f40;--chip:#2c3142;--line:#3a3f52;--txt:#f2f2f7;--dim:#a8adbd;--blue:#1e6bff;--yellow:#ffc917;--orange:#ffb020;--green:#30d158;--red:#ff6b6b;--teal:#2fd0c4}
+  *{box-sizing:border-box}
+  body{margin:0;background:#0b0d14;color:var(--txt);font:15px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;padding:28px}
+  h1{font-size:24px;margin:0 0 6px}
+  h2.sec{font-size:19px;margin:38px 0 6px}
+  .lead{color:var(--dim);max-width:900px;line-height:1.5;margin:0 0 22px}
+  .grid{display:flex;flex-wrap:wrap;gap:26px}
+  .opt{width:360px}
+  .opt h3{font-size:15px;margin:0 0 3px}
+  .opt p{color:var(--dim);font-size:13px;line-height:1.45;margin:0 0 10px;min-height:56px}
+  .map{height:110px;border-radius:30px 30px 0 0;background:linear-gradient(160deg,#2a3360,#1b2244 60%,#3a3020);position:relative;overflow:hidden}
+  .map::after{content:"";position:absolute;left:30px;right:-40px;top:30px;height:60px;border-radius:40px;background:repeating-linear-gradient(90deg,#d9a85a 0 14px,#c69443 14px 18px);transform:rotate(-14deg);opacity:.8}
+  .sheet{background:var(--sheet);border-radius:28px;margin-top:-26px;position:relative;padding:12px 14px 16px;box-shadow:0 -6px 30px #0008}
+  .grab{width:40px;height:5px;border-radius:3px;background:#4a4f60;margin:0 auto 12px}
+  .head{display:flex;align-items:flex-start;gap:8px}
+  .head .t{flex:1}
+  .name{font-size:24px;font-weight:800;line-height:1.1}
+  .city{color:var(--dim);font-size:14px;margin-top:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .m{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:5px;font-size:10px;font-weight:800;color:#0b0d14}
+  .rb{width:38px;height:38px;border-radius:50%;background:var(--glass);display:grid;place-items:center;font-weight:700;color:var(--txt);font-size:15px;flex-shrink:0}
+  .rb.blue{color:var(--blue)}
+  .rb.hl{outline:2px solid var(--yellow);color:var(--yellow)}
+  .next{display:flex;align-items:center;gap:10px;background:var(--glass);border-radius:999px;padding:8px 10px;margin:12px 0 10px}
+  .badge{background:var(--yellow);color:#000;font-weight:800;border-radius:7px;padding:2px 8px;font-size:13px}
+  .next .to{flex:1;font-weight:600}
+  .next .min{font-weight:800;font-size:18px}
+  .chips{display:flex;gap:7px;overflow:hidden;margin:0 -14px 10px;padding:0 14px}
+  .chip{flex-shrink:0;background:var(--chip);border-radius:999px;padding:6px 12px;font-size:14px;color:#d6d9e3;white-space:nowrap}
+  .chip.on{background:#4a4f62;color:#fff}
+  .chip.new{outline:2px solid var(--yellow);color:#fff}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .warn{background:#5a3a14;color:var(--orange);border-radius:999px;padding:7px 12px;font-weight:600;font-size:14px;white-space:nowrap}
+  .fac{background:#16324a;color:#7cc4ff;border-radius:999px;padding:7px 12px;font-weight:600;font-size:14px;white-space:nowrap}
+  .bike{background:#123a2c;color:#6fe3a6;border-radius:999px;padding:7px 12px;font-weight:600;font-size:14px;white-space:nowrap}
+  .new-ring{outline:2px solid var(--yellow);outline-offset:1px}
+  .row{display:flex;align-items:center;gap:8px;padding:8px 2px;font-size:14px}
+  .row .i{color:#7cc4ff;font-weight:700;width:22px;text-align:center}
+  .row .gt{margin-left:auto;color:var(--dim)}
+  .dep{display:flex;align-items:center;gap:10px;padding:10px 2px;border-top:1px solid var(--line)}
+  .dep .tm b{font-size:18px;display:block}.dep .tm small{color:var(--dim);font-size:12px}
+  .dep .d{flex:1}.dep .d small{color:var(--dim);font-size:12px;display:block}
+  .track{border:1.5px solid var(--yellow);color:var(--yellow);border-radius:8px;padding:2px 7px;font-weight:700;font-size:13px;white-space:nowrap}
+  .icons{display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap}
+  .ico{display:inline-flex;align-items:center;gap:5px;background:var(--chip);border-radius:8px;padding:4px 8px;font-size:12px;color:#d6d9e3}
+  .ico b{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:4px;font-size:10px;color:#0b0d14}
+  .seg{display:flex;background:var(--chip);border-radius:10px;padding:3px;margin:10px 0}
+  .seg span{flex:1;text-align:center;padding:6px;border-radius:8px;font-size:14px;color:var(--dim)}
+  .seg span.on{background:#4a4f62;color:#fff;font-weight:600}
+  .tag{display:inline-block;background:#ffc91733;color:var(--yellow);font-size:11px;font-weight:700;border-radius:5px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+  /* opened facilities */
+  .list .f{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+  .list .f:first-child{border-top:0}
+  .fi{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-weight:800;font-size:13px;color:#0b0d14;flex-shrink:0}
+  .list b{display:block;font-size:15px}.list small{color:var(--dim);font-size:13px;line-height:1.35}
+  .ok{color:var(--green)}.bad{color:var(--red)}
+  .back{color:var(--blue);font-size:15px;margin-bottom:6px}
+  .src{color:var(--dim);font-size:12px;margin-top:8px}
+  .alert{background:#3a1a1e;color:#ffb3b3;border-radius:12px;padding:9px 11px;font-size:13px;margin:8px 0}
+  /* details: icon, toilets, food */
+  #details h2{font-size:19px;margin:40px 0 6px}
+  #details .lead{color:var(--dim);max-width:900px;line-height:1.5;margin:0 0 20px}
+  #details .grid{display:flex;flex-wrap:wrap;gap:22px}
+  #details /* icon options */
+  .ic-opt{width:250px;background:var(--sheet);border-radius:20px;padding:14px}
+  #details .ic-opt h3{font-size:14px;margin:0 0 2px}
+  #details .ic-opt p{color:var(--dim);font-size:12px;margin:0 0 12px;line-height:1.4;min-height:34px}
+  #details .pills{display:flex;gap:8px;align-items:center}
+  #details .warn{background:#5a3a14;color:var(--orange);border-radius:999px;padding:7px 12px;font-weight:600;font-size:14px;white-space:nowrap}
+  #details .ipill{height:34px;min-width:44px;padding:0 11px;border-radius:999px;background:#16324a;color:var(--sky);display:inline-flex;align-items:center;justify-content:center;gap:5px;outline:2px solid var(--yellow);outline-offset:1px}
+  #details .ipill svg{width:20px;height:20px}
+  #details .ipill .n{font-weight:700;font-size:13px}
+  #details /* phones */
+  .opt{width:350px}
+  #details .opt h3{font-size:15px;margin:0 0 3px}
+  #details .opt p{color:var(--dim);font-size:13px;line-height:1.45;margin:0 0 10px;min-height:56px}
+  #details .sheet{background:var(--sheet);border-radius:28px;padding:12px 14px 16px;min-height:560px}
+  #details .grab{width:40px;height:5px;border-radius:3px;background:#4a4f60;margin:0 auto 10px}
+  #details .back{color:var(--blue);font-size:15px;margin-bottom:4px}
+  #details .ttl{font-size:22px;font-weight:800}
+  #details .sub{color:var(--dim);font-size:13px;margin:2px 0 10px}
+  #details .item{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+  #details .item:first-of-type{border-top:0}
+  #details .fi{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:12px;color:#0b0d14;flex-shrink:0}
+  #details .item .tx{flex:1}
+  #details .item b{display:block;font-size:15px}
+  #details .item small{color:var(--dim);font-size:13px;line-height:1.4;display:block}
+  #details .right{text-align:right;font-size:13px;color:var(--dim);white-space:nowrap}
+  #details .right b{color:var(--txt);font-size:15px}
+  #details .ok{color:var(--green)}
+  #details .bad{color:var(--red)}
+  #details .soon{color:var(--orange)}
+  #details .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+  #details .tg{background:var(--chip);border-radius:6px;padding:2px 7px;font-size:12px;color:#d6d9e3}
+  #details .chips{display:flex;gap:7px;overflow:hidden;margin:6px 0 10px}
+  #details .chip{flex-shrink:0;background:var(--chip);border-radius:999px;padding:6px 12px;font-size:14px;color:#d6d9e3}
+  #details .chip.on{background:#4a4f62;color:#fff}
+  #details .toggle{display:flex;align-items:center;justify-content:space-between;background:var(--glass);border-radius:12px;padding:9px 12px;margin-bottom:8px;font-size:14px}
+  #details .sw{width:42px;height:25px;border-radius:13px;background:var(--green);position:relative}
+  #details .sw::after{content:"";position:absolute;right:2px;top:2px;width:21px;height:21px;border-radius:50%;background:#fff}
+  #details .hero{background:var(--glass);border-radius:16px;padding:14px;margin-bottom:10px}
+  #details .hero .big{font-size:26px;font-weight:800}
+  #details .hero .meta{color:var(--dim);font-size:13px;margin-top:2px}
+  #details .btnrow{display:flex;gap:8px;margin-top:10px}
+  #details .btn{flex:1;background:var(--blue);color:#fff;border-radius:11px;text-align:center;padding:8px;font-weight:600;font-size:14px}
+  #details .btn.ghost{background:var(--chip);color:var(--txt)}
+  #details .grp{color:var(--dim);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:12px 0 2px}
+  #details .cards{display:flex;gap:10px;overflow:hidden;margin:4px -14px 8px;padding:0 14px}
+  #details .card{flex-shrink:0;width:150px;background:var(--glass);border-radius:14px;padding:11px}
+  #details .card .fi{margin-bottom:8px}
+  #details .card b{display:block;font-size:14px}
+  #details .card small{color:var(--dim);font-size:12px}
+  #details .strip{display:flex;align-items:center;gap:6px;margin:8px 0 12px;font-size:12px;color:var(--dim)}
+  #details .strip .tr{flex:1;height:30px;border-radius:8px;background:repeating-linear-gradient(90deg,#2c3142 0 26px,#262a39 26px 28px);position:relative}
+  #details .pin{position:absolute;top:4px;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:10px;font-weight:800;color:#0b0d14}
+  #details .you{position:absolute;top:-6px;width:3px;height:42px;background:var(--blue);border-radius:2px}
+  #details .you::after{content:"you";position:absolute;top:-16px;left:-10px;font-size:11px;color:var(--sky)}
+
+  /* hubs: big stations get Departures | Station */
+  #hubs .opt{width:350px}
+  #hubs .tabs{display:flex;background:var(--chip);border-radius:11px;padding:3px;margin:10px 0}
+  #hubs .tabs span{flex:1;text-align:center;padding:7px;border-radius:9px;font-size:15px;color:var(--dim);font-weight:600}
+  #hubs .tabs span.on{background:#4a4f62;color:#fff}
+  #hubs .hint{font-size:12px;color:var(--dim);margin:-4px 0 8px}
+  #hubs .blk{background:var(--glass);border-radius:14px;padding:4px 12px;margin-bottom:10px}
+  #hubs .blk .h{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);padding:8px 0 2px}
+  #hubs .ln{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+  #hubs .ln:first-of-type{border-top:0}
+  #hubs .ln .gt{margin-left:auto;color:var(--dim)}
+  #hubs .w{color:var(--orange);font-weight:700}
+  #hubs .fb{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;font-size:11px;font-weight:800;color:#0b0d14}
+  #hubs .rule{background:var(--sheet);border-radius:18px;padding:16px 18px;max-width:740px;line-height:1.6}
+  #hubs .rule li{margin:4px 0}
+</style>
+</head>
+<body>
+<h1>Station sheet: where do facilities and OV-fiets go?</h1>
+<p class="lead">Ten ways to add them to the station sheet as it is today (Amsterdam Centraal). The yellow outline marks what's new. Below that, what opens when you tap Facilities. Example data, not checked against NS.</p>
+
+<div class="grid" id="opts"></div>
+
+<h2 class="sec">After tapping Facilities</h2>
+<p class="lead">Three ways the facilities open. All work with any of the ten options above.</p>
+<div class="grid" id="open"></div>
+
+<script>
+const M = `<span class="m" style="background:#8ab4ff">T</span><span class="m" style="background:#ff8fa3">M</span><span class="m" style="background:var(--yellow)">S</span><span class="m" style="background:#a8adbd">B</span><span class="m" style="background:var(--teal)">F</span>`;
+const ICONS = [["WC","var(--yellow)","Toilet"],["▣","#8ab4ff","Lockers"],["☕","#ffb07a","Shops"],["↕","#9be3a6","Lifts"],["▭","#d7c2ff","Waiting room"],["i","#fff","Service desk"]];
+const icoRow = (n = 6) => `<div class="icons">${ICONS.slice(0, n).map(([g,c,t]) => `<span class="ico"><b style="background:${c}">${g}</b>${t}</span>`).join("")}</div>`;
+// one station sheet; each option swaps a part
+function sheet(o = {}) {
+  return `<div class="map"></div><div class="sheet"><div class="grab"></div>
+    <div class="head"><div class="t"><div class="name">Centraal Station</div><div class="city">Amsterdam ${M}${o.cityExtra || ""}</div></div>
+      ${o.headBtn || ""}<span class="rb blue">↱</span><span class="rb">☆</span><span class="rb">✕</span></div>
+    ${o.underHead || ""}
+    ${o.seg || ""}
+    <div class="next"><span class="badge">SPR</span><span class="to">Hoofddorp</span><span class="badge">11a</span><span class="min">3 min</span></div>
+    <div class="chips">${o.chips || `<span class="chip on">All</span><span class="chip">Tram</span><span class="chip">Metro</span><span class="chip">Train</span><span class="chip">Bus</span><span class="chip">Ferry</span>`}</div>
+    ${o.pills ?? `<div class="pills"><span class="warn">⚠ 4 disruptions ⌄</span></div>`}
+    ${o.bikeRow ?? `<div class="row"><span class="i">⚲</span>OV-fiets: <b>563 available</b><span class="gt">›</span></div>`}
+    ${o.extraRow || ""}
+    <div class="dep"><div class="tm"><b>19:18</b><small>in 3 min</small></div><div class="d"><span class="badge">SPR</span> Hoofddorp<small>Timetable</small></div><span class="track">Track 11a</span></div>
+  </div>`;
+}
+const OPTS = [
+ ["1 · OV-fiets as a filter chip", "OV-fiets joins the row after Ferry, like a transport mode. Tapping it shows the bike locations and counts instead of departures. The OV-fiets line below goes away.",
+  {chips:`<span class="chip">Train</span><span class="chip">Bus</span><span class="chip">Ferry</span><span class="chip new">OV-fiets 563</span><span class="chip">Facilities</span>`, bikeRow:""}],
+ ["2 · Facilities as a filter chip", "Facilities as the last chip after Ferry. The departures list swaps for the facilities list when it's on.",
+  {chips:`<span class="chip on">All</span><span class="chip">Metro</span><span class="chip">Train</span><span class="chip">Bus</span><span class="chip">Ferry</span><span class="chip new">Facilities</span>`}],
+ ["3 · Facilities pill next to Disruptions", "Same shape as the disruptions pill, in blue. Two pills side by side, both open in place.",
+  {pills:`<div class="pills"><span class="warn">⚠ 4 disruptions ⌄</span><span class="fac new-ring">WC Facilities ⌄</span></div>`}],
+ ["4 · Three pills in one row", "Disruptions, OV-fiets and Facilities as one row of pills. Saves the OV-fiets line, so the sheet gets shorter.",
+  {pills:`<div class="pills"><span class="warn">⚠ 4</span><span class="bike new-ring">⚲ 563 OV-fiets</span><span class="fac new-ring">WC Facilities</span></div>`, bikeRow:""}],
+ ["5 · A row like OV-fiets", "A second row under OV-fiets, in the same style: the most useful facilities in one line.",
+  {extraRow:`<div class="row new-ring" style="border-radius:8px"><span class="i">WC</span>Toilet, lockers, shops <span style="color:var(--dim)">+3</span><span class="gt">›</span></div>`}],
+ ["6 · Icons next to the mode icons", "Facility icons right after the tram/metro/train icons under the name. Tap any of them for the list. Very compact, but small.",
+  {cityExtra:`<span style="width:1px;height:14px;background:#555;margin:0 2px"></span><span class="m new-ring" style="background:var(--yellow)">WC</span><span class="m new-ring" style="background:#8ab4ff">▣</span><span class="m new-ring" style="background:#ffb07a">☕</span><span class="m new-ring" style="background:#9be3a6">↕</span>`}],
+ ["7 · A button in the header", "A fourth round button next to directions, favourite and close. Out of the way, always in the same place.",
+  {headBtn:`<span class="rb hl">WC</span>`}],
+ ["8 · One info row for both", "OV-fiets and facilities merged into one line. Tapping it opens one page with both.",
+  {bikeRow:`<div class="row new-ring" style="border-radius:8px"><span class="i">⚲</span><b>563</b>&nbsp;OV-fiets · <span class="i" style="width:auto">WC</span> Toilet · Lockers<span class="gt">›</span></div>`}],
+ ["9 · Only when something's wrong", "No permanent button. A pill shows up next to Disruptions only when a lift or toilet is out of order. The full list stays one tap away in the header.",
+  {pills:`<div class="pills"><span class="warn">⚠ 4 disruptions ⌄</span><span class="warn new-ring" style="background:#3a1a1e;color:#ffb3b3">↕ 1 lift out of order</span></div>`, headBtn:`<span class="rb">WC</span>`}],
+ ["10 · Two tabs: Departures | Station", "A switch above the departures. The Station tab holds OV-fiets, facilities and disruptions together, so Departures stays clean.",
+  {seg:`<div class="seg new-ring"><span class="on">Departures</span><span>Station</span></div>`, bikeRow:""}]
+];
+document.getElementById("opts").innerHTML = OPTS.map(([h, p, o]) => `<div class="opt"><h3>${h}</h3><p>${p}</p>${sheet(o)}</div>`).join("");
+
+const LIST = `<div class="list">
+  <div class="f"><span class="fi" style="background:var(--yellow)">WC</span><div><b>Toilet</b><small>Main hall, near track 2 · €0.70 · <span class="ok">open until 01:00</span></small></div></div>
+  <div class="f"><span class="fi" style="background:#8ab4ff">▣</span><div><b>Lockers</b><small>East tunnel · 24 hours · card only</small></div></div>
+  <div class="f"><span class="fi" style="background:#ffb07a">☕</span><div><b>Shops and food</b><small>Kiosk, supermarket, coffee · <span class="ok">open</span></small></div></div>
+  <div class="f"><span class="fi" style="background:#9be3a6">↕</span><div><b>Lifts</b><small>To every platform · <span class="bad">track 7 lift out of order</span></small></div></div>
+  <div class="f"><span class="fi" style="background:#d7c2ff">▭</span><div><b>Waiting room</b><small>Tracks 2 and 15</small></div></div>
+  <div class="f"><span class="fi" style="background:#fff">i</span><div><b>Service desk</b><small>Main hall · <span class="ok">open until 21:00</span></small></div></div>
+  <div class="f"><span class="fi" style="background:#6fe3a6">⚲</span><div><b>OV-fiets</b><small>563 available · 3 locations</small></div></div>
+</div><div class="src">Source: NS · updated today 06:00</div>`;
+const OPEN = [
+ ["A · In the same sheet", "The departures make way for the list. ‹ Departures brings them back. Feels like the filter chips.",
+  `<div class="map"></div><div class="sheet"><div class="grab"></div><div class="back">‹ Departures</div>
+   <div class="name">Facilities</div><div class="city" style="margin-bottom:8px">Amsterdam Centraal</div>
+   <div class="alert">↕ The lift to track 7 is out of order. Use the lift at track 8 or the escalator.</div>${LIST}</div>`],
+ ["B · A sheet on top", "A separate sheet slides up over the station. Swipe down to close. Clear, but one more layer.",
+  `<div class="map" style="height:70px;filter:brightness(.5)"></div><div class="sheet" style="filter:brightness(.45);padding-bottom:4px"><div class="grab"></div><div class="name" style="font-size:20px">Centraal Station</div></div>
+   <div class="sheet" style="margin-top:-14px;border-radius:22px"><div class="grab"></div>
+   <div class="head"><div class="t"><div class="name" style="font-size:21px">Facilities</div><div class="city">Amsterdam Centraal</div></div><span class="rb">✕</span></div>${LIST}</div>`],
+ ["C · Folds open in place", "The pill unfolds right where it is, like the disruptions pill. Short version first, \"All facilities\" for the rest.",
+  `<div class="map"></div><div class="sheet"><div class="grab"></div><div class="name">Centraal Station</div><div class="city" style="margin-bottom:10px">Amsterdam ${M}</div>
+   <div class="pills"><span class="warn">⚠ 4 disruptions ⌄</span><span class="fac">WC Facilities ⌃</span></div>
+   <div style="background:#16243a;border-radius:14px;padding:4px 12px">
+     <div class="list">
+       <div class="f"><span class="fi" style="background:var(--yellow)">WC</span><div><b>Toilet</b><small>Main hall · €0.70 · <span class="ok">open</span></small></div></div>
+       <div class="f"><span class="fi" style="background:#9be3a6">↕</span><div><b>Lifts</b><small><span class="bad">Track 7 out of order</span></small></div></div>
+       <div class="f"><span class="fi" style="background:#8ab4ff">▣</span><div><b>Lockers</b><small>East tunnel · 24 hours</small></div></div>
+     </div>
+     <div class="row" style="color:var(--blue)">All facilities<span class="gt">›</span></div>
+   </div>
+   <div class="dep"><div class="tm"><b>19:18</b><small>in 3 min</small></div><div class="d"><span class="badge">SPR</span> Hoofddorp</div><span class="track">Track 11a</span></div></div>`]
+];
+document.getElementById("open").innerHTML = OPEN.map(([h, p, html]) => `<div class="opt"><h3>${h}</h3><p>${p}</p>${html}</div>`).join("");
+console.assert(OPTS.length === 10);
+</script>
+<section id="hubs">
+<h2 class="sec">Big stations: Departures | Station</h2>
+<p class="lead">Ideas 1, 2 and 3: tabs only at big stations, "big" decided by a rule, and opening on Train. Example data.</p>
+<div class="grid" id="hubgrid"></div>
+<h2 class="sec">What counts as a big station</h2><div class="rule"><ul><li><b>A train station with at least 2 other modes</b> (metro, tram, bus or ferry), <b>or</b> more than about 30 departures an hour.</li><li>That catches Amsterdam Centraal, Zuid and Sloterdijk, Utrecht Centraal, Rotterdam Centraal, Den Haag Centraal and Schiphol, without a hand-made list.</li><li>A small station like Driebergen-Zeist, or a stop like Dam, keeps the current sheet.</li><li><b>Opening filter:</b> Train the first time, then whatever you chose last at that station.</li></ul></div>
+<script>
+const HUBS = [["A \u00b7 Big station, Departures", "Tabs on top. It opens on Train, so you only see trains. The other chips are still one tap away.", "<div class=\"map\"></div><div class=\"sheet\"><div class=\"grab\"></div><div class=\"head\"><div class=\"t\"><div class=\"name\">Centraal Station</div><div class=\"city\">Amsterdam ${M}</div></div><span class=\"rb blue\">\u21b1</span><span class=\"rb\">\u2606</span><span class=\"rb\">\u2715</span></div><div class=\"tabs\"><span class=\"on\">Departures</span><span>Station</span></div><div class=\"chips\"><span class=\"chip\">All</span><span class=\"chip on\">Train</span><span class=\"chip\">Metro</span><span class=\"chip\">Tram</span><span class=\"chip\">Bus</span><span class=\"chip\">Ferry</span></div><div class=\"hint\">Opens on Train at big stations</div><div class=\"dep\"><div class=\"tm\"><b>19:38</b><small>in 1 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:var(--yellow)\">IC</span> Almere Centrum<small>On time</small></div><span class=\"track\" style=\"border-color:var(--yellow);color:var(--yellow)\">Track 10b</span></div><div class=\"dep\"><div class=\"tm\"><b>19:41</b><small>in 4 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:var(--yellow)\">SPR</span> Hoofddorp<small>On time</small></div><span class=\"track\" style=\"border-color:var(--yellow);color:var(--yellow)\">Track 11a</span></div><div class=\"dep\"><div class=\"tm\"><b>19:44</b><small>in 7 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:var(--yellow)\">IC</span> Rotterdam Centraal<small>+3 min</small></div><span class=\"track\" style=\"border-color:var(--yellow);color:var(--yellow)\">Track 5b</span></div><div class=\"dep\"><div class=\"tm\"><b>19:47</b><small>in 10 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:#d0d4e0\">ICE</span> Frankfurt (Main) Hbf<small>On time</small></div><span class=\"track\" style=\"border-color:var(--yellow);color:var(--yellow)\">Track 14</span></div></div>"], ["B \u00b7 Big station, Station tab", "Everything about the station itself: disruptions, OV-fiets and facilities. The departures stay clean.", "<div class=\"map\"></div><div class=\"sheet\"><div class=\"grab\"></div><div class=\"head\"><div class=\"t\"><div class=\"name\">Centraal Station</div><div class=\"city\">Amsterdam ${M}</div></div><span class=\"rb blue\">\u21b1</span><span class=\"rb\">\u2606</span><span class=\"rb\">\u2715</span></div><div class=\"tabs\"><span>Departures</span><span class=\"on\">Station</span></div><div class=\"blk\"><div class=\"h\">Disruptions</div><div class=\"ln\"><span class=\"w\">\u26a0</span>Tram 26: no service to IJburg<span class=\"gt\">\u203a</span></div><div class=\"ln\"><span class=\"w\">\u26a0</span>Bus 22: diversion via Westerdok<span class=\"gt\">\u203a</span></div><div class=\"ln\" style=\"color:var(--dim)\">+2 more<span class=\"gt\">\u2304</span></div></div><div class=\"blk\"><div class=\"h\">OV-fiets</div><div class=\"ln\"><span class=\"fb\" style=\"background:#6fe3a6\">\u26b2</span><b>582</b>&nbsp;available \u00b7 3 locations<span class=\"gt\">\u203a</span></div></div><div class=\"blk\"><div class=\"h\">Facilities</div><div class=\"ln\"><span class=\"fb\" style=\"background:var(--yellow)\">WC</span>Toilet \u00b7 open until 01:00<span class=\"gt\">\u203a</span></div><div class=\"ln\"><span class=\"fb\" style=\"background:#ffb07a\">\u2615</span>Shops &amp; food \u00b7 9 open<span class=\"gt\">\u203a</span></div><div class=\"ln\"><span class=\"fb\" style=\"background:#9be3a6\">\u2195</span><span style=\"color:var(--red)\">Lift track 7 out of order</span><span class=\"gt\">\u203a</span></div><div class=\"ln\"><span class=\"fb\" style=\"background:#8ab4ff\">\u25a3</span>Lockers<span class=\"gt\">\u203a</span></div></div></div>"], ["C \u00b7 Your last choice remembered", "If you picked Tram here last time, it opens on Tram next time. Per station.", "<div class=\"map\"></div><div class=\"sheet\"><div class=\"grab\"></div><div class=\"head\"><div class=\"t\"><div class=\"name\">Centraal Station</div><div class=\"city\">Amsterdam ${M}</div></div><span class=\"rb blue\">\u21b1</span><span class=\"rb\">\u2606</span><span class=\"rb\">\u2715</span></div><div class=\"tabs\"><span class=\"on\">Departures</span><span>Station</span></div><div class=\"chips\"><span class=\"chip\">All</span><span class=\"chip\">Train</span><span class=\"chip\">Metro</span><span class=\"chip on\">Tram</span><span class=\"chip\">Bus</span><span class=\"chip\">Ferry</span></div><div class=\"hint\">You picked Tram here last time</div><div class=\"dep\"><div class=\"tm\"><b>19:37</b><small>now</small></div><div class=\"d\"><span class=\"badge\" style=\"background:#8ab4ff\">14</span> Flevopark<small>On time</small></div><span class=\"track\" style=\"border-color:#fff;color:#fff\">Platform A3</span></div><div class=\"dep\"><div class=\"tm\"><b>19:39</b><small>in 2 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:#8ab4ff\">4</span> Station RAI<small>On time</small></div><span class=\"track\" style=\"border-color:#fff;color:#fff\">Platform A1</span></div><div class=\"dep\"><div class=\"tm\"><b>19:40</b><small>in 3 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:#8ab4ff\">24</span> VU medisch centrum<small>+1 min</small></div><span class=\"track\" style=\"border-color:#fff;color:#fff\">Platform B1</span></div><div class=\"dep\"><div class=\"tm\"><b>19:42</b><small>in 5 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:#8ab4ff\">13</span> Geuzenveld<small>On time</small></div><span class=\"track\" style=\"border-color:#fff;color:#fff\">Platform A2</span></div></div>"], ["D \u00b7 Small stop stays the same", "A tram stop or a small station keeps today's sheet: no tabs, all departures together.", "<div class=\"map\"></div><div class=\"sheet\"><div class=\"grab\"></div><div class=\"head\"><div class=\"t\"><div class=\"name\">Dam</div><div class=\"city\">Amsterdam <span class=\"m\" style=\"background:#8ab4ff\">T</span></div></div><span class=\"rb blue\">\u21b1</span><span class=\"rb\">\u2606</span><span class=\"rb\">\u2715</span></div><div class=\"next\"><span class=\"badge\" style=\"background:#8ab4ff\">14</span><span class=\"to\">Flevopark</span><span class=\"min\">2 min</span></div><div class=\"chips\"><span class=\"chip on\">All</span></div><div class=\"hint\">Small stop: no tabs, everything in one list, like now</div><div class=\"dep\"><div class=\"tm\"><b>19:39</b><small>in 2 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:#8ab4ff\">14</span> Flevopark<small>On time</small></div><span class=\"track\" style=\"border-color:transparent;color:transparent\"></span></div><div class=\"dep\"><div class=\"tm\"><b>19:41</b><small>in 4 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:#8ab4ff\">2</span> Centraal Station<small>On time</small></div><span class=\"track\" style=\"border-color:transparent;color:transparent\"></span></div><div class=\"dep\"><div class=\"tm\"><b>19:43</b><small>in 6 min</small></div><div class=\"d\"><span class=\"badge\" style=\"background:#8ab4ff\">4</span> Station RAI<small>On time</small></div><span class=\"track\" style=\"border-color:transparent;color:transparent\"></span></div></div>"]];
+document.getElementById('hubgrid').innerHTML = HUBS.map(([h, p, x]) => `<div class="opt"><h3>${h}</h3><p>${p}</p>${x.replaceAll('${M}', M)}</div>`).join('');
+console.assert(HUBS.length === 4);
+</script>
+</section>
+<section id="details">
+<h2 class="sec">Facilities as an icon, toilets and food</h2>
+<p class="lead">Option 3 with C, but the Facilities pill is just an icon. Example data, not checked against NS.</p>
+
+
+
+<h2>10 icons for the Facilities pill</h2>
+<p class="lead">Each one sits next to "4 disruptions" as it would on the station sheet. The yellow outline marks the new pill.</p>
+<div class="grid" id="icons"></div>
+
+<h2>Tapping WC: 5 ways to show the toilets</h2>
+<div class="grid" id="wc"></div>
+
+<h2>Tapping Shops & food: 5 ways</h2>
+<div class="grid" id="food"></div>
+
+<script>
+const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const PILLICONS = [
+ ["1 · Info circle", "The classic 'i'. Everyone knows it, but it can feel like 'about'.", S('<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/>')],
+ ["2 · Station building", "A small station with a roof. Says 'about this station'.", S('<path d="M3 10l9-6 9 6"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/>')],
+ ["3 · WC", "Plain WC letters. Instantly clear, but suggests only toilets.", `<span class="n">WC</span>`],
+ ["4 · Toilet and cup", "Two small symbols: the two things people look for most.", S('<path d="M5 4v6a3 3 0 0 0 6 0V4"/><path d="M8 13v7"/><path d="M14 8h6l-1 12h-4z"/><path d="M14 11h6"/>')],
+ ["5 · Four dots", "A grid of four. Says 'more things here' without words.", S('<circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>')],
+ ["6 · Concierge bell", "The hotel 'services' bell. Friendly, a bit playful.", S('<path d="M4 17h16"/><path d="M6 17a6 6 0 0 1 12 0"/><path d="M12 9V7"/><path d="M10 7h4"/>')],
+ ["7 · Map pin with dots", "A pin holding dots: places inside the station.", S('<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="9.5" cy="10" r=".8" fill="currentColor"/><circle cx="14.5" cy="10" r=".8" fill="currentColor"/><circle cx="12" cy="13" r=".8" fill="currentColor"/>')],
+ ["8 · Icon plus count", "Station icon with the number of facilities. Gives a hint how much is there.", S('<path d="M3 10l9-6 9 6"/><path d="M5 10v9h14v-9"/>') + `<span class="n">6</span>`],
+ ["9 · Signpost", "A wayfinding sign, like the yellow NS signs. Says 'where is…'.", S('<path d="M12 3v18"/><path d="M5 6h11l3 2.5L16 11H5z"/><path d="M19 13H8l-3 2.5L8 18h11z"/>')],
+ ["10 · Sparkle list", "Three lines with a dot: a list of extras. Neutral, very small.", S('<circle cx="5" cy="7" r="1" fill="currentColor"/><circle cx="5" cy="12" r="1" fill="currentColor"/><circle cx="5" cy="17" r="1" fill="currentColor"/><path d="M9 7h11M9 12h11M9 17h11"/>')]
+];
+document.getElementById("icons").innerHTML = PILLICONS.map(([h, p, svg]) =>
+  `<div class="ic-opt"><h3>${h}</h3><p>${p}</p><div class="pills"><span class="warn">⚠ 4 disruptions ⌄</span><span class="ipill">${svg}</span></div></div>`).join("");
+
+const head = (t, s) => `<div class="sheet"><div class="grab"></div><div class="back">‹ Facilities</div><div class="ttl">${t}</div><div class="sub">${s}</div>`;
+const WCIC = `<span class="fi" style="background:var(--yellow)">WC</span>`;
+const WC = [
+ ["A · Plain list", "Every toilet with where it is, price and opening hours. Simple and complete.",
+  head("Toilets", "Amsterdam Centraal · 3 places") +
+  `<div class="item">${WCIC}<div class="tx"><b>Main hall</b><small>Near track 2, ground floor</small><small><span class="ok">Open</span> until 01:00 · €0.70</small></div></div>
+   <div class="item">${WCIC}<div class="tx"><b>IJ side</b><small>Ferry exit, next to the bike shop</small><small><span class="ok">Open</span> until 22:00 · €0.70</small></div></div>
+   <div class="item">${WCIC}<div class="tx"><b>Track 15 waiting room</b><small>On the platform</small><small><span class="bad">Closed</span> · opens 06:00</small></div></div></div>`],
+ ["B · Nearest to your track", "Sorted by walking time from the track you're on or arriving at. The closest one is the big card on top.",
+  head("Toilets", "Closest to track 11a") +
+  `<div class="hero"><div style="display:flex;gap:10px;align-items:center">${WCIC}<div><div class="big">2 min</div><div class="meta">Main hall, near track 2 · <span class="ok">open</span> · €0.70</div></div></div>
+   <div class="btnrow"><span class="btn">Show the way</span></div></div>
+   <div class="item">${WCIC}<div class="tx"><b>IJ side</b><small><span class="ok">Open</span> · €0.70</small></div><div class="right"><b>4 min</b><br>walk</div></div>
+   <div class="item">${WCIC}<div class="tx"><b>Track 15</b><small><span class="bad">Closed</span> · opens 06:00</small></div><div class="right"><b>5 min</b><br>walk</div></div></div>`],
+ ["C · With what's inside", "Small tags for what each toilet has: accessible, baby changing, card payment. Useful for wheelchair users and parents.",
+  head("Toilets", "Amsterdam Centraal") +
+  `<div class="item">${WCIC}<div class="tx"><b>Main hall</b><small><span class="ok">Open</span> until 01:00 · €0.70</small><div class="tags"><span class="tg">♿ Accessible</span><span class="tg">Baby changing</span><span class="tg">Card only</span></div></div></div>
+   <div class="item">${WCIC}<div class="tx"><b>IJ side</b><small><span class="ok">Open</span> until 22:00 · €0.70</small><div class="tags"><span class="tg">Card only</span></div></div></div>
+   <div class="item">${WCIC}<div class="tx"><b>Track 15</b><small><span class="bad">Closed</span> · opens 06:00</small><div class="tags"><span class="tg">♿ Accessible</span></div></div></div></div>`],
+ ["D · On a strip of the platforms", "A simple strip from track 1 to 15 with the toilets on it and where you are. Not a real map, just enough to point the way.",
+  head("Toilets", "Amsterdam Centraal") +
+  `<div class="strip">1<div class="tr"><span class="pin" style="left:10%;background:var(--yellow)">WC</span><span class="pin" style="left:46%;background:var(--yellow)">WC</span><span class="pin" style="left:86%;background:#888">WC</span><span class="you" style="left:70%"></span></div>15</div>
+   <div class="item">${WCIC}<div class="tx"><b>Main hall · track 2</b><small><span class="ok">Open</span> · €0.70</small></div></div>
+   <div class="item">${WCIC}<div class="tx"><b>IJ side · track 7</b><small><span class="ok">Open</span> · €0.70</small></div></div>
+   <div class="item">${WCIC}<div class="tx"><b>Track 15</b><small><span class="bad">Closed</span></small></div></div></div>`],
+ ["E · Just the answer", "One line on top answers 'is there one open now?'. The rest folds away. Fastest when you're in a hurry.",
+  head("Toilets", "Amsterdam Centraal") +
+  `<div class="hero" style="text-align:center"><div style="font-size:15px;color:var(--dim)">Nearest open toilet</div><div class="big" style="margin:4px 0">Main hall, track 2</div><div class="meta"><span class="ok">Open until 01:00</span> · €0.70 · 2 min walk</div></div>
+   <div class="toggle"><span>2 more toilets</span><span style="color:var(--dim)">⌄</span></div></div>`]
+];
+document.getElementById("wc").innerHTML = WC.map(([h, p, html]) => `<div class="opt"><h3>${h}</h3><p>${p}</p>${html}</div>`).join("");
+
+const F = (c, g) => `<span class="fi" style="background:${c}">${g}</span>`;
+const cup = F("#ffb07a", "☕"), cart = F("#9be3a6", "⊞"), fork = F("#ff9ec4", "⑂"), book = F("#8ab4ff", "≡"), news = F("#d7c2ff", "▤");
+const FOOD = [
+ ["A · Grouped by type", "Coffee, supermarket, food, other: each a small group. Open places first.",
+  head("Shops & food", "Amsterdam Centraal · 14 places") +
+  `<div class="grp">Coffee</div><div class="item">${cup}<div class="tx"><b>Coffee bar</b><small>Main hall · <span class="ok">open until 22:00</span></small></div></div>
+   <div class="grp">Supermarket</div><div class="item">${cart}<div class="tx"><b>Supermarket</b><small>East tunnel · <span class="ok">open until 23:00</span></small></div></div>
+   <div class="grp">Food</div><div class="item">${fork}<div class="tx"><b>Sandwich shop</b><small>Track 2 · <span class="soon">closes in 15 min</span></small></div></div>
+   <div class="item">${fork}<div class="tx"><b>Fries</b><small>IJ side · <span class="bad">closed</span></small></div></div></div>`],
+ ["B · Filter chips", "Chips on top like the transport filters on the station sheet: All, Coffee, Supermarket, Food, Other.",
+  head("Shops & food", "Amsterdam Centraal") +
+  `<div class="chips"><span class="chip">All</span><span class="chip on">Coffee</span><span class="chip">Supermarket</span><span class="chip">Food</span></div>
+   <div class="item">${cup}<div class="tx"><b>Coffee bar</b><small>Main hall</small></div><div class="right"><span class="ok">Open</span><br>until 22:00</div></div>
+   <div class="item">${cup}<div class="tx"><b>Kiosk</b><small>Track 5</small></div><div class="right"><span class="ok">Open</span><br>until 21:00</div></div>
+   <div class="item">${cup}<div class="tx"><b>Coffee to go</b><small>IJ side</small></div><div class="right"><span class="bad">Closed</span><br>opens 06:30</div></div></div>`],
+ ["C · Open now switch", "One switch hides what's closed. Late at night that's what you care about.",
+  head("Shops & food", "Amsterdam Centraal · 22:40") +
+  `<div class="toggle"><span>Only open now</span><span class="sw"></span></div>
+   <div class="item">${cart}<div class="tx"><b>Supermarket</b><small>East tunnel</small></div><div class="right"><span class="ok">Open</span><br>until 23:00</div></div>
+   <div class="item">${cup}<div class="tx"><b>Kiosk</b><small>Main hall</small></div><div class="right"><span class="soon">Closes</span><br>in 20 min</div></div>
+   <div class="item">${news}<div class="tx"><b>Newsagent</b><small>Track 2</small></div><div class="right"><span class="ok">Open</span><br>until 23:30</div></div>
+   <div class="sub" style="margin-top:10px">11 closed places hidden</div></div>`],
+ ["D · Swipe cards", "A row of cards per type that you swipe sideways. Visual and quick, a bit like an app store.",
+  head("Shops & food", "Amsterdam Centraal") +
+  `<div class="grp">Coffee</div><div class="cards"><div class="card">${cup}<b>Coffee bar</b><small>Main hall · <span class="ok">open</span></small></div><div class="card">${cup}<b>Kiosk</b><small>Track 5 · <span class="ok">open</span></small></div><div class="card">${cup}<b>Coffee to go</b><small><span class="bad">closed</span></small></div></div>
+   <div class="grp">Food</div><div class="cards"><div class="card">${fork}<b>Sandwich shop</b><small><span class="soon">closes soon</span></small></div><div class="card">${cart}<b>Supermarket</b><small><span class="ok">open</span></small></div></div>
+   <div class="grp">Other</div><div class="cards"><div class="card">${book}<b>Bookshop</b><small><span class="ok">open</span></small></div><div class="card">${news}<b>Newsagent</b><small><span class="ok">open</span></small></div></div></div>`],
+ ["E · Near your train", "Only what you can reach before your train leaves. Each place says if you have time.",
+  head("Shops & food", "Before your train at 19:18 · 9 min") +
+  `<div class="item">${cup}<div class="tx"><b>Kiosk</b><small>Track 11 · 1 min walk</small></div><div class="right"><span class="ok">Easy</span></div></div>
+   <div class="item">${cart}<div class="tx"><b>Supermarket</b><small>East tunnel · 3 min walk</small></div><div class="right"><span class="soon">Tight</span></div></div>
+   <div class="item">${fork}<div class="tx"><b>Sandwich shop</b><small>Main hall · 5 min walk</small></div><div class="right"><span class="bad">No time</span></div></div>
+   <div class="sub" style="margin-top:10px">Walking times from track 11a</div></div>`]
+];
+document.getElementById("food").innerHTML = FOOD.map(([h, p, html]) => `<div class="opt"><h3>${h}</h3><p>${p}</p>${html}</div>`).join("");
+console.assert(PILLICONS.length === 10 && WC.length === 5 && FOOD.length === 5);
+</script>
+
+</section>
+</body>
+</html>

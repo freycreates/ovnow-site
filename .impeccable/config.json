@@ -97,6 +97,60 @@
         ],
         "createdAt": "2026-11-23T23:32:06.606Z",
         "reason": "false positive: the wide tracking is on the short all-caps kicker and labels copied 1:1 from OVnow's real mail template (Mailings.swift, letter-spacing .1em)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "mockups/island-countdown.html"
+        ],
+        "createdAt": "2026-11-26T15:20:46.980Z",
+        "reason": "Claude: mock-up copies the tight padding of the iOS Dynamic Island and its badges on purpose"
+      },
+      {
+        "rule": "radial-halo",
+        "value": "*",
+        "files": [
+          "mockups/nearest-stop-bar.html"
+        ],
+        "createdAt": "2026-11-26T15:43:45.810Z",
+        "reason": "Claude: the radial shape is water on a sketched map, not a decorative glow"
+      },
+      {
+        "rule": "ai-color-palette",
+        "value": "*",
+        "files": [
+          "mockups/admin-overview-options.html"
+        ],
+        "createdAt": "2026-11-26T16:03:30.103Z",
+        "reason": "Mockup copies the existing OVnow Admin macOS system colors from the user's screenshot"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "mockups/admin-overview-options.html"
+        ],
+        "createdAt": "2026-11-26T16:08:34.817Z",
+        "reason": "Mockup mirrors existing OVnow Admin card styling from the user's screenshot"
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "mockups/admin-overview-options.html"
+        ],
+        "createdAt": "2026-11-26T16:08:34.837Z",
+        "reason": "Mockup mirrors existing OVnow Admin card styling from the user's screenshot"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "mockups/nova-small-talk.html"
+        ],
+        "createdAt": "2026-11-26T17:57:07.310Z",
+        "reason": "Glow is avatar option C, shown only for comparison; user chose B (no glow)"
       }
     ]
   }

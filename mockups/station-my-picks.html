@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OVnow – station sheet, recommended</title>
+<style>
+  :root{--sheet:#1d2130;--glass:#2a2f40;--chip:#2c3142;--line:#3a3f52;--txt:#f2f2f7;--dim:#a8adbd;--blue:#1e6bff;--sky:#7cc4ff;--yellow:#ffc917;--orange:#ffb020;--green:#30d158;--red:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:#0b0d14;color:var(--txt);font:15px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;padding:28px}
+  h1{font-size:24px;margin:0 0 6px}
+  .lead{color:var(--dim);max-width:820px;line-height:1.5;margin:0 0 24px}
+  .flow{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+  .step{width:330px}
+  .step h2.sh{font-size:15px;margin:0 0 3px}
+  .step p{color:var(--dim);font-size:13px;line-height:1.45;margin:0 0 10px;min-height:38px}
+  .phone{background:#000;border:1px solid #23263a;border-radius:36px;overflow:hidden;height:640px;position:relative}
+  .map{height:120px;background:linear-gradient(160deg,#2a3360,#1b2244 60%,#3a3020)}
+  .sheet{background:var(--sheet);border-radius:26px 26px 0 0;margin-top:-22px;position:absolute;left:0;right:0;top:120px;bottom:0;padding:12px 14px}
+  .grab{width:40px;height:5px;border-radius:3px;background:#4a4f60;margin:0 auto 10px}
+  .head{display:flex;align-items:flex-start;gap:8px}
+  .head .t{flex:1}
+  .name{font-size:23px;font-weight:800}
+  .city{color:var(--dim);font-size:13px;margin-top:3px;display:flex;gap:5px;align-items:center}
+  .m{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:5px;font-size:10px;font-weight:800;color:#0b0d14}
+  .rb{width:36px;height:36px;border-radius:50%;background:var(--glass);display:grid;place-items:center;font-size:14px;flex-shrink:0}
+  .tabs{display:flex;background:var(--chip);border-radius:11px;padding:3px;margin:12px 0 10px}
+  .tabs span{flex:1;text-align:center;padding:7px;border-radius:9px;font-size:15px;color:var(--dim);font-weight:600}
+  .tabs span.on{background:#4a4f62;color:#fff}
+  .chips{display:flex;gap:7px;overflow:hidden;margin-bottom:8px}
+  .chip{flex-shrink:0;background:var(--chip);border-radius:999px;padding:6px 12px;font-size:14px;color:#d6d9e3}
+  .chip.on{background:#4a4f62;color:#fff}
+  .dep{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+  .tm b{font-size:18px;display:block}.tm small{color:var(--dim);font-size:12px}
+  .d{flex:1}.d small{color:var(--dim);font-size:12px;display:block}
+  .badge{background:var(--yellow);color:#000;font-weight:800;border-radius:7px;padding:2px 7px;font-size:13px}
+  .track{border:1.5px solid var(--yellow);color:var(--yellow);border-radius:8px;padding:2px 7px;font-weight:700;font-size:13px;white-space:nowrap}
+  .fold{display:flex;justify-content:space-between;color:var(--dim);font-size:14px;padding:10px 0;border-top:1px solid var(--line)}
+  .fold b{color:var(--red);font-weight:600}
+  .blk{background:var(--glass);border-radius:14px;padding:2px 12px;margin-bottom:10px}
+  .h{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);padding:9px 0 3px}
+  .ln{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+  .h + .ln{border-top:0}
+  .ln .gt{margin-left:auto;color:var(--dim)}
+  .fb{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;font-size:11px;font-weight:800;color:#0b0d14;flex-shrink:0}
+  .warn{color:var(--orange);font-weight:700}
+  .fb svg{width:62%;height:62%}
+  .back{color:var(--sky);font-size:15px;margin-bottom:4px}
+  .ttl{font-size:22px;font-weight:800}
+  .sub{color:var(--dim);font-size:13px;margin:2px 0 10px}
+  .hero{background:var(--glass);border-radius:16px;padding:14px;margin-bottom:8px}
+  .big{font-size:26px;font-weight:800}
+  .meta{color:var(--dim);font-size:13px}
+  .btn{background:#1f56d6;color:#fff;border-radius:11px;text-align:center;padding:9px;font-weight:600;margin-top:10px}
+  .row{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+  .row .tx{flex:1}.row b{display:block}.row small{color:var(--dim);font-size:13px}
+  .right{text-align:right;font-size:13px;color:var(--dim)}.right b{color:var(--txt)}
+  .ok{color:var(--green)}.bad{color:var(--red)}.soon{color:var(--orange)}
+  .toggle{display:flex;justify-content:space-between;align-items:center;background:var(--glass);border-radius:12px;padding:9px 12px;margin-bottom:6px;font-size:14px}
+  .sw{width:42px;height:25px;border-radius:13px;background:var(--green);position:relative}
+  .sw::after{content:"";position:absolute;right:2px;top:2px;width:21px;height:21px;border-radius:50%;background:#fff}
+  .pills{display:flex;gap:8px;margin:10px 0}
+  .wpill{background:#5a3a14;color:var(--orange);border-radius:999px;padding:7px 12px;font-weight:600;font-size:14px}
+  .ipill{width:46px;height:34px;border-radius:999px;background:#16324a;color:var(--sky);display:grid;place-items:center}
+  .ipill svg{width:20px;height:20px}
+  .arrow{align-self:center;color:var(--dim);font-size:28px;margin-top:40px}
+</style>
+</head>
+<body>
+<h1>Station sheet: my picks in one flow</h1>
+<p class="lead">Big stations get Departures | Station tabs and open on Train, with cancelled departures folded away. The Station tab holds disruptions, OV-fiets and facilities. Toilets show the nearest one first, shops show only what's open. Small stops keep today's sheet plus an info icon. Example data.</p>
+
+<div class="flow">
+
+  <div class="step"><h2 class="sh">1 · Big station opens on Train</h2><p>Only trains. Cancelled ones fold into one line.</p>
+  <div class="phone"><div class="map"></div><div class="sheet"><div class="grab"></div>
+    <div class="head"><div class="t"><div class="name">Centraal Station</div><div class="city">Amsterdam <span class="m" style="background:#8ab4ff">T</span><span class="m" style="background:#ff8fa3">M</span><span class="m" style="background:var(--yellow)">S</span><span class="m" style="background:#a8adbd">B</span></div></div><span class="rb">☆</span><span class="rb">✕</span></div>
+    <div class="tabs"><span class="on">Departures</span><span>Station</span></div>
+    <div class="chips"><span class="chip">All</span><span class="chip on">Train</span><span class="chip">Metro</span><span class="chip">Tram</span><span class="chip">Bus</span></div>
+    <div class="dep"><div class="tm"><b>19:38</b><small>in 1 min</small></div><div class="d"><span class="badge">IC</span> Almere Centrum<small>On time</small></div><span class="track">10b</span></div>
+    <div class="dep"><div class="tm"><b>19:41</b><small>in 4 min</small></div><div class="d"><span class="badge">SPR</span> Hoofddorp<small>On time</small></div><span class="track">11a</span></div>
+    <div class="dep"><div class="tm"><b>19:44</b><small>in 7 min</small></div><div class="d"><span class="badge">IC</span> Rotterdam Centraal<small>+3 min</small></div><span class="track">5b</span></div>
+    <div class="fold"><span><b>2 cancelled</b> · Zandvoort, Utrecht</span><span>⌄</span></div>
+    <div class="dep"><div class="tm"><b>19:47</b><small>in 10 min</small></div><div class="d"><span class="badge">IC</span> Eindhoven Centraal<small>On time</small></div><span class="track">4a</span></div>
+  </div></div></div>
+
+  <div class="step"><h2 class="sh">2 · The Station tab</h2><p>Everything about the station itself, in one place.</p>
+  <div class="phone"><div class="map"></div><div class="sheet"><div class="grab"></div>
+    <div class="head"><div class="t"><div class="name">Centraal Station</div><div class="city">Amsterdam</div></div><span class="rb">☆</span><span class="rb">✕</span></div>
+    <div class="tabs"><span>Departures</span><span class="on">Station</span></div>
+    <div class="blk"><div class="h">Disruptions</div><div class="ln"><span class="warn">⚠</span>4 disruptions<span class="gt">›</span></div></div>
+    <div class="blk"><div class="h">OV-fiets</div><div class="ln"><span class="fb" style="background:#6fe3a6"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="16" r="3.5"/><circle cx="18" cy="16" r="3.5"/><path d="M6 16l4-7h5l3 7"/><path d="M10 9l3 7h-7"/><path d="M14 6h3"/></svg></span><b>582</b>&nbsp;available<span class="gt">›</span></div></div>
+    <div class="blk"><div class="h">Facilities</div>
+      <div class="ln"><span class="fb" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="5" r="1.6"/><path d="M5 9h4l-.5 6H5.5z"/><path d="M6 15v5M8 15v5"/><circle cx="17" cy="5" r="1.6"/><path d="M15 9h4l1.5 7h-7z"/><path d="M16 16v4M18 16v4"/><path d="M12 3v18"/></svg></span>Toilet · open<span class="gt">›</span></div>
+      <div class="ln"><span class="fb" style="background:#d7c2ff"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.5 11h10L20 7H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span>Shops &amp; food · 9 open<span class="gt">›</span></div>
+      <div class="ln"><span class="fb" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 9l3-3 3 3"/><path d="M9 15l3 3 3-3"/></svg></span><span class="bad">Lift track 7 out of order</span><span class="gt">›</span></div>
+      <div class="ln"><span class="fb" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 3v18"/><path d="M8 9v2M16 9v2"/><path d="M6 15h4M14 15h4"/></svg></span>Lockers<span class="gt">›</span></div></div>
+  </div></div></div>
+
+  <div class="step"><h2 class="sh">3 · Tap Toilet</h2><p>The nearest open one first, with walking time.</p>
+  <div class="phone"><div class="map"></div><div class="sheet"><div class="grab"></div>
+    <div class="back">‹ Station</div><div class="ttl">Toilets</div><div class="sub">Closest to you</div>
+    <div class="hero"><div style="display:flex;gap:10px;align-items:center"><span class="fb" style="background:var(--yellow);width:36px;height:36px"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="5" r="1.6"/><path d="M5 9h4l-.5 6H5.5z"/><path d="M6 15v5M8 15v5"/><circle cx="17" cy="5" r="1.6"/><path d="M15 9h4l1.5 7h-7z"/><path d="M16 16v4M18 16v4"/><path d="M12 3v18"/></svg></span><div><div class="big">2 min</div><div class="meta">Main hall, near track 2 · <span class="ok">open</span> · €0.70</div></div></div><div class="btn">Show the way</div></div>
+    <div class="row"><span class="fb" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="5" r="1.6"/><path d="M5 9h4l-.5 6H5.5z"/><path d="M6 15v5M8 15v5"/><circle cx="17" cy="5" r="1.6"/><path d="M15 9h4l1.5 7h-7z"/><path d="M16 16v4M18 16v4"/><path d="M12 3v18"/></svg></span><div class="tx"><b>IJ side</b><small><span class="ok">Open</span> · €0.70</small></div><div class="right"><b>4 min</b></div></div>
+    <div class="row"><span class="fb" style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="5" r="1.6"/><path d="M5 9h4l-.5 6H5.5z"/><path d="M6 15v5M8 15v5"/><circle cx="17" cy="5" r="1.6"/><path d="M15 9h4l1.5 7h-7z"/><path d="M16 16v4M18 16v4"/><path d="M12 3v18"/></svg></span><div class="tx"><b>Track 15</b><small><span class="bad">Closed</span> · opens 06:00</small></div><div class="right"><b>5 min</b></div></div>
+  </div></div></div>
+
+  <div class="step"><h2 class="sh">4 · Tap Shops &amp; food</h2><p>Only what's open now. One switch shows the rest.</p>
+  <div class="phone"><div class="map"></div><div class="sheet"><div class="grab"></div>
+    <div class="back">‹ Station</div><div class="ttl">Shops &amp; food</div><div class="sub">Amsterdam Centraal · 19:37</div>
+    <div class="toggle"><span>Only open now</span><span class="sw"></span></div>
+    <div class="row"><span class="fb" style="background:#ffb07a"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></svg></span><div class="tx"><b>Starbucks</b><small>Main hall</small></div><div class="right"><span class="ok">Open</span><br>until 22:00</div></div>
+    <div class="row"><span class="fb" style="background:#d7c2ff"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.5 11h10L20 7H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg></span><div class="tx"><b>AH to go</b><small>East tunnel</small></div><div class="right"><span class="ok">Open</span><br>until 23:00</div></div>
+    <div class="row"><span class="fb" style="background:#ff9ec4"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10a7 5 0 0 1 14 0z"/><path d="M4 13h16"/><path d="M5 16h14a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3z"/></svg></span><div class="tx"><b>Smullers</b><small>Track 2</small></div><div class="right"><span class="soon">Closes</span><br>in 15 min</div></div>
+    <div class="row"><span class="fb" style="background:#d7c2ff"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h5v17H6a2 2 0 0 0-2 2z"/><path d="M20 5a2 2 0 0 0-2-2h-5v17h5a2 2 0 0 1 2 2z"/></svg></span><div class="tx"><b>Bruna</b><small>Track 11</small></div><div class="right"><span class="ok">Open</span><br>until 20:00</div></div>
+    <div class="row"><span class="fb" style="background:#d7c2ff"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg></span><div class="tx"><b>Kruidvat</b><small>Stationsplein</small></div><div class="right"><span class="ok">Open</span><br>until 21:00</div></div>
+    <div class="sub" style="margin-top:8px">4 closed places hidden</div>
+  </div></div></div>
+
+  <div class="step"><h2 class="sh">5 · Small stop: same as today</h2><p>No tabs. Just an info icon next to Disruptions.</p>
+  <div class="phone"><div class="map"></div><div class="sheet"><div class="grab"></div>
+    <div class="head"><div class="t"><div class="name">Driebergen-Zeist</div><div class="city">Driebergen <span class="m" style="background:var(--yellow)">S</span><span class="m" style="background:#a8adbd">B</span></div></div><span class="rb">☆</span><span class="rb">✕</span></div>
+    <div class="pills"><span class="wpill">⚠ 1 disruption ⌄</span><span class="ipill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/></svg></span></div>
+    <div class="chips"><span class="chip on">All</span><span class="chip">Train</span><span class="chip">Bus</span></div>
+    <div class="dep"><div class="tm"><b>19:42</b><small>in 5 min</small></div><div class="d"><span class="badge">IC</span> Utrecht Centraal<small>On time</small></div><span class="track">2</span></div>
+    <div class="dep"><div class="tm"><b>19:45</b><small>in 8 min</small></div><div class="d"><span class="badge" style="background:#a8adbd">50</span> Zeist Busstation<small>On time</small></div><span class="track" style="border-color:transparent"></span></div>
+    <div class="dep"><div class="tm"><b>19:49</b><small>in 12 min</small></div><div class="d"><span class="badge">IC</span> Arnhem Centraal<small>On time</small></div><span class="track">1</span></div>
+  </div></div></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OVnow – facility icons</title>
+<style>
+  :root{--bg:#0b0d14;--sheet:#1d2130;--glass:#2a2f40;--line:#3a3f52;--txt:#f2f2f7;--dim:#a8adbd}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;padding:28px}
+  h1{font-size:24px;margin:0 0 6px}
+  h2{font-size:18px;margin:34px 0 4px}
+  .lead{color:var(--dim);max-width:860px;line-height:1.5;margin:0 0 8px}
+  .why{color:var(--dim);font-size:13px;margin:0 0 14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;max-width:1100px}
+  .cell{background:var(--sheet);border-radius:16px;padding:14px 8px 12px;text-align:center}
+  .tile{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;margin:0 auto 8px}
+  .tile svg{width:28px;height:28px}
+  .cell b{display:block;font-size:13px}
+  .cell small{color:var(--dim);font-size:12px}
+  .rules{background:var(--sheet);border-radius:16px;padding:12px 18px;max-width:860px;line-height:1.6;font-size:14px}
+  .rules li{margin:3px 0}
+  /* in context */
+  .ctx{display:flex;gap:22px;flex-wrap:wrap}
+  .phone{width:330px;background:var(--sheet);border-radius:28px;padding:14px}
+  .phone h3{margin:0 0 2px;font-size:20px}
+  .phone .sub{color:var(--dim);font-size:13px;margin-bottom:8px}
+  .row{display:flex;gap:11px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+  .row:first-of-type{border-top:0}
+  .row .t{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+  .row .t svg{width:20px;height:20px}
+  .row .tx{flex:1}.row b{display:block;font-size:15px}.row small{color:var(--dim);font-size:13px}
+  .ok{color:#30d158}.bad{color:#ff6b6b}
+  .themes{display:flex;gap:22px;flex-wrap:wrap}
+  .theme{border-radius:18px;padding:14px;width:330px}
+  .theme .lbl{font-size:13px;font-weight:600;margin-bottom:10px}
+  .strip{display:flex;flex-wrap:wrap;gap:8px}
+  .strip .tile{width:40px;height:40px;border-radius:12px;margin:0}
+  .strip .tile svg{width:22px;height:22px}
+</style>
+</head>
+<body>
+<h1>Facility icons</h1>
+<p class="lead">One icon per facility type, all drawn the same way: a rounded tile in the type's colour with a dark line drawing on top. Colours are grouped, so you can tell at a glance whether it's food, a shop, getting around or a basic. Shop logos come later; these are the fallback when a shop has none.</p>
+
+<div id="groups"></div>
+
+<h2>How they're built</h2>
+<div class="rules"><ul>
+  <li><b>One shape:</b> rounded square, same radius as the facility rows on the station sheet. Line drawings, 2 px stroke, round ends.</li>
+  <li><b>Colour by group:</b> basics yellow (like NS signs), getting around blue/green, food warm orange/pink, shops lilac, services teal. Same group, same colour family.</li>
+  <li><b>Dark drawing on a light tile</b>, so they read well in dark mode (where the station sheet lives) and in light mode.</li>
+  <li><b>No text in the icon</b> except P (parking) and the "i", which are road-sign conventions people already know.</li>
+</ul></div>
+
+<h2>In the app</h2>
+<p class="why">The same icons in the Station tab, in shops & food, and on light mode.</p>
+<div class="ctx" id="ctx"></div>
+
+<h2>Dark and light</h2>
+<div class="themes" id="themes"></div>
+
+<script>
+const S = p => `<svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const I = {
+ toilet: S('<circle cx="7" cy="5" r="1.6"/><path d="M5 9h4l-.5 6H5.5z"/><path d="M6 15v5M8 15v5"/><circle cx="17" cy="5" r="1.6"/><path d="M15 9h4l1.5 7h-7z"/><path d="M16 16v4M18 16v4"/><path d="M12 3v18"/>'),
+ lockers: S('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 3v18"/><path d="M8 9v2M16 9v2"/><path d="M6 15h4M14 15h4"/>'),
+ lift: S('<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 9l3-3 3 3"/><path d="M9 15l3 3 3-3"/>'),
+ escalator: S('<path d="M3 19h4l9-11h5"/><circle cx="11" cy="6" r="1.5"/><path d="M11 8v4l2 2"/>'),
+ waiting: S('<path d="M6 11h12"/><path d="M6 11v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"/><path d="M4 11h16v4H4z"/><path d="M6 15v4M18 15v4"/>'),
+ info: S('<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="#0b0d14"/>'),
+ ticket: S('<rect x="5" y="3" width="14" height="18" rx="2"/><rect x="8" y="6" width="8" height="5" rx="1"/><path d="M9 15h6M9 18h3"/>'),
+ baby: S('<circle cx="12" cy="6" r="3"/><path d="M8 21v-5a4 4 0 0 1 8 0v5"/><path d="M6 13l2-2M18 13l-2-2"/>'),
+ assist: S('<circle cx="11" cy="4.5" r="1.6"/><path d="M11 7v6h5l2 5"/><path d="M8 10a6 6 0 1 0 7 8"/>'),
+ lost: S('<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><path d="M11 13a1.5 1.5 0 1 1 1.5 1.5V16"/><circle cx="12.5" cy="18" r=".5" fill="#0b0d14"/>'),
+ ovfiets: S('<circle cx="6" cy="16" r="3.5"/><circle cx="18" cy="16" r="3.5"/><path d="M6 16l4-7h5l3 7"/><path d="M10 9l3 7h-7"/><path d="M14 6h3"/>'),
+ garage: S('<path d="M3 10l9-6 9 6v10H3z"/><circle cx="8.5" cy="16.5" r="2.2"/><circle cx="15.5" cy="16.5" r="2.2"/><path d="M8.5 16.5l2.5-4h3l1.5 4"/>'),
+ parking: S('<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/>'),
+ taxi: S('<path d="M5 16l1.5-5h11L19 16"/><rect x="4" y="16" width="16" height="3" rx="1"/><path d="M9 11l1-3h4l1 3"/><path d="M10 5h4"/>'),
+ kiss: S('<path d="M12 20s-7-4.4-7-9.5A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.5C19 15.6 12 20 12 20z"/><path d="M9 4l3 2 3-2"/>'),
+ charge: S('<rect x="6" y="3" width="10" height="18" rx="2"/><path d="M12 7l-2 5h3l-2 5"/><path d="M16 9h2v6"/>'),
+ coffee: S('<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/>'),
+ restaurant: S('<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3"/><path d="M7 11v10"/><path d="M17 21V3c-2 1-3 4-3 8h3"/>'),
+ fastfood: S('<path d="M5 10a7 5 0 0 1 14 0z"/><path d="M4 13h16"/><path d="M5 16h14a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3z"/>'),
+ bakery: S('<path d="M4 15c0-5 4-9 8-9s8 4 8 9z"/><path d="M8 15v-3M12 15v-5M16 15v-3"/><path d="M4 15h16v3H4z"/>'),
+ sandwich: S('<path d="M4 9l8-5 8 5z"/><path d="M4 9h16v3H4z"/><path d="M4 15h16l-1 3H5z"/><path d="M5 12c2 1 3-1 5 0s3-1 5 0 3-1 4 0"/>'),
+ icecream: S('<path d="M8 11l4 10 4-10"/><path d="M7 11a5 5 0 1 1 10 0z"/>'),
+ supermarket: S('<path d="M3 4h2l2.5 11h10L20 7H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>'),
+ kiosk: S('<rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M3 9l2-5h14l2 5"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/>'),
+ books: S('<path d="M4 5a2 2 0 0 1 2-2h5v17H6a2 2 0 0 0-2 2z"/><path d="M20 5a2 2 0 0 0-2-2h-5v17h5a2 2 0 0 1 2 2z"/>'),
+ pharmacy: S('<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/>'),
+ flowers: S('<circle cx="12" cy="8" r="2"/><path d="M12 4a2 2 0 0 1 0 0M9 6.5a2 2 0 1 1 3-2.5 2 2 0 1 1 3 2.5 2 2 0 1 1-1 3.5 2 2 0 1 1-2 0 2 2 0 1 1-1-3.5"/><path d="M12 10v10"/><path d="M12 16c-2-2-4-2-5-1M12 18c2-2 4-2 5-1"/>'),
+ fashion: S('<path d="M8 4l4 3 4-3 4 4-3 3v9H7v-9L4 8z"/>'),
+ electronics: S('<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/>'),
+ atm: S('<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v6M18 9v6"/>'),
+ water: S('<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/>'),
+ wifi: S('<path d="M3 9a13 13 0 0 1 18 0"/><path d="M6 12.5a8.5 8.5 0 0 1 12 0"/><path d="M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r=".8" fill="#0b0d14"/>'),
+ police: S('<path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"/><path d="M12 8l1.2 2.5 2.8.4-2 2 .5 2.8L12 14.4l-2.5 1.3.5-2.8-2-2 2.8-.4z"/>'),
+ travelshop: S('<path d="M4 8h16v12H4z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><path d="M8 13h8"/><path d="M12 13v4"/>'),
+};
+const C = { basic:"#ffc917", move:"#8ab4ff", bike:"#6fe3a6", food:"#ffb07a", food2:"#ff9ec4", shop:"#d7c2ff", serv:"#7ee0d6" };
+const GROUPS = [
+ ["Basics", "Things people need at any station.", [["toilet","Toilet",C.basic],["lockers","Lockers",C.basic],["lift","Lift",C.basic],["escalator","Escalator",C.basic],["waiting","Waiting room",C.basic],["info","Service desk",C.basic],["ticket","Ticket machine",C.basic],["baby","Baby room",C.basic],["assist","Travel assistance",C.basic],["lost","Lost & found",C.basic]]],
+ ["Getting around", "The last bit of the trip: bikes, cars and taxis.", [["ovfiets","OV-fiets",C.bike],["garage","Bike garage",C.bike],["parking","P+R parking",C.move],["taxi","Taxi",C.move],["kiss","Kiss & ride",C.move],["charge","Charging point",C.move]]],
+ ["Food & drink", "Two warm colours: orange for drinks and snacks, pink for meals.", [["coffee","Coffee",C.food],["bakery","Bakery",C.food],["icecream","Ice cream",C.food],["restaurant","Restaurant",C.food2],["fastfood","Fast food",C.food2],["sandwich","Sandwiches",C.food2]]],
+ ["Shops", "One lilac colour for every kind of shop. Logos can replace these later.", [["supermarket","Supermarket",C.shop],["kiosk","Kiosk",C.shop],["books","Books & news",C.shop],["pharmacy","Pharmacy",C.shop],["flowers","Flowers",C.shop],["fashion","Clothes",C.shop],["electronics","Phone & tech",C.shop],["travelshop","Travel goods",C.shop]]],
+ ["Services", "Useful extras.", [["atm","Cash machine",C.serv],["water","Water tap",C.serv],["wifi","Free Wi-Fi",C.serv],["police","Police",C.serv]]],
+];
+const tile = (k, c) => `<div class="tile" style="background:${c}">${I[k]}</div>`;
+document.getElementById("groups").innerHTML = GROUPS.map(([g, why, items]) =>
+  `<h2>${g} <small style="color:var(--dim);font-weight:400;font-size:13px">${items.length}</small></h2><p class="why">${why}</p>
+   <div class="grid">${items.map(([k, n, c]) => `<div class="cell">${tile(k, c)}<b>${n}</b></div>`).join("")}</div>`).join("");
+
+const row = (k, c, n, s) => `<div class="row"><span class="t" style="background:${c}">${I[k]}</span><div class="tx"><b>${n}</b><small>${s}</small></div></div>`;
+document.getElementById("ctx").innerHTML = `
+ <div class="phone"><h3>Station</h3><div class="sub">Amsterdam Centraal · Facilities</div>
+  ${row("toilet", C.basic, "Toilet", '<span class="ok">Open</span> · main hall')}
+  ${row("lockers", C.basic, "Lockers", "East tunnel · 24 hours")}
+  ${row("lift", C.basic, "Lifts", '<span class="bad">Track 7 out of order</span>')}
+  ${row("garage", C.bike, "Bike garage", "IJboulevard · 7,000 places")}
+  ${row("ovfiets", C.bike, "OV-fiets", "582 available")}
+  ${row("info", C.basic, "Service desk", '<span class="ok">Open</span> until 21:00')}
+ </div>
+ <div class="phone"><h3>Shops &amp; food</h3><div class="sub">Only open now</div>
+  ${row("coffee", C.food, "Coffee bar", '<span class="ok">Open</span> until 22:00')}
+  ${row("bakery", C.food, "Bakery", '<span class="ok">Open</span> until 20:00')}
+  ${row("restaurant", C.food2, "Restaurant", '<span class="ok">Open</span> until 23:00')}
+  ${row("fastfood", C.food2, "Burgers", '<span class="ok">Open</span> until 01:00')}
+  ${row("supermarket", C.shop, "Supermarket", '<span class="ok">Open</span> until 23:00')}
+  ${row("pharmacy", C.shop, "Pharmacy", '<span class="ok">Open</span> until 21:00')}
+ </div>`;
+const all = GROUPS.flatMap(g => g[2]);
+document.getElementById("themes").innerHTML = [["Dark mode", "#1d2130", "#f2f2f7"], ["Light mode", "#f2f2f7", "#1d2130"]].map(([l, bg, fg]) =>
+  `<div class="theme" style="background:${bg};color:${fg}"><div class="lbl">${l}</div><div class="strip">${all.map(([k, , c]) => tile(k, c)).join("")}</div></div>`).join("");
+console.assert(all.every(([k]) => I[k]), "every facility has an icon");
+</script>
+</body>
+</html>

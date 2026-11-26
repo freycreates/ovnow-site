@@ -222,7 +222,7 @@ const PART={
 };
 
 function mail(m,lang){L=lang;const nl=lang==="nl";
- return `<div class="subj">OVnow &lt;mail@ovnow.app&gt; · <b>${nl?"Nieuw in OVnow. Update!":"New in OVnow. Update!"}</b></div>
+ return `<div class="subj">OVnow &lt;mail@ovnow.app&gt; · <b>${nl?"Grote update voor OVnow!":"Big OVnow update!"}</b></div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0a1130" style="background:#0a1130"><tr><td align="center" style="padding:24px 12px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#10193d" style="max-width:560px;background:#10193d;border-radius:22px;overflow:hidden;text-align:left">
 <tr><td bgcolor="#16224f" style="padding:22px 26px;background:#16224f"><table role="presentation" cellpadding="0" cellspacing="0"><tr>
@@ -230,9 +230,9 @@ function mail(m,lang){L=lang;const nl=lang==="nl";
 <td style="padding-left:12px"><div style="font:800 20px/1 ${F};color:#f4f6ff">OVnow</div><div style="padding-top:4px;font:500 12.5px/1.2 ${F};color:#9fb0e0">${nl?"Live OV in Nederland, op de kaart":"Live public transport in the Netherlands, on the map"}</div></td></tr></table></td></tr>
 <tr><td height="5" bgcolor="#ffc52e" style="background:#ffc52e;font-size:0;line-height:0">&nbsp;</td></tr>
 <tr><td style="padding:28px 26px 8px">
-<p style="margin:0 0 10px;text-align:center;font:700 12px/1 ${F};color:#ffc52e;letter-spacing:.1em">${s(m.kicker||["NIEUW IN OVNOW","NEW IN OVNOW"])}</p>
+<p style="margin:0 0 10px;text-align:center;font:700 12px/1 ${F};color:#ffc52e;letter-spacing:.1em">${s(m.kicker||["GROTE UPDATE","BIG UPDATE"])}</p>
 ${m.order.map(k=>PART[k](m)).join("")}
-<a href="https://testflight.apple.com" style="display:inline-block;background:#ffc52e;color:#0a1130;text-decoration:none;font:800 16px/1 ${F};padding:14px 22px;border-radius:99px;margin:4px 0 16px">Update in TestFlight</a>
+<a href="https://ovnow.app/update/" style="display:inline-block;background:#ffc52e;color:#0a1130;text-decoration:none;font:800 16px/1 ${F};padding:14px 22px;border-radius:99px;margin:4px 0 16px">Update in TestFlight</a>
 <p style="margin:0 0 14px;font:400 13.5px/1.5 ${F};color:#9fb0e0">${nl?"Niet verwijderen en opnieuw installeren: je favorieten blijven.":"No need to delete and reinstall: your favourites stay."}</p>
 ${P((nl?"Groet,":"Best,")+"<br>OVnow")}
 </td></tr>
@@ -245,28 +245,28 @@ ${P((nl?"Groet,":"Best,")+"<br>OVnow")}
 const MOCKS=[
  {name:"The big 17",note:"The template's big-number hero carries the 17; the route line tells the train-to-bike story.",phone:"plan",line:true,
   title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
-  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 beschikbaar","17 available"]],
   order:["title","big","ofline","route","text","phone","box"]},
  {id:"1a",items:[["sup","",["Label Toeslag bij de Intercity direct","Supplement label on the Intercity direct"]],["walk","",["Een looproute als het dichtbij is","A walking route when it's close"]],["bike","",["Fietsroutes, als je wilt","Bike routes, if you want them"]],["cal","",["Je reis in je agenda","Your trip in your calendar"]],["plat","",["Tik op een spoor voor het bord","Tap a platform for its sign"]],["widget","",["Een OV-fiets-widget","An OV-fiets widget"]],["more","",["+ Liquid Glass, jouw taal en kleinere fixes","+ Liquid Glass, your language, and smaller fixes"],true]],
   name:"Every line its colour",note:"Mock 1 as is, only the ALSO NEW box differs: six short stops and a summary instead of 13 items. Stop line like a metro map: each ring in an app line colour (train, tram, metro, bus, ferry) on one neutral line.",phone:"plan",line:"a",
   title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
-  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 beschikbaar","17 available"]],
   order:["title","big","ofline","route","text","phone","box"]},
  {id:"1b",name:"New and fixed",note:"Mock 1 as is, only the ALSO NEW box differs. One line in two parts: blue rings for what's new, then it turns yellow for the two fixes and ends in the yellow dot.",phone:"plan",line:"b",
   title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
-  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 beschikbaar","17 available"]],
   order:["title","big","ofline","route","text","phone","box"]},
  {id:"1c",name:"Yellow line",note:"Mock 1 as is, only the ALSO NEW box differs. Line and rings in OVnow yellow on the header navy (#16224f), navy-filled rings, a bigger yellow end dot.",phone:"plan",line:"c",
   title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
-  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 beschikbaar","17 available"]],
   order:["title","big","ofline","route","text","phone","box"]},
  {id:"1d",name:"Inverted",note:"Mock 1 as is, only the ALSO NEW box differs. The box in OVnow yellow with a navy line, rings and text; the end stop is navy with a yellow centre.",phone:"plan",line:"d",
   title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
-  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 beschikbaar","17 available"]],
   order:["title","big","ofline","route","text","phone","box"]},
  {id:"1e",name:"Line badges",note:"Mock 1 as is, only the ALSO NEW box differs. Line badges like the app's (IC, 8, 52, N85, F4) as the stops on a neutral line; the yellow dot ends it.",phone:"plan",line:"e",
   title:["OV-fiets now.","OV-fiets now."],accent:["Live op elk station.","Live at every station."],
-  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 staan klaar","17 waiting"]],
+  route:[["AANKOMST MET DE TREIN","ARRIVE BY TRAIN"],"Ede-Wageningen",["VERDER MET DE OV-FIETS","CONTINUE BY OV-FIETS"],["17 beschikbaar","17 available"]],
   order:["title","big","ofline","route","text","phone","box"]},
  {name:"nOVa first",note:"Opens on nOVa with the greeting screen and its tiles; OV-fiets now follows in its own box.",phone:"greeting",
   kicker:["NIEUW: NOVA","NEW: NOVA"],title:["Maak kennis met nOVa.","Meet nOVa."],accent:["En OV-fiets now.","And OV-fiets now."],

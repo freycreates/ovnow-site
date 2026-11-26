@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OVnow – shop tiles with real logos (mock-up only)</title>
+<style>
+  :root{--bg:#0b0d14;--sheet:#1d2130;--line:#3a3f52;--txt:#f2f2f7;--dim:#a8adbd}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:15px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;padding:28px}
+  h1{font-size:24px;margin:0 0 6px}
+  h2{font-size:18px;margin:32px 0 6px}
+  .lead{color:var(--dim);max-width:880px;line-height:1.5;margin:0 0 6px}
+  .warn{color:#ffb020;font-size:13px;margin:0 0 10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:12px;max-width:1100px}
+  .cell{background:var(--sheet);border-radius:16px;padding:14px 8px 12px;text-align:center}
+  .cell b{display:block;font-size:13px;margin-top:8px}.cell small{color:var(--dim);font-size:12px}
+  .t{width:52px;height:52px;border-radius:15px;background:#fff;display:grid;place-items:center;margin:0 auto;overflow:hidden;position:relative}
+  .t img{width:36px;height:36px;object-fit:contain}
+  .t.sm{width:36px;height:36px;border-radius:10px;margin:0}
+  .t.sm img{width:26px;height:26px}
+  .t .fb{position:absolute;inset:0;display:none;place-items:center;font-weight:900;font-size:16px}
+  .t.miss img{display:none}.t.miss .fb{display:grid}
+  .ctx{display:flex;gap:22px;flex-wrap:wrap}
+  .phone{width:340px;background:var(--sheet);border-radius:28px;padding:14px}
+  .phone h3{margin:0 0 2px;font-size:20px}
+  .phone .sub{color:var(--dim);font-size:13px;margin-bottom:6px}
+  .row{display:flex;gap:11px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+  .row:first-of-type{border-top:0}
+  .row .tx{flex:1}.row b{display:block;font-size:15px}.row small{color:var(--dim);font-size:13px}
+  .right{text-align:right;font-size:13px;color:var(--dim);white-space:nowrap}
+  .ok{color:#30d158}.soon{color:#ffb020}
+  .cat{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+  .cat svg{width:20px;height:20px}
+  .light{background:#f2f2f7;color:#1d2130}
+  .light .row{border-color:#d9dbe3}.light small,.light .right,.light .sub{color:#5b6070}
+  .light .t{box-shadow:0 0 0 1px #d9dbe3}
+</style>
+</head>
+<body>
+<h1>Shop tiles with real logos</h1>
+<p class="lead">Each shop shows its own logo on a white rounded tile, like an app icon. The logos are each brand's public website icon, loaded when you open this page. Shops without a known logo fall back to the plain category icon.</p>
+<p class="warn">Mock-up only: in the app, real logos need each brand's permission. Needs an internet connection to show the logos; a missing one falls back to initials.</p>
+
+<h2>In the Shops & food list</h2>
+<div class="ctx" id="ctx"></div>
+
+<h2>All chains</h2>
+<div class="grid" id="grid"></div>
+
+<script>
+// name, website (for its icon), initials fallback, what it is
+const SHOPS = [
+ ["AH to go", "ah.nl", "AH", "Supermarket"], ["Starbucks", "starbucks.nl", "SB", "Coffee"], ["Kiosk", "kiosk.nl", "K", "Kiosk"],
+ ["Julia's", "julias.nl", "J", "Pasta"], ["Smullers", "smullers.nl", "S", "Snacks"], ["Broodzaak", "broodzaak.nl", "BZ", "Sandwiches"],
+ ["Burger King", "burgerking.nl", "BK", "Burgers"], ["McDonald's", "mcdonalds.nl", "M", "Burgers"], ["La Place", "laplace.com", "LP", "Restaurant"],
+ ["Leon", "leon.co", "L", "Fast food"], ["Dunkin'", "dunkin.nl", "D", "Donuts"], ["Hema", "hema.nl", "H", "Shop & food"],
+ ["Kruidvat", "kruidvat.nl", "KV", "Drugstore"], ["Etos", "etos.nl", "E", "Drugstore"], ["Bruna", "bruna.nl", "B", "Books & news"],
+ ["AKO", "ako.nl", "AKO", "Books & news"], ["Rituals", "rituals.com", "R", "Beauty"], ["Flying Tiger", "flyingtiger.com", "FT", "Gifts"],
+];
+const icon = d => `https://www.google.com/s2/favicons?domain=${d}&sz=128`;
+const tile = (s, sm) => `<div class="t${sm ? " sm" : ""}"><img src="${icon(s[1])}" alt="" onerror="this.parentNode.classList.add('miss')"><span class="fb">${s[2]}</span></div>`;
+document.getElementById("grid").innerHTML = SHOPS.map(s => `<div class="cell">${tile(s)}<b>${s[0]}</b><small>${s[3]}</small></div>`).join("");
+const find = n => SHOPS.find(s => s[0] === n);
+const row = (n, where, r) => `<div class="row">${tile(find(n), true)}<div class="tx"><b>${n}</b><small>${where}</small></div><div class="right">${r}</div></div>`;
+const cup = `<div class="cat" style="background:#ffb07a"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0d14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></svg></div>`;
+const list = `
+  ${row("Starbucks", "Main hall", '<span class="ok">Open</span><br>until 22:00')}
+  ${row("AH to go", "East tunnel", '<span class="ok">Open</span><br>until 23:00')}
+  ${row("Kiosk", "Track 5", '<span class="ok">Open</span><br>until 21:00')}
+  ${row("Smullers", "Track 2", '<span class="soon">Closes</span><br>in 15 min')}
+  ${row("Kruidvat", "Stationsplein", '<span class="ok">Open</span><br>until 21:00')}
+  ${row("Bruna", "Track 11", '<span class="ok">Open</span><br>until 20:00')}
+  <div class="row">${cup}<div class="tx"><b>Koffiebar De Hal</b><small>No logo: category icon</small></div><div class="right"><span class="ok">Open</span><br>until 20:00</div></div>`;
+document.getElementById("ctx").innerHTML =
+  `<div class="phone"><h3>Shops &amp; food</h3><div class="sub">Dark mode · only open now</div>${list}</div>
+   <div class="phone light"><h3>Shops &amp; food</h3><div class="sub">Light mode · only open now</div>${list}</div>`;
+</script>
+</body>
+</html>
